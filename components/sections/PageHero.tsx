@@ -1,0 +1,34 @@
+"use client";
+
+import { motion } from "motion/react";
+
+type PageHeroProps = {
+  title: string;
+  subtitle: string;
+};
+
+export function PageHero({ title, subtitle }: PageHeroProps) {
+  return (
+    <section className="h-[190px] flex flex-col justify-center bg-mundo-black text-mundo-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-mundo-gold font-futura-500 font-medium mb-6 uppercase"
+          style={{ fontSize: "70px", lineHeight: "48px" }}
+        >
+          {title}
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="font-futura-400 text-lg sm:text-xl text-mundo-white/80 max-w-2xl"
+        >
+          {subtitle}
+        </motion.p>
+      </div>
+    </section>
+  );
+}

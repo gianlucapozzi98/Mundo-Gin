@@ -1,0 +1,94 @@
+import { Metadata } from "next";
+import { PageHero } from "@/components/sections/PageHero";
+
+export const metadata: Metadata = {
+  title: "Cocktail | Mundo Gin",
+  description: "Ricette e cocktail con Mundo Gin.",
+};
+
+export default function CocktailPage() {
+  return (
+    <div className="pt-24 sm:pt-28 bg-mundo-black">
+      <PageHero
+        title="Cocktail"
+        subtitle="Tre interpretazioni firmate Mundo Gin, pensate per valorizzare carattere, equilibrio e stile."
+      />
+
+      <section className="py-16 sm:py-20 lg:py-32 bg-[#F2F2F2]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-20">
+            <div className="aspect-[4/5] max-w-[420px] w-full rounded-lg overflow-hidden mx-auto self-start">
+              <img
+                src="/images/gin tonic.png"
+                alt="Mundo Tonic"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="self-start">
+              <h2 className="text-mundo-black font-futura-500 font-medium text-3xl sm:text-4xl mb-6">
+                Mundo Tonic
+              </h2>
+              <p className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed mb-4">
+                Ingredienti:
+              </p>
+              <ul className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed space-y-2 list-disc pl-6">
+                <li>Mundo Gin - [quantita]</li>
+                <li>Acqua tonica - [quantita]</li>
+                <li>Ghiaccio - [quantita]</li>
+                <li>Garnish (es. lime o botanica) - [quantita]</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-20">
+            <div className="order-2 lg:order-1 self-start max-w-[420px] w-full mx-auto">
+              <h2 className="text-mundo-black font-futura-500 font-medium text-3xl sm:text-4xl mb-6">
+                Mundo Negroni
+              </h2>
+              <p className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed mb-4">
+                Ingredienti:
+              </p>
+              <ul className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed space-y-2 list-disc pl-6">
+                <li>Mundo Gin - [quantita]</li>
+                <li>Bitter - [quantita]</li>
+                <li>Vermouth rosso - [quantita]</li>
+                <li>Garnish (es. scorza d&apos;arancia) - [quantita]</li>
+              </ul>
+            </div>
+            <div className="aspect-[4/5] max-w-[420px] w-full order-1 lg:order-2 rounded-lg overflow-hidden mx-auto self-start">
+              <img
+                src="/images/Negroni.jpeg"
+                alt="Mundo Negroni"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <div className="aspect-[4/5] max-w-[420px] w-full rounded-lg overflow-hidden mx-auto self-start">
+              <img
+                src="/images/espresso.jpeg"
+                alt="Espresso Mundo"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="self-start">
+              <h2 className="text-mundo-black font-futura-500 font-medium text-3xl sm:text-4xl mb-6">
+                Espresso Mundo
+              </h2>
+              <p className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed mb-4">
+                Ingredienti:
+              </p>
+              <ul className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed space-y-2 list-disc pl-6">
+                <li>Mundo Gin - [quantita]</li>
+                <li>Caffe - [quantita]</li>
+                <li>Liquore al caffe - [quantita]</li>
+                <li>Sciroppo di zucchero - [quantita]</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
