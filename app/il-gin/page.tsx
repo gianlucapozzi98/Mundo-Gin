@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 
 export default function IlGinPage() {
   return (
-    <div className="pt-24 sm:pt-28 bg-mundo-black">
+    <div className="pt-24 sm:pt-28 bg-[#F2F2F2]">
       <IlGinHero />
 
       <section className="py-16 sm:py-20 lg:py-32 bg-[#F2F2F2]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
-            <div className="aspect-video rounded-lg overflow-hidden flex items-center justify-center">
+            <div className="aspect-[16/10] rounded-lg overflow-hidden flex items-center justify-center">
               <img
                 src="/images/vic gian.JPG"
                 alt="Processo produttivo"
@@ -64,7 +64,7 @@ export default function IlGinPage() {
                 intensità.
               </p>
             </div>
-            <div className="aspect-video order-1 lg:order-2 relative overflow-visible">
+            <div className="aspect-[16/10] order-1 lg:order-2 relative overflow-visible">
               <div className="absolute inset-0 rounded-lg overflow-hidden">
                 <img
                   src="/images/doa.jpg"
@@ -81,10 +81,31 @@ export default function IlGinPage() {
             </div>
           </div>
 
-          <div className="aspect-video bg-mundo-black/10 rounded-lg flex items-center justify-center">
-            <span className="text-mundo-gold text-2xl font-futura-500 font-medium">
-              [VIDEO-01] Processo distillazione
-            </span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="aspect-[16/10] rounded-lg overflow-hidden">
+              <img
+                src="/images/tost.JPG"
+                alt="Tostatura caffè per Mundo Gin"
+                className="w-full h-full object-cover object-bottom"
+              />
+            </div>
+            <div>
+              <h2 className="text-mundo-black font-futura-500 font-medium text-3xl sm:text-4xl mb-6">
+                Il caffè
+              </h2>
+              <p className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed">
+                Per arricchire il profilo aromatico di Mundo Gin, abbiamo scelto
+                due caffè specialty di alta qualità provenienti da Cafézal,
+                torrefazione milanese d’eccellenza. Chicchi selezionati e tostati
+                con precisione, capaci di donare profondità, rotondità e
+                carattere al distillato, senza mai sovrastarlo.
+              </p>
+              <p className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed mt-6">
+                Note di cioccolato fondente, mandorla e un delicato retrogusto di
+                mora, si uniscono a note di cioccolato fondente, fave di cacao e
+                frutti di bosco.
+              </p>
+            </div>
           </div>
         </div>
       </section>

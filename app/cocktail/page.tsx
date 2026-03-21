@@ -18,7 +18,7 @@ const COCK_GALLERY = [
 
 export default function CocktailPage() {
   return (
-    <div className="pt-24 sm:pt-28 bg-mundo-black">
+    <div className="pt-24 sm:pt-28 bg-[#F2F2F2]">
       <PageHero
         title="Cocktail"
         subtitle="Tre interpretazioni firmate Mundo Gin, pensate per valorizzare carattere, equilibrio e stile."

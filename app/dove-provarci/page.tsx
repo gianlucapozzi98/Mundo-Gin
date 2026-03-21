@@ -39,7 +39,7 @@ const LOCATION_IMAGE_MAP: Record<string, string> = {
 
 export default function DoveProvarciPage() {
   return (
-    <div className="pt-24 sm:pt-28 bg-mundo-black">
+    <div className="pt-24 sm:pt-28 bg-[#F2F2F2]">
       <PageHero
         title="Dove provarci"
         subtitle="Da queste location inizia il viaggio nel mondo di Mundo Gin: luoghi scelti per cocktail creativi, degustazioni curate e un'esperienza autentica."
