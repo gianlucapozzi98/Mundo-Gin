@@ -16,6 +16,7 @@ export function ProductShowcase() {
     [0.1, 0.35, 0.65, 0.9],
     [0, 1, 1, 0]
   );
+  const mobileBottleScale = useTransform(scrollYProgress, [0.2, 0.6], [1.44, 1.8]);
 
   return (
     <section
@@ -55,10 +56,16 @@ export function ProductShowcase() {
           </div>
           {/* Bottiglia centrale */}
           <div className="flex-shrink-0 h-[400px] w-[280px] sm:w-[360px] lg:w-[420px] flex items-end justify-center overflow-visible">
+            <motion.img
+              src="/images/Bottiglia centrale.png"
+              alt="Mundo Gin bottiglia"
+              className="w-full h-full object-contain object-bottom min-h-0 sm:hidden"
+              style={{ scale: mobileBottleScale, transformOrigin: "bottom center" }}
+            />
             <img
               src="/images/Bottiglia centrale.png"
               alt="Mundo Gin bottiglia"
-              className="w-full h-full object-contain object-bottom min-h-0 scale-[1.44]"
+              className="hidden sm:block w-full h-full object-contain object-bottom min-h-0 scale-[1.44]"
               style={{ transformOrigin: "bottom center" }}
             />
           </div>

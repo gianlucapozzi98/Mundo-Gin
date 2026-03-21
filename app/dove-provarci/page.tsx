@@ -10,6 +10,33 @@ export const metadata: Metadata = {
     "Trova dove assaggiare Mundo Gin. Elenco dei bar e locali dove è disponibile Mundo.",
 };
 
+const LOCATION_IMAGE_MAP: Record<string, string> = {
+  Aguadecoco: "/images/Aguadecoco.webp",
+  "Altrimenti Mixology Art": "/images/Altrimenti Mixology Art.webp",
+  Anvil: "/images/Anvil.webp",
+  Botero: "/images/Botero.webp",
+  "Chiosco Mercedes": "/images/Chiosco Mercedes.webp",
+  Dabass: "/images/Dabass.webp",
+  "Degustazione ristoro e dispensa": "/images/Degustazione ristoro dispen.webp",
+  Eterno: "/images/Eterno.webp",
+  "Il Nemico": "/images/Il Nemico.webp",
+  "Let It Be": "/images/Let It Be.webp",
+  "Madame del Borgo": "/images/MA.DA.ME..webp",
+  "Mary's Pub": "/images/Mary's Pub.webp",
+  "Moon Cafè": "/images/Moon Cafè.webp",
+  Origin: "/images/Origin.webp",
+  "Prosciutteria Jesolo": "/images/Prosciutteria.webp",
+  Pulp: "/images/pulp.webp",
+  "Fiaschetteria Quanto Basta": "/images/Quanto Basta.webp",
+  "The First Caffè": "/images/The First Caffè.webp",
+  "The Manhattan": "/images/The Manhattan.webp",
+  "This Agio Cocktail Bar": "/images/This Agio.webp",
+  Tipiko: "/images/Tipiko.webp",
+  Tosti: "/images/Tosti.webp",
+  Verdi: "/images/Verdi.webp",
+  "Violet Hill Cafè": "/images/Violet Hill Café.webp",
+};
+
 export default function DoveProvarciPage() {
   return (
     <div className="pt-24 sm:pt-28 bg-mundo-black">
@@ -43,11 +70,75 @@ export default function DoveProvarciPage() {
               dove trovarci.
             </p>
           ) : (
-            <ul className="grid grid-cols-1 md:grid-cols-3 gap-x-[35px] gap-y-6">
+            <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-[35px] gap-y-6">
               {LOCATIONS.map((loc) => (
                 <li key={loc.id} className="py-4">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                  {(() => {
+                    const imageSrc = LOCATION_IMAGE_MAP[loc.name];
+                    return (
+                      <>
+                  {/* Mobile */}
+                  <div className="sm:hidden">
+                    <div className="w-full aspect-[4/3] rounded-lg overflow-hidden mb-3 bg-mundo-black/10">
+                      {imageSrc ? (
+                        <img
+                          src={imageSrc}
+                          alt={loc.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : null}
+                    </div>
+                    <h3 className="text-mundo-black font-futura-500 font-medium text-lg mb-1">
+                      {loc.name}
+                    </h3>
+                    <p className="font-futura-400 text-mundo-black/80 text-[18px]">
+                      {loc.city}
+                    </p>
+                    <div className="flex items-center gap-3 mt-2">
+                      {loc.instagramUrl && (
+                        <a
+                          href={loc.instagramUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center text-mundo-black/80 hover:text-mundo-black transition-colors"
+                          aria-label="Instagram"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 shrink-0">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                          </svg>
+                        </a>
+                      )}
+                      {loc.mapUrl && (
+                        <a
+                          href={loc.mapUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center text-mundo-black/80 hover:text-mundo-black transition-colors"
+                          aria-label="Indicazioni"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 shrink-0">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                          </svg>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Desktop */}
+                  <div className="hidden sm:flex sm:flex-row sm:items-start gap-3">
                     <div>
+                      <div className="w-full max-w-[360px] aspect-[16/10] rounded-lg overflow-hidden mb-3 bg-mundo-black/10">
+                        {imageSrc ? (
+                          <img
+                            src={imageSrc}
+                            alt={loc.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : null}
+                      </div>
                       <h3 className="text-mundo-black font-futura-500 font-medium text-xl mb-1">
                         {loc.name}
                       </h3>
@@ -58,33 +149,42 @@ export default function DoveProvarciPage() {
                         {loc.cap ? `, ${loc.cap}` : ""}
                         {loc.province ? ` (${loc.province})` : ""}
                       </p>
-                      {loc.instagramUrl && (
-                        <a
-                          href={loc.instagramUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 mt-2 text-mundo-black/80 hover:text-mundo-black transition-colors"
-                          aria-label="Instagram"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 shrink-0">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                          </svg>
-                        </a>
-                      )}
+                      <div className="flex items-center gap-3 mt-2">
+                        {loc.instagramUrl && (
+                          <a
+                            href={loc.instagramUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center text-mundo-black/80 hover:text-mundo-black transition-colors"
+                            aria-label="Instagram"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 shrink-0">
+                              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                            </svg>
+                          </a>
+                        )}
+                        {loc.mapUrl && (
+                          <a
+                            href={loc.mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center text-mundo-black/80 hover:text-mundo-black transition-colors"
+                            aria-label="Indicazioni"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 shrink-0">
+                              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" />
+                              <circle cx="12" cy="10" r="3" />
+                            </svg>
+                          </a>
+                        )}
+                      </div>
                     </div>
-                    {loc.mapUrl && (
-                      <a
-                        href={loc.mapUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-futura-500 font-medium text-mundo-black hover:underline text-sm uppercase tracking-wider shrink-0 mt-[-2px]"
-                      >
-                        Indicazioni
-                      </a>
-                    )}
                   </div>
+                      </>
+                    );
+                  })()}
                 </li>
               ))}
             </ul>
@@ -114,7 +214,7 @@ export default function DoveProvarciPage() {
           src="/images/bott bar.JPG"
           alt=""
           aria-hidden
-          className="w-full h-auto object-cover object-[center_42%] max-h-[560px]"
+          className="w-[124vw] max-w-none -ml-[12vw] sm:w-full sm:max-w-full sm:ml-0 h-auto object-cover object-[center_42%] max-h-[560px]"
         />
       </section>
     </div>

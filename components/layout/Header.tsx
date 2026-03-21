@@ -29,10 +29,15 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* Home e sostenibilità in alto = header trasparente; dopo scroll o altre pagine = barra scura. */
-  const isLightHeader = (pathname === "/" || pathname === "/sostenibilita") && !isScrolled;
-  /* Solo in Sostenibilità (in alto) le voci sono bianche; in Home in alto = nero per leggibilità sullo sfondo chiaro. */
-  const isMenuWhite = pathname === "/sostenibilita" || isScrolled || pathname !== "/";
+  /* Home, Mundo Club e sostenibilità in alto = header trasparente; dopo scroll o altre pagine = barra scura. */
+  const isLightHeader =
+    (pathname === "/" || pathname === "/mundo-club" || pathname === "/sostenibilita") &&
+    !isScrolled;
+  /* In Home e Mundo Club (in alto) le voci restano nere per leggibilità su sfondo chiaro. */
+  const isMenuWhite =
+    pathname === "/sostenibilita" ||
+    isScrolled ||
+    (pathname !== "/" && pathname !== "/mundo-club");
   const isSostenibilita = pathname === "/sostenibilita";
   const linkClass = isSostenibilita
     ? "text-mundo-white hover:text-mundo-white"

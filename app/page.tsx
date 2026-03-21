@@ -11,6 +11,18 @@ export default function HomePage() {
       <StorySection />
       <BotanicheSection />
       <ProductShowcase />
+      <section className="relative z-10 h-screen w-full overflow-hidden bg-mundo-black">
+        <video
+          className="absolute inset-0 w-full h-full object-cover opacity-80"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        >
+          <source src="/videos/svelo-og.mp4" type="video/mp4" />
+        </video>
+      </section>
       <CocktailPreview />
       <MundoClubSection />
     </>

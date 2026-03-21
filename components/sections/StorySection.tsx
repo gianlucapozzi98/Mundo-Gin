@@ -21,6 +21,9 @@ export function StorySection() {
                 className="w-full h-full object-cover"
               />
             </div>
+            <p className="mt-6 pt-5 border-t border-mundo-white/20 font-futura-400 text-mundo-gold/90 text-base tracking-wide lg:hidden">
+              Il nostro gin / 45°29&apos; 14.32&apos;&apos; N – 9° 38&apos; 52.93&apos;&apos; W / la tua avventura
+            </p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 50 }}
@@ -45,7 +48,7 @@ export function StorySection() {
             <p className="text-mundo-white/80 font-futura-400 text-[22px] leading-relaxed mt-6">
               Ogni bottiglia racchiude un viaggio sensoriale che attraversa culture e sapori lontani. Dal caffè alle note botaniche, ogni sorso è un invito ad esplorare nuovi orizzonti.
             </p>
-            <p className="mt-8 pt-6 border-t border-mundo-white/20 font-futura-400 text-mundo-gold/90 text-base sm:text-lg tracking-wide">
+            <p className="hidden lg:block mt-8 pt-6 border-t border-mundo-white/20 font-futura-400 text-mundo-gold/90 text-base sm:text-lg tracking-wide">
               Il nostro gin / 45°29&apos; 14.32&apos;&apos; N – 9° 38&apos; 52.93&apos;&apos; W / la tua avventura
             </p>
           </motion.div>

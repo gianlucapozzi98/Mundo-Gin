@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   description: "Ricette e cocktail con Mundo Gin.",
 };
 
+const COCK_GALLERY = [
+  "/images/cock1.png",
+  "/images/cock2.jpg",
+  "/images/cock3.png",
+  "/images/cock4.jpg",
+  "/images/cock5.png",
+  "/images/cock6.jpg",
+  "/images/cock7.png",
+];
+
 export default function CocktailPage() {
   return (
     <div className="pt-24 sm:pt-28 bg-mundo-black">
@@ -24,7 +34,7 @@ export default function CocktailPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="self-start">
+            <div className="self-center max-w-[420px] w-full mx-auto">
               <h2 className="text-mundo-black font-futura-500 font-medium text-3xl sm:text-4xl mb-6">
                 Mundo Tonic
               </h2>
@@ -41,7 +51,7 @@ export default function CocktailPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-20">
-            <div className="order-2 lg:order-1 self-start max-w-[420px] w-full mx-auto">
+            <div className="order-2 lg:order-1 self-center max-w-[420px] w-full mx-auto">
               <h2 className="text-mundo-black font-futura-500 font-medium text-3xl sm:text-4xl mb-6">
                 Mundo Negroni
               </h2>
@@ -67,12 +77,12 @@ export default function CocktailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <div className="aspect-[4/5] max-w-[420px] w-full rounded-lg overflow-hidden mx-auto self-start">
               <img
-                src="/images/espresso.jpeg"
+                src="/images/espr m.jpg"
                 alt="Espresso Mundo"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="self-start">
+            <div className="self-center max-w-[420px] w-full mx-auto">
               <h2 className="text-mundo-black font-futura-500 font-medium text-3xl sm:text-4xl mb-6">
                 Espresso Mundo
               </h2>
@@ -86,6 +96,44 @@ export default function CocktailPage() {
                 <li>Sciroppo di zucchero - [quantita]</li>
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#F2F2F2] pb-16 sm:pb-20 lg:pb-24">
+        {/* Mobile: slider manuale */}
+        <div className="w-full overflow-x-auto scrollbar-hide snap-x snap-mandatory lg:hidden">
+          <div className="flex gap-4 px-4 min-w-max">
+            {COCK_GALLERY.map((src, index) => (
+              <div
+                key={`mobile-${src}`}
+                className="snap-start shrink-0 w-[280px] aspect-[4/5] rounded-lg overflow-hidden"
+              >
+                <img
+                  src={src}
+                  alt={`Cocktail gallery ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: slider automatico infinito */}
+        <div className="hidden lg:block w-full overflow-hidden">
+          <div className="cock-marquee-track">
+            {[...COCK_GALLERY, ...COCK_GALLERY].map((src, index) => (
+              <div
+                key={`desktop-${src}-${index}`}
+                className="shrink-0 w-[420px] aspect-[4/5] rounded-lg overflow-hidden"
+              >
+                <img
+                  src={src}
+                  alt={`Cocktail gallery ${(index % COCK_GALLERY.length) + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
