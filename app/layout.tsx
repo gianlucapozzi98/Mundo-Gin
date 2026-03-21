@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   title: "Mundo Gin | Premium Italian Gin",
   description:
     "Scopri Mundo Gin - il gin che racconta il mondo. Premium Italian Gin.",
+  icons: {
+    icon: "/logo-6-n.png?v=2",
+    shortcut: "/logo-6-n.png?v=2",
+    apple: "/logo-6-n.png?v=2",
+  },
 };
 
 export default function RootLayout({

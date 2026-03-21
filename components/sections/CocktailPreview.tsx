@@ -69,7 +69,7 @@ export function CocktailPreview() {
         >
           <Link
             href="/cocktail"
-            className="inline-block px-8 py-4 bg-mundo-black text-mundo-gold font-futura-500 font-medium rounded-full hover:bg-mundo-black/90 transition-all min-h-[44px]"
+            className="inline-block px-8 py-4 bg-mundo-black text-mundo-gold font-futura-500 font-medium rounded-lg hover:bg-mundo-black/90 transition-all min-h-[44px]"
           >
             Tutti i Cocktail
           </Link>

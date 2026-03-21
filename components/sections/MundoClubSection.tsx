@@ -43,7 +43,7 @@ export function MundoClubSection() {
             </p>
             <Link
               href="/mundo-club"
-              className="inline-block px-8 py-4 bg-mundo-gold text-mundo-black font-futura-500 font-medium rounded-full hover:bg-mundo-gold/90 transition-all min-h-[44px]"
+              className="inline-block px-8 py-4 bg-mundo-gold text-mundo-black font-futura-500 font-medium rounded-lg hover:bg-mundo-gold/90 transition-all min-h-[44px]"
             >
               Scopri Mundo Club
             </Link>

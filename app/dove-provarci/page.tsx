@@ -201,7 +201,7 @@ export default function DoveProvarciPage() {
           </p>
           <Link
             href="/contatti"
-            className="inline-block px-8 py-4 bg-mundo-black text-mundo-white font-futura-500 font-medium rounded-full hover:bg-mundo-black/90 transition-all"
+            className="inline-block px-8 py-4 bg-mundo-black text-mundo-white font-futura-500 font-medium rounded-lg hover:bg-mundo-black/90 transition-all"
           >
             Contattaci
           </Link>

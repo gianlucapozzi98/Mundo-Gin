@@ -59,7 +59,7 @@ export function Header() {
             : ""
         }`}
       >
-        <div className="flex items-center justify-between">
+        <div className="relative flex items-center justify-between">
           <div
             className={`hidden md:grid md:grid-cols-[1fr_auto_1fr] items-center w-full ${
               isScrolled ? "gap-[25px]" : "gap-[65px]"
@@ -119,6 +119,27 @@ export function Header() {
           </div>
 
           <Link
+            href="/carrello"
+            className="hidden md:inline-flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 p-2 text-mundo-black hover:bg-mundo-black/10 rounded-lg transition-colors"
+            aria-label="Carrello"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-5 h-5"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+          </Link>
+
+          <Link
             href="/"
             className="md:hidden inline-flex items-center justify-center shrink-0"
             aria-label="Mundo Gin Home"
@@ -130,51 +151,74 @@ export function Header() {
             />
           </Link>
 
-          <button
-            type="button"
-            aria-label="Menu"
-            aria-expanded={mobileMenuOpen}
-            className={`md:hidden p-2 shrink-0 rounded-lg transition-colors ${
-              mobileMenuOpen
-                ? "text-mundo-black hover:bg-mundo-black/10"
-                : isBlackTextAtTop
+          <div className="md:hidden inline-flex items-center gap-1.5">
+            <Link
+              href="/carrello"
+              className="inline-flex items-center justify-center p-2 text-mundo-black hover:bg-mundo-black/10 rounded-lg transition-colors"
+              aria-label="Carrello"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-5 h-5"
+              >
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+              </svg>
+            </Link>
+
+            <button
+              type="button"
+              aria-label="Menu"
+              aria-expanded={mobileMenuOpen}
+              className={`p-2 shrink-0 rounded-lg transition-colors ${
+                mobileMenuOpen
                   ? "text-mundo-black hover:bg-mundo-black/10"
-                  : "text-[#F2F2F2] hover:bg-mundo-white/10"
-            }`}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-          </button>
+                  : isBlackTextAtTop
+                    ? "text-mundo-black hover:bg-mundo-black/10"
+                    : "text-[#F2F2F2] hover:bg-mundo-white/10"
+              }`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? (
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
 
         <AnimatePresence>
