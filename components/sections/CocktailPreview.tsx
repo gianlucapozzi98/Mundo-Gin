@@ -39,17 +39,11 @@ export function CocktailPreview() {
             >
               <Link href="/cocktail" className="block group">
                 <div className="aspect-[4/5] bg-mundo-black/10 rounded-lg overflow-hidden mb-4 flex items-center justify-center">
-                  {"image" in item && item.image ? (
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <span className="text-mundo-gold text-2xl font-futura-500 font-medium">
-                      {item.placeholder}
-                    </span>
-                  )}
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="relative overflow-hidden font-futura-500 font-medium text-2xl">
                   <span className="text-mundo-black block static group-hover:-translate-y-full transition-all duration-500">
