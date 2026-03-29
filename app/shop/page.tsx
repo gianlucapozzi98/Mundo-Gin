@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { MUNDO_GIN_PRICE_DISPLAY } from "@/lib/mundo-gin-product";
 
 export const metadata: Metadata = {
   title: "Shop | Mundo Gin",
@@ -29,6 +30,9 @@ export default function ShopPage() {
                 Mundo Gin
               </h2>
               <p className="mt-1 text-mundo-black/70 font-futura-400 text-lg">700 ml</p>
+              <p className="mt-2 font-futura-500 text-xl text-mundo-black">
+                {MUNDO_GIN_PRICE_DISPLAY}
+              </p>
             </article>
           </Link>
         </div>

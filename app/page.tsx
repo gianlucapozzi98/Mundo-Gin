@@ -11,7 +11,7 @@ export default function HomePage() {
       <StorySection />
       <BotanicheSection />
       <ProductShowcase />
-      <section className="relative z-10 h-screen w-full overflow-hidden bg-mundo-black">
+      <section className="relative z-10 -my-[30px] h-[calc(100vh+60px)] w-full overflow-hidden bg-mundo-black">
         <video
           className="absolute inset-0 w-full h-full object-cover opacity-80"
           autoPlay
