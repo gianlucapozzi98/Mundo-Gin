@@ -21,7 +21,8 @@ export default function CocktailPage() {
     <div className="pt-24 sm:pt-28 bg-[#F2F2F2]">
       <PageHero
         title="Cocktail"
-        subtitle="Tre interpretazioni firmate Mundo Gin, pensate per valorizzare carattere, equilibrio e stile."
+        subtitle="Cocktail pensati per esaltare ogni sfumatura di Mundo, tra equilibrio, carattere e creatività."
+        subtitleSingleLineDesktop
       />
 
       <section className="py-16 sm:py-20 lg:py-32 bg-[#F2F2F2]">
@@ -41,11 +42,9 @@ export default function CocktailPage() {
               <p className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed mb-4">
                 Ingredienti:
               </p>
-              <ul className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed space-y-2 list-disc pl-6">
-                <li>Mundo Gin - [quantita]</li>
-                <li>Acqua tonica - [quantita]</li>
-                <li>Ghiaccio - [quantita]</li>
-                <li>Garnish (es. lime o botanica) - [quantita]</li>
+              <ul className="list-disc space-y-2 pl-6 font-futura-400 text-[22px] leading-relaxed text-mundo-black/80">
+                <li>Mundo Gin - 50 ml</li>
+                <li>Acqua tonica secca - 100 ml</li>
               </ul>
             </div>
           </div>
@@ -58,11 +57,11 @@ export default function CocktailPage() {
               <p className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed mb-4">
                 Ingredienti:
               </p>
-              <ul className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed space-y-2 list-disc pl-6">
-                <li>Mundo Gin - [quantita]</li>
-                <li>Bitter - [quantita]</li>
-                <li>Vermouth rosso - [quantita]</li>
-                <li>Garnish (es. scorza d&apos;arancia) - [quantita]</li>
+              <ul className="list-disc space-y-2 pl-6 font-futura-400 text-[22px] leading-relaxed text-mundo-black/80">
+                <li>Mundo Gin - 30 ml</li>
+                <li>Bitter - 30 ml</li>
+                <li>Vermouth rosso - 30 ml</li>
+                <li>Garnish - Scorza d&apos;arancia</li>
               </ul>
             </div>
             <div className="aspect-[4/5] max-w-[420px] w-full order-1 lg:order-2 rounded-lg overflow-hidden mx-auto self-start">
@@ -77,7 +76,7 @@ export default function CocktailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <div className="aspect-[4/5] max-w-[420px] w-full rounded-lg overflow-hidden mx-auto self-start">
               <img
-                src="/images/espr m.jpg"
+                src="/images/espr m.jpeg"
                 alt="Espresso Mundo"
                 className="w-full h-full object-cover"
               />
@@ -89,11 +88,12 @@ export default function CocktailPage() {
               <p className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed mb-4">
                 Ingredienti:
               </p>
-              <ul className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed space-y-2 list-disc pl-6">
-                <li>Mundo Gin - [quantita]</li>
-                <li>Caffe - [quantita]</li>
-                <li>Liquore al caffe - [quantita]</li>
-                <li>Sciroppo di zucchero - [quantita]</li>
+              <ul className="list-disc space-y-2 pl-6 font-futura-400 text-[22px] leading-relaxed text-mundo-black/80">
+                <li>Mundo Gin - 50 ml</li>
+                <li>Liquore al caffe - 30 ml</li>
+                <li>Sciroppo di zucchero - 10 ml</li>
+                <li>Caffe espresso</li>
+                <li>Garnish - 3 chicchi di caffe</li>
               </ul>
             </div>
           </div>

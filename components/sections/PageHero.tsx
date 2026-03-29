@@ -5,9 +5,15 @@ import { motion } from "motion/react";
 type PageHeroProps = {
   title: string;
   subtitle: string;
+  /** Su viewport lg+ il sottotitolo resta su una riga (es. pagina Cocktail). */
+  subtitleSingleLineDesktop?: boolean;
 };
 
-export function PageHero({ title, subtitle }: PageHeroProps) {
+export function PageHero({
+  title,
+  subtitle,
+  subtitleSingleLineDesktop = false,
+}: PageHeroProps) {
   return (
     <section className="h-[190px] flex flex-col justify-center bg-transparent text-mundo-black">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
@@ -24,7 +30,9 @@ export function PageHero({ title, subtitle }: PageHeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-futura-400 text-lg sm:text-xl text-mundo-black/70 max-w-2xl"
+          className={`font-futura-400 text-lg sm:text-xl text-mundo-black/70 max-w-2xl ${
+            subtitleSingleLineDesktop ? "lg:max-w-none lg:whitespace-nowrap" : ""
+          }`}
         >
           {subtitle}
         </motion.p>

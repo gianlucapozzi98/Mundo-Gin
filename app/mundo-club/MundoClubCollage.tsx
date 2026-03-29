@@ -8,7 +8,7 @@ const CARD_BASE =
 const POSTCARD_IMAGES = [
   "/images/maneken-41NL066.png",
   "/images/tech.jpg",
-  "/images/IMG_5692.jpeg",
+  "/images/IMG_5692.JPG",
   "/images/DSC06345.jpg",
 ] as const;
 

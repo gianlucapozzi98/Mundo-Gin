@@ -60,10 +60,6 @@ body {
   animation: cock-marquee 32s linear infinite;
 }
 
-.cock-marquee-track:hover {
-  animation-play-state: paused;
-}
-
 @keyframes cock-marquee {
   0% {
     transform: translateX(0);

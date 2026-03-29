@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 const COCKTAILS = [
   { id: 9, name: "Mundo Tonic", image: "/images/gin tonic.png" },
   { id: 10, name: "Mundo Negroni", image: "/images/Negroni.jpeg" },
-  { id: 11, name: "Espresso Mundo", image: "/images/espresso.jpeg" },
+  { id: 11, name: "Espresso Mundo", image: "/images/espr m.jpeg" },
 ];
 
 export function CocktailPreview() {
@@ -22,8 +22,8 @@ export function CocktailPreview() {
           <h2 className="text-mundo-black font-futura-500 font-medium mb-4 uppercase" style={{ fontSize: "60px", lineHeight: "69px" }}>
             I Nostri Cocktail
           </h2>
-          <p className="text-mundo-black/80 font-futura-400 text-[22px] max-w-2xl mx-auto text-center">
-            Creato per distinguersi, Mundo Gin dà il meglio di sé nei grandi classici. È versatile e inconfondibile, capace di distinguersi al palato e alla vista.
+          <p className="mx-auto max-w-2xl text-center font-futura-400 text-[22px] text-mundo-black/80 lg:max-w-none lg:whitespace-nowrap">
+            Cocktail pensati per esaltare ogni sfumatura di Mundo, tra equilibrio, carattere e creatività.
           </p>
         </motion.div>
 

@@ -1,8 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { MUNDO_GIN_PRICE_DISPLAY } from "@/lib/mundo-gin-product";
+import { addToCart } from "@/lib/cart";
+import {
+  MUNDO_GIN_CARD_IMAGE,
+  MUNDO_GIN_NAME,
+  MUNDO_GIN_PRICE_DISPLAY,
+  MUNDO_GIN_PRICE_EUR,
+  MUNDO_GIN_PRODUCT_ID,
+  MUNDO_GIN_SUBTITLE,
+} from "@/lib/mundo-gin-product";
 
 const PRODUCT_IMAGES = [
   "/images/bottiglia.png",
@@ -18,11 +26,32 @@ const PRODUCT_SPECS: { label: string; value: string }[] = [
 ];
 
 const FOOTER_GALLERY_MAIN = "/images/mundo-still8.png";
-/** Prima colonna di miniature (come sopra), seconda colonna a fianco */
-const FOOTER_GALLERY_SMALL_COLS: [string[], string[]] = [
-  ["/images/3.png", "/images/7.png"],
-  ["/images/10.png", "/images/11.png"],
-];
+/** Riquadro che era la 7: ciclo 6 → 7 → 8 → 9 ogni secondo */
+const FOOTER_ROTATING_IMAGES = [
+  "/images/6.png",
+  "/images/7.png",
+  "/images/8.png",
+  "/images/9.png",
+] as const;
+
+function RotatingFooterCell({ images }: { images: readonly string[] }) {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % images.length);
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, [images.length]);
+  return (
+    <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
+      <img
+        src={images[index]}
+        alt=""
+        className="h-full w-full object-cover"
+      />
+    </div>
+  );
+}
 
 const ABBINAMENTI_ITEMS = [
   {
@@ -44,15 +73,29 @@ export default function MundoGinProductPage() {
   const [qty, setQty] = useState(1);
   const [botanicheOpen, setBotanicheOpen] = useState(false);
   const [abbinamentiOpen, setAbbinamentiOpen] = useState(false);
+  const [cartAdded, setCartAdded] = useState(false);
 
   const selectedImage = useMemo(
     () => PRODUCT_IMAGES[selectedIndex] ?? PRODUCT_IMAGES[0],
     [selectedIndex]
   );
 
+  const handleAddToCart = () => {
+    addToCart({
+      productId: MUNDO_GIN_PRODUCT_ID,
+      name: MUNDO_GIN_NAME,
+      subtitle: MUNDO_GIN_SUBTITLE,
+      priceEur: MUNDO_GIN_PRICE_EUR,
+      qty,
+      image: MUNDO_GIN_CARD_IMAGE,
+    });
+    setCartAdded(true);
+    window.setTimeout(() => setCartAdded(false), 2200);
+  };
+
   return (
-    <div className="pt-24 sm:pt-28 min-h-screen bg-[#F2F2F2] py-10 sm:py-14">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+    <div className="min-h-screen bg-[#F2F2F2] pt-24 pb-0 sm:pt-28 sm:pb-0">
+      <div className="container mx-auto max-w-7xl px-4 pt-10 sm:px-6 sm:pt-14 lg:px-8">
         <div className="flex w-full flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-center lg:gap-16">
           <section className="w-full shrink-0 lg:w-auto">
             <div className="mx-auto grid w-full max-w-[min(100%,676px)] grid-cols-1 items-start gap-6 lg:mx-0 lg:h-[448px] lg:max-w-none lg:grid-cols-[448px_212px] lg:items-stretch">
@@ -124,9 +167,10 @@ export default function MundoGinProductPage() {
 
               <button
                 type="button"
-                className="h-[43px] px-7 rounded-lg bg-mundo-black text-mundo-white font-futura-500 hover:bg-mundo-black/90 transition-colors"
+                onClick={handleAddToCart}
+                className="h-[43px] rounded-lg bg-mundo-black px-7 font-futura-500 text-mundo-white transition-colors hover:bg-mundo-black/90"
               >
-                Aggiungi al carrello
+                {cartAdded ? "Aggiunto al carrello" : "Aggiungi al carrello"}
               </button>
             </div>
           </section>
@@ -280,11 +324,11 @@ export default function MundoGinProductPage() {
         </section>
 
         <section
-          className="mt-16 flex flex-col items-center pb-6 lg:mt-24 lg:pb-10"
+          className="mt-16 flex flex-col pb-8 sm:pb-10 lg:mt-24"
           aria-label="Galleria fotografica"
         >
           <div className="flex w-full justify-center">
-            <div className="grid w-full max-w-[448px] grid-cols-1 gap-6 lg:mx-auto lg:h-[448px] lg:w-auto lg:max-w-none lg:grid-cols-[448px_212px_212px] lg:items-stretch">
+            <div className="grid w-full max-w-[min(100%,515px)] grid-cols-1 gap-6 lg:mx-auto lg:h-[515px] lg:w-auto lg:max-w-none lg:grid-cols-[515px_244px_244px] lg:items-stretch">
               <div className="relative mx-auto aspect-square w-full overflow-hidden rounded-[32px] border border-mundo-black/10 bg-mundo-white lg:mx-0 lg:h-full lg:min-h-0">
                 <img
                   src={FOOTER_GALLERY_MAIN}
@@ -294,32 +338,40 @@ export default function MundoGinProductPage() {
               </div>
 
               <div className="mx-auto grid w-full max-w-md grid-cols-2 gap-3 sm:gap-4 lg:mx-0 lg:max-w-none lg:contents">
-                {FOOTER_GALLERY_SMALL_COLS.map((col, colIndex) => (
-                  <div
-                    key={colIndex}
-                    className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6"
-                  >
-                    {col.map((src) => (
-                      <div
-                        key={src}
-                        className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0"
-                      >
-                        <img
-                          src={src}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    ))}
+                <div className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6">
+                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
+                    <img
+                      src="/images/3.png"
+                      alt=""
+                      className="h-full w-full object-cover"
+                    />
                   </div>
-                ))}
+                  <RotatingFooterCell images={FOOTER_ROTATING_IMAGES} />
+                </div>
+                <div className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6">
+                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
+                    <img
+                      src="/images/10.png"
+                      alt=""
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
+                    <img
+                      src="/images/11.png"
+                      alt=""
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className="mt-8 w-full text-center lg:mt-10">
+
+          <div className="w-full pt-[40px] pb-1 text-center sm:pt-[44px]">
             <Link
               href="/shop"
-              className="inline-block text-mundo-black/70 transition-colors hover:text-mundo-black font-futura-500"
+              className="inline-block font-futura-500 text-mundo-black/70 transition-colors hover:text-mundo-black"
             >
               ← Torna allo shop
             </Link>

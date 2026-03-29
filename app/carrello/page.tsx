@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Metadata } from "next";
+import { CarrelloView } from "./CarrelloView";
 
 export const metadata: Metadata = {
   title: "Carrello | Mundo Gin",
@@ -8,22 +8,14 @@ export const metadata: Metadata = {
 
 export default function CarrelloPage() {
   return (
-    <div className="pt-24 sm:pt-28 min-h-screen py-16 bg-[#F2F2F2]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-        <h1 className="text-mundo-black font-futura-500 font-medium text-4xl mb-6 uppercase">
+    <div className="min-h-screen bg-[#F2F2F2] py-16 pt-24 sm:pt-28">
+      <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <h1 className="mb-6 font-futura-500 text-4xl font-medium uppercase text-mundo-black">
           Carrello
         </h1>
 
         <div className="rounded-xl border border-mundo-black/10 bg-mundo-white p-8 sm:p-10">
-          <p className="font-futura-400 text-mundo-black/70 text-[22px]">
-            Il tuo carrello e vuoto.
-          </p>
-          <Link
-            href="/shop"
-            className="inline-block mt-8 px-7 py-3 bg-mundo-black text-mundo-white font-futura-500 font-medium rounded-lg hover:bg-mundo-black/90 transition-all"
-          >
-            Torna allo Shop
-          </Link>
+          <CarrelloView />
         </div>
       </div>
     </div>
