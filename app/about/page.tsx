@@ -17,7 +17,7 @@ export default function IlGinPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
             <div className="aspect-[16/10] rounded-lg overflow-hidden flex items-center justify-center">
               <img
-                src="/images/vic gian.JPG"
+                src="/images/vic%20gian.jpeg"
                 alt="Processo produttivo"
                 className="w-full h-full object-cover"
               />
@@ -84,7 +84,7 @@ export default function IlGinPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="aspect-[16/10] rounded-lg overflow-hidden">
               <img
-                src="/images/tost.JPG"
+                src="/images/tost.jpeg"
                 alt="Tostatura caffè per Mundo Gin"
                 className="w-full h-full object-cover object-bottom"
               />

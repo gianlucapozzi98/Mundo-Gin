@@ -206,7 +206,7 @@ export function CarrelloView() {
           <article className="flex gap-4 rounded-xl border border-mundo-black/10 bg-mundo-white/80 p-4">
             <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg border border-mundo-black/10 bg-white">
               <img
-                src="/images/gift pack.png"
+                src="/images/gift%20pack.jpeg"
                 alt=""
                 className="h-full w-full object-contain p-2"
               />
@@ -232,7 +232,7 @@ export function CarrelloView() {
                       subtitle: "Proteggi la tua bottiglia di Mundo Gin",
                       priceEur: 4,
                       qty: 1,
-                      image: "/images/gift pack.png",
+                      image: "/images/gift%20pack.jpeg",
                     })
                   }
                 >

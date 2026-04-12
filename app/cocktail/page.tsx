@@ -11,9 +11,9 @@ const COCK_GALLERY = [
   "/images/cock2.jpg",
   "/images/cock3.png",
   "/images/cock4.jpg",
-  "/images/cock5.png",
+  "/images/cock5.jpeg",
   "/images/cock6.jpg",
-  "/images/cock7.png",
+  "/images/cock7.jpeg",
 ];
 
 export default function CocktailPage() {
@@ -76,7 +76,7 @@ export default function CocktailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <div className="aspect-[4/5] max-w-[420px] w-full rounded-lg overflow-hidden mx-auto self-start">
               <img
-                src="/images/espr m.png?v=3"
+                src="/images/espr%20m.jpeg"
                 alt="Espresso Mundo"
                 className="w-full h-full object-cover"
               />
