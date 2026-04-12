@@ -1,6 +1,7 @@
 /**
  * Elenco bar / locali dove è disponibile Mundo Gin.
- * Per le coordinate: cerca il locale su Google Maps, tasto destro sul punto → "Che cosa c'è qui?" → copia lat,lng.
+ * Coordinate: punto preciso dell’ingresso sul marciapiede (Google Maps → tasto destro sul pin → lat,lng).
+ * Evita il centro strada generico: altrimenti il marker risulta spostato rispetto al locale.
  */
 export type Location = {
   id: string;
@@ -227,8 +228,8 @@ const LOCATIONS_RAW: Location[] = [
     city: "Treviglio",
     cap: "24047",
     province: "BG",
-    lat: 45.5303145,
-    lng: 9.5854704,
+    lat: 45.53055,
+    lng: 9.58685,
     mapUrl: "https://maps.app.goo.gl/ApybeAEw1e3i7v7B9",
     instagramUrl: "https://www.instagram.com/thefirstcaffe/",
   },

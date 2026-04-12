@@ -49,12 +49,16 @@ export default function DoveProvarciPage() {
       />
 
       {/* Mappa */}
-      <section className="py-12 sm:py-16 bg-[#F2F2F2]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-          <h2 className="text-mundo-black font-futura-500 font-medium text-xl mb-6">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#F2F2F2]">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="font-futura-500 text-2xl font-medium tracking-tight text-mundo-black sm:text-3xl">
             Vedi sulla mappa
           </h2>
-          <div className="rounded-lg overflow-hidden border border-mundo-black/10 h-[280px]">
+          <p className="mt-2 max-w-2xl font-futura-400 text-[17px] leading-relaxed text-mundo-black/65 sm:text-[18px]">
+            Zoom, trascina e apri ogni punto: dettagli del locale, Instagram e
+            link alle indicazioni.
+          </p>
+          <div className="mt-8">
             <DynamicMapSection locations={LOCATIONS} compact />
           </div>
         </div>

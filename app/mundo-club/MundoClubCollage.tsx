@@ -6,7 +6,7 @@ const CARD_BASE =
   "absolute rounded-lg border border-mundo-black/15 bg-mundo-white shadow-[0_14px_30px_rgba(0,0,0,0.12)] overflow-hidden";
 
 const POSTCARD_IMAGES = [
-  "/images/maneken-41NL066.png",
+  "/images/maneken-41NL066.jpeg",
   "/images/tech.jpg",
   "/images/IMG_5692.JPG",
   "/images/DSC06345.jpg",

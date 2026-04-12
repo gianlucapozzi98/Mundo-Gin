@@ -1,15 +1,26 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
+
+const HERO_IMAGE = "/images/image-01-hero.jpeg";
 
 export function HeroSection() {
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
       <div className="fixed inset-0 z-0 bg-mundo-white" aria-hidden>
-        <div
-          className="absolute inset-0 bg-cover bg-no-repeat bg-[position:calc(100%+230px)_50%] md:bg-center"
-          style={{ backgroundImage: "url(/images/image-01-hero.png)" }}
-        />
+        <div className="absolute inset-0">
+          <Image
+            src={HERO_IMAGE}
+            alt=""
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            quality={75}
+            className="hero-home-bg-image"
+          />
+        </div>
       </div>
       <div className="fixed inset-0 z-0 bg-white/20 pointer-events-none" aria-hidden />
       <div className="relative z-10 min-h-screen flex flex-col justify-end px-4 sm:px-6 lg:px-8 lg:px-12 xl:px-16 pb-6 sm:pb-14 lg:pb-16">

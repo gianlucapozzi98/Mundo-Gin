@@ -11,14 +11,14 @@ export default function HomePage() {
       <StorySection />
       <BotanicheSection />
       <ProductShowcase />
-      <section className="relative z-10 -my-[30px] h-[calc(100vh+60px)] w-full overflow-hidden bg-mundo-black">
+      <section className="relative z-10 -my-[55px] h-[calc(100vh+110px)] w-full overflow-hidden bg-mundo-black">
         <video
           className="absolute inset-0 w-full h-full object-cover opacity-80"
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
         >
           <source src="/videos/svelo-og.mp4" type="video/mp4" />
         </video>

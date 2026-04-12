@@ -78,51 +78,165 @@ small,
   font-weight: 500;
 }
 
-/* Mappa Dove provarci: marker e popup stile moderno */
+/* Mappa Dove provarci: pin, popup e controlli */
 .mundo-marker {
   background: none !important;
   border: none !important;
 }
-.mundo-marker-dot {
+/* Angoli arrotondati: non toccare overflow del .leaflet-container (Leaflet ne ha bisogno per le tiles). */
+.map-shell .leaflet-container {
+  border-radius: 1rem;
+}
+
+/*
+ * Leaflet 1.9 imposta mix-blend-mode: plus-lighter sulle tile (workaround Chrome).
+ * Con alcuni sfondi / stacking context le tile risultano INVISIBILI (mappa grigia).
+ */
+.leaflet-container img.leaflet-tile {
+  mix-blend-mode: normal !important;
+}
+
+.mundo-marker-pin {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 36px;
+  height: 44px;
+  pointer-events: auto;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.22));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.mundo-marker:hover .mundo-marker-pin {
+  transform: translateY(-3px) scale(1.06);
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
+}
+.mundo-marker-pin__svg {
   display: block;
-  width: 20px;
-  height: 20px;
-  margin: 0;
-  background: var(--mundo-gold);
-  border: 2px solid rgba(0, 0, 0, 0.25);
-  border-radius: 50%;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.mundo-marker:hover .mundo-marker-dot {
-  transform: scale(1.15);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+
+.mundo-popup-card {
+  min-width: 0;
 }
-.leaflet-popup-content-wrapper {
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  padding: 2px;
+
+.mundo-popup-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  font-family: var(--font-futura), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.mundo-popup-btn--ghost {
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  color: rgba(0, 0, 0, 0.75);
   background: #fff;
 }
-.leaflet-popup-content {
-  margin: 12px 14px;
-  min-width: 180px;
+.mundo-popup-btn--ghost:hover {
+  background: #f5f5f5;
+  color: #000;
 }
-.leaflet-popup-tip {
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+.mundo-popup-btn--solid {
+  border: 1px solid #0a0a0a;
+  background: #0a0a0a;
+  color: #fff !important;
 }
+.mundo-popup-btn--solid:link,
+.mundo-popup-btn--solid:visited {
+  color: #fff !important;
+}
+.mundo-popup-btn--solid:hover {
+  background: #222;
+  border-color: #222;
+  color: #fff !important;
+}
+
+.mundo-popup-btn--icon-only {
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
 .leaflet-container {
   font-family: var(--font-futura), sans-serif;
+  background: #dfe6e2 !important;
+}
+.leaflet-control-zoom {
+  border: none !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+}
+.leaflet-control-zoom a {
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  font-size: 18px !important;
+  color: #111 !important;
+  background: #fff !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+.leaflet-control-zoom a:last-child {
+  border-bottom: none !important;
+}
+.leaflet-control-zoom a:hover {
+  background: #f2f2f2 !important;
+  color: #000 !important;
+}
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(6px);
+  border-radius: 8px 0 0 0;
+  padding: 2px 8px !important;
+  font-size: 10px !important;
+  color: rgba(0, 0, 0, 0.45) !important;
+  max-width: min(100%, 280px);
+  line-height: 1.35;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 16px !important;
+  overflow: hidden;
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.25), 0 8px 20px -10px rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  padding: 0 !important;
+  background: #fff !important;
+}
+.leaflet-popup-content {
+  margin: 16px 18px 14px !important;
+  min-width: 0;
+  width: auto !important;
+}
+.leaflet-popup-tip {
+  background: #fff !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
 }
 .leaflet-container a.leaflet-popup-close-button {
-  color: #666;
-  padding: 8px 12px 0 0;
-  font-size: 20px;
+  color: rgba(0, 0, 0, 0.45) !important;
+  padding: 10px 12px 0 0 !important;
+  font-size: 22px !important;
+  width: 36px;
+  height: 36px;
 }
 .leaflet-container a.leaflet-popup-close-button:hover {
-  color: #000;
+  color: #000 !important;
+}
+
+/* Hero home: object-position come l’ex background (mobile vs md) */
+.hero-home-bg-image {
+  object-fit: cover;
+  object-position: calc(100% + 230px) 50%;
+}
+@media (min-width: 768px) {
+  .hero-home-bg-image {
+    object-position: center center;
+  }
 }
 
 /* Forza grigio #F2F2F2 ovunque sia usato mundo-gold (sostituzione giallo) */
