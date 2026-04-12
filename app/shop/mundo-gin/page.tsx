@@ -28,10 +28,10 @@ const PRODUCT_SPECS: { label: string; value: string }[] = [
 const FOOTER_GALLERY_MAIN = "/images/mundo-still8.png";
 /** Riquadro che era la 7: ciclo 6 → 7 → 8 → 9 ogni secondo */
 const FOOTER_ROTATING_IMAGES = [
-  "/images/6.png",
-  "/images/7.png",
-  "/images/8.png",
-  "/images/9.png",
+  "/images/6.png?v=3",
+  "/images/7.png?v=3",
+  "/images/8.png?v=3",
+  "/images/9.png?v=3",
 ] as const;
 
 function RotatingFooterCell({ images }: { images: readonly string[] }) {
@@ -168,7 +168,11 @@ export default function MundoGinProductPage() {
               <button
                 type="button"
                 onClick={handleAddToCart}
-                className="h-[43px] rounded-lg bg-mundo-black px-7 font-futura-500 text-mundo-white transition-colors hover:bg-mundo-black/90"
+                className={`h-[43px] rounded-lg px-7 font-futura-500 border transition-transform transition-colors ${
+                  cartAdded
+                    ? "border-mundo-black bg-transparent text-mundo-black scale-[1.03]"
+                    : "border-mundo-black bg-mundo-black text-mundo-white hover:bg-transparent hover:text-mundo-black"
+                }`}
               >
                 {cartAdded ? "Aggiunto al carrello" : "Aggiungi al carrello"}
               </button>

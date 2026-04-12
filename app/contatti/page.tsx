@@ -42,7 +42,7 @@ export default function ContattiPage() {
               <hr className="border-mundo-black/20 mb-6" />
               <a
                 href="mailto:info@mundogin.com"
-                className="font-futura-400 text-mundo-black hover:text-mundo-gold transition-colors block mb-6"
+                className="font-futura-400 text-mundo-black hover:text-mundo-black/80 transition-colors block mb-6"
               >
                 info@mundogin.com
               </a>
@@ -59,7 +59,7 @@ export default function ContattiPage() {
                     href="https://www.instagram.com/mundodrygin/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-mundo-black hover:text-mundo-gold transition-colors"
+                    className="inline-flex items-center gap-2 text-mundo-black hover:text-mundo-black/80 transition-colors"
                     aria-label="Instagram"
                   >
                     <span className="w-6 h-6 shrink-0" aria-hidden>
@@ -75,7 +75,7 @@ export default function ContattiPage() {
                     href="https://www.facebook.com/people/Mundo-Gin/61558116593022/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-mundo-black hover:text-mundo-gold transition-colors"
+                    className="inline-flex items-center gap-2 text-mundo-black hover:text-mundo-black/80 transition-colors"
                     aria-label="Facebook"
                   >
                     <span className="w-6 h-6 shrink-0" aria-hidden>
@@ -91,7 +91,7 @@ export default function ContattiPage() {
                     href="https://www.tiktok.com/@mundogin"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-mundo-black hover:text-mundo-gold transition-colors"
+                    className="inline-flex items-center gap-2 text-mundo-black hover:text-mundo-black/80 transition-colors"
                     aria-label="TikTok"
                   >
                     <span className="w-6 h-6 shrink-0" aria-hidden>

@@ -16,7 +16,7 @@ export function MundoClubSection() {
           >
             <div className="aspect-[4/3] rounded-lg overflow-hidden">
               <img
-                src="/images/recap9.png"
+                src="/images/recap9.jpeg?v=2"
                 alt="Mundo Club"
                 className="w-full h-full object-cover"
               />

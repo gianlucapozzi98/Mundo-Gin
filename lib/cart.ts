@@ -11,7 +11,10 @@ export type CartLine = {
 
 function dispatchCartUpdated() {
   if (typeof window === "undefined") return;
-  window.dispatchEvent(new Event("mundo-cart-updated"));
+  // Defer l'evento per evitare warning React
+  window.setTimeout(() => {
+    window.dispatchEvent(new Event("mundo-cart-updated"));
+  }, 0);
 }
 
 export function getCart(): CartLine[] {
@@ -50,6 +53,18 @@ export function addToCart(
 
 export function removeFromCart(productId: string): void {
   setCart(getCart().filter((l) => l.productId !== productId));
+}
+
+export function updateCartQuantity(productId: string, qty: number): void {
+  const cart = getCart();
+  const idx = cart.findIndex((l) => l.productId === productId);
+  if (idx === -1) return;
+  if (qty <= 0) {
+    cart.splice(idx, 1);
+  } else {
+    cart[idx] = { ...cart[idx], qty };
+  }
+  setCart(cart);
 }
 
 export function formatEur(value: number): string {

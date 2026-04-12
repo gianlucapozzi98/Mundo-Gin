@@ -4,10 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { getCart } from "@/lib/cart";
 
 const LEFT_NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/il-gin", label: "About Mundo" },
+  { href: "/about", label: "About Mundo" },
   { href: "/dove-provarci", label: "Dove provarci" },
 ];
 
@@ -28,6 +29,7 @@ export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     function handleScroll() {
@@ -36,6 +38,25 @@ export function Header() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const syncCart = () => {
+      try {
+        const lines = getCart();
+        const total = lines.reduce((sum, line) => sum + line.qty, 0);
+        setCartCount(total);
+      } catch {
+        setCartCount(0);
+      }
+    };
+    syncCart();
+    window.addEventListener("mundo-cart-updated", syncCart);
+    window.addEventListener("storage", syncCart);
+    return () => {
+      window.removeEventListener("mundo-cart-updated", syncCart);
+      window.removeEventListener("storage", syncCart);
+    };
   }, []);
 
   // Menu desktop sempre nero per massima leggibilità su sfondi chiari/grigi.
@@ -120,7 +141,7 @@ export function Header() {
 
           <Link
             href="/carrello"
-            className="hidden md:inline-flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 p-2 text-mundo-black hover:bg-mundo-black/10 rounded-lg transition-colors"
+            className="hidden md:inline-flex items-center justify-center gap-1.5 absolute right-0 top-1/2 -translate-y-1/2 rounded-lg p-2 text-mundo-black transition-colors hover:bg-mundo-black/10"
             aria-label="Carrello"
           >
             <svg
@@ -131,12 +152,17 @@ export function Header() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="w-5 h-5"
+              className="h-5 w-5"
             >
               <circle cx="9" cy="21" r="1" />
               <circle cx="20" cy="21" r="1" />
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
             </svg>
+            {cartCount > 0 && (
+              <span className="inline-flex min-w-[21px] items-center justify-center rounded-full bg-mundo-black px-1.5 text-[11px] font-futura-500 leading-none text-mundo-white">
+                {cartCount}
+              </span>
+            )}
           </Link>
 
           <Link
@@ -154,7 +180,7 @@ export function Header() {
           <div className="md:hidden inline-flex items-center gap-1.5">
             <Link
               href="/carrello"
-              className="inline-flex items-center justify-center p-2 text-mundo-black hover:bg-mundo-black/10 rounded-lg transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 rounded-lg p-2 text-mundo-black transition-colors hover:bg-mundo-black/10"
               aria-label="Carrello"
             >
               <svg
@@ -165,12 +191,17 @@ export function Header() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="w-5 h-5"
+                className="h-5 w-5"
               >
                 <circle cx="9" cy="21" r="1" />
                 <circle cx="20" cy="21" r="1" />
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
               </svg>
+              {cartCount > 0 && (
+                <span className="inline-flex min-w-[18px] items-center justify-center rounded-full bg-mundo-black px-1.5 text-[10px] font-futura-500 leading-none text-mundo-white">
+                  {cartCount}
+                </span>
+              )}
             </Link>
 
             <button

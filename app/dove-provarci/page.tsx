@@ -36,6 +36,7 @@ const LOCATION_IMAGE_MAP: Record<string, string> = {
   Tipiko: "/images/Tipiko.webp",
   Tosti: "/images/Tosti.webp",
   Verdi: "/images/Verdi.webp",
+  "Vinyl Pub": "/images/vinyl.jpg",
   "Violet Hill Cafè": "/images/Violet Hill Café.webp",
 };
 
@@ -197,9 +198,8 @@ export default function DoveProvarciPage() {
       {/* CTA */}
       <section className="pt-8 sm:pt-10 lg:pt-12 pb-16 sm:pb-20 lg:pb-24 bg-mundo-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl text-center">
-          <p className="font-futura-400 text-mundo-black/90 text-[22px] leading-relaxed mb-6 max-w-xl mx-auto">
-            Vuoi proporre Mundo Gin nel tuo locale? Contattaci per
-            collaborazioni e distribuzione.
+          <p className="font-futura-400 text-mundo-black/90 text-[22px] leading-relaxed mb-6 max-w-xl lg:max-w-none lg:whitespace-nowrap mx-auto">
+            Vuoi proporre Mundo Gin nel tuo locale? Contattaci per collaborazioni e distribuzione.
           </p>
           <Link
             href="/contatti"

@@ -13,7 +13,7 @@ export function IlGinHero() {
           className="text-mundo-black font-futura-500 font-medium mb-6 uppercase"
           style={{ fontSize: "70px", lineHeight: "48px" }}
         >
-          About Mundo
+          Mundo
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}

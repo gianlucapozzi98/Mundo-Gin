@@ -18,13 +18,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mundo Gin | Premium Italian Gin",
+  title: "Mundo Gin | Italian Coffee Dry Gin",
   description:
-    "Scopri Mundo Gin - il gin che racconta il mondo. Premium Italian Gin.",
+    "Scopri Mundo Gin. Un gin contemporaneo, autentico, capace di distinguersi al palato e alla vista.",
   icons: {
-    icon: "/icon.png?v=3",
-    shortcut: "/icon.png?v=3",
-    apple: "/apple-icon.png?v=3",
+    icon: "/favicon.png?v=2",
+    shortcut: "/favicon.png?v=2",
+    apple: "/apple-icon.png?v=4",
   },
 };
 

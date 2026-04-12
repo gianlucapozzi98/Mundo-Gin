@@ -328,6 +328,18 @@ const LOCATIONS_RAW: Location[] = [
     mapUrl: "https://maps.app.goo.gl/cY1Rc7rWD2ve6DLa8",
     instagramUrl: "https://www.instagram.com/bv_rooftop/",
   },
+  {
+    id: "29",
+    name: "Vinyl Pub",
+    address: "Piazzale Carlo Archinto",
+    city: "Milano",
+    cap: "20159",
+    province: "MI",
+    lat: 45.487028,
+    lng: 9.184514,
+    mapUrl: "https://maps.app.goo.gl/NPfJ7vtSiJZAqKjb6",
+    instagramUrl: "https://www.instagram.com/vinylpubmilano/tagged/",
+  },
 ];
 
 export const LOCATIONS = [...LOCATIONS_RAW].sort((a, b) =>

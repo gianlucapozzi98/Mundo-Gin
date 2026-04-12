@@ -6,7 +6,7 @@ const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
 const menuLinks = [
   { href: "/", label: "Home" },
-  { href: "/il-gin", label: "About Mundo" },
+  { href: "/about", label: "About Mundo" },
   { href: "/dove-provarci", label: "Dove provarci" },
   { href: "/shop", label: "Shop" },
   { href: "/contatti", label: "Contatti" },

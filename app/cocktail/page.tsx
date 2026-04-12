@@ -30,7 +30,7 @@ export default function CocktailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-20">
             <div className="aspect-[4/5] max-w-[420px] w-full rounded-lg overflow-hidden mx-auto self-start">
               <img
-                src="/images/gin tonic.png"
+                src="/images/gin tonic.png?v=2"
                 alt="Mundo Tonic"
                 className="w-full h-full object-cover"
               />
@@ -76,7 +76,7 @@ export default function CocktailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <div className="aspect-[4/5] max-w-[420px] w-full rounded-lg overflow-hidden mx-auto self-start">
               <img
-                src="/images/espr m.jpeg"
+                src="/images/espr m.png?v=3"
                 alt="Espresso Mundo"
                 className="w-full h-full object-cover"
               />

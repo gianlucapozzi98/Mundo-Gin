@@ -4,9 +4,9 @@ import Link from "next/link";
 import { motion } from "motion/react";
 
 const COCKTAILS = [
-  { id: 9, name: "Mundo Tonic", image: "/images/gin tonic.png" },
+  { id: 9, name: "Mundo Tonic", image: "/images/gin tonic.png?v=2" },
   { id: 10, name: "Mundo Negroni", image: "/images/Negroni.jpeg" },
-  { id: 11, name: "Espresso Mundo", image: "/images/espr m.jpeg" },
+  { id: 11, name: "Espresso Mundo", image: "/images/espr m.png?v=3" },
 ];
 
 export function CocktailPreview() {

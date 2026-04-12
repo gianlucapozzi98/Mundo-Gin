@@ -3,14 +3,34 @@
 import { useState } from "react";
 
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
+    "idle"
+  );
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!privacyAccepted) return;
     setStatus("sending");
-    setTimeout(() => setStatus("done"), 800);
+    const formData = new FormData(e.currentTarget);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          message: formData.get("message"),
+        }),
+      });
+      if (!res.ok) throw new Error("Errore invio");
+      setStatus("done");
+      e.currentTarget.reset();
+      setPrivacyAccepted(false);
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -100,24 +120,38 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending" || !privacyAccepted}
-        className="w-full h-14 rounded bg-transparent group disabled:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-mundo-gold focus-visible:ring-offset-2"
-        aria-label={status === "done" ? "Messaggio inviato" : "Invia messaggio"}
+        className="group flex h-14 w-full items-center justify-center rounded border border-mundo-black/80 bg-transparent px-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-mundo-gold focus-visible:ring-offset-2 disabled:opacity-70"
+        aria-label={
+          status === "done"
+            ? "Messaggio inviato"
+            : status === "error"
+              ? "Errore invio"
+              : "Invia messaggio"
+        }
       >
-        {status === "done" ? (
-          <span className="font-futura-400 text-mundo-black">Inviato</span>
+        {status === "sending" ? (
+          <span className="font-futura-400 text-mundo-black/80">
+            Invio in corso...
+          </span>
+        ) : status === "done" ? (
+          <span className="font-futura-500 text-mundo-black">Messaggio inviato</span>
+        ) : status === "error" ? (
+          <span className="font-futura-400 text-red-600">
+            Si è verificato un errore. Riprova.
+          </span>
         ) : (
-          <span className="flex flex-row gap-4 transition-all duration-300 group-hover:gap-8 items-center justify-center">
+          <span className="flex flex-row items-center justify-center gap-4 transition-all duration-300 group-hover:gap-8">
             <span className="transition-all duration-500 ease-in group-hover:rotate-[700deg]">
               <img
                 src="/images/aereo%20invia.png"
                 alt=""
                 width={100}
                 height={100}
-                className="w-8 h-8 object-contain"
+                className="h-8 w-8 object-contain"
                 loading="lazy"
               />
             </span>
-            <span className="underline font-futura-500 font-medium text-mundo-black text-base sm:text-lg">
+            <span className="font-futura-500 text-base text-mundo-black sm:text-lg">
               Invia messaggio
             </span>
           </span>
