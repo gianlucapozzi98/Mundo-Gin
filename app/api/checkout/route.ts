@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { STRIPE_CATALOG } from "@/lib/stripe-catalog";
+import {
+  FREE_SHIPPING_THRESHOLD_CENTS,
+  STRIPE_CATALOG,
+} from "@/lib/stripe-catalog";
 
 function siteOrigin(): string {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim();
@@ -34,6 +37,8 @@ export async function POST(req: NextRequest) {
   }
 
   const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+  const origin = siteOrigin();
+  let subtotalCents = 0;
 
   for (const raw of rawItems) {
     if (!raw || typeof raw !== "object") continue;
@@ -47,13 +52,10 @@ export async function POST(req: NextRequest) {
       );
     }
     const quantity = Math.min(99, Math.max(1, Math.floor(qty)));
+    subtotalCents += entry.unitAmountCents * quantity;
     lineItems.push({
       quantity,
-      price_data: {
-        currency: "eur",
-        unit_amount: entry.unitAmountCents,
-        product_data: { name: entry.name },
-      },
+      price: entry.stripePriceId,
     });
   }
 
@@ -61,14 +63,70 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Nessuna riga valida." }, { status: 400 });
   }
 
+  const shippingEnv = process.env.STRIPE_SHIPPING_FIXED_AMOUNT_CENTS?.trim();
+  const shippingParsed = shippingEnv
+    ? Number.parseInt(shippingEnv, 10)
+    : 700;
+  const paidShippingCents =
+    Number.isFinite(shippingParsed) && shippingParsed >= 0
+      ? shippingParsed
+      : 700;
+
+  const shippingOptions: Stripe.Checkout.SessionCreateParams.ShippingOption[] =
+    subtotalCents >= FREE_SHIPPING_THRESHOLD_CENTS
+      ? [
+          {
+            shipping_rate_data: {
+              type: "fixed_amount",
+              display_name: "Spedizione gratuita (da €50)",
+              fixed_amount: { amount: 0, currency: "eur" },
+            },
+          },
+        ]
+      : [
+          {
+            shipping_rate_data: {
+              type: "fixed_amount",
+              display_name:
+                "Spedizione standard (1-3 giorni lavorativi)\nGratuita sopra i 50,00 €",
+              fixed_amount: { amount: paidShippingCents, currency: "eur" },
+            },
+          },
+        ];
+
   const stripe = new Stripe(secret);
-  const base = siteOrigin();
+  const base = origin;
 
   try {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       locale: "it",
       line_items: lineItems,
+      shipping_options: shippingOptions,
+      billing_address_collection: "required",
+      shipping_address_collection: {
+        allowed_countries: ["IT"],
+      },
+      custom_fields: [
+        {
+          key: "codice_fiscale",
+          label: {
+            type: "custom",
+            custom: "Codice fiscale",
+          },
+          type: "text",
+          optional: false,
+          text: {
+            maximum_length: 16,
+          },
+        },
+      ],
+      custom_text: {
+        shipping_address: {
+          message:
+            "Inserisci i dati della persona che ricevera il pacco. Il corriere puo richiedere un documento valido per la consegna.",
+        },
+      },
       success_url: `${base}/ordine-ricevuto?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${base}/carrello`,
     });
@@ -83,6 +141,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ url: session.url });
   } catch (e) {
     console.error("Stripe checkout:", e);
+    if (e instanceof Stripe.errors.StripeError) {
+      if (e.code === "resource_missing") {
+        return NextResponse.json(
+          {
+            error:
+              "Prezzi Stripe non trovati: verifica che chiave e Price ID siano nello stesso ambiente (test o live).",
+          },
+          { status: 500 }
+        );
+      }
+    }
     return NextResponse.json(
       { error: "Errore durante la creazione del pagamento. Riprova." },
       { status: 500 }

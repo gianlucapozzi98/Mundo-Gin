@@ -77,13 +77,16 @@ export default function DoveProvarciPage() {
               dove trovarci.
             </p>
           ) : (
-            <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-[35px] gap-y-6">
+            <ul className="flex flex-wrap justify-center gap-x-[35px] gap-y-6">
               {LOCATIONS.map((loc) => (
-                <li key={loc.id} className="py-4">
+                <li
+                  key={loc.id}
+                  className="flex w-[calc((100%-35px)/2)] shrink-0 justify-center py-4 md:w-[calc((100%-70px)/3)]"
+                >
                   {(() => {
                     const imageSrc = LOCATION_IMAGE_MAP[loc.name];
                     return (
-                      <>
+                      <div className="w-full max-w-[360px]">
                   {/* Mobile */}
                   <div className="sm:hidden">
                     <div className="w-full aspect-[4/3] rounded-lg overflow-hidden mb-3 bg-mundo-black/10">
@@ -136,8 +139,8 @@ export default function DoveProvarciPage() {
 
                   {/* Desktop */}
                   <div className="hidden sm:flex sm:flex-row sm:items-start gap-3">
-                    <div>
-                      <div className="w-full max-w-[360px] aspect-[16/10] rounded-lg overflow-hidden mb-3 bg-mundo-black/10">
+                    <div className="w-full">
+                      <div className="w-full aspect-[16/10] rounded-lg overflow-hidden mb-3 bg-mundo-black/10">
                         {imageSrc ? (
                           <img
                             src={imageSrc}
@@ -189,7 +192,7 @@ export default function DoveProvarciPage() {
                       </div>
                     </div>
                   </div>
-                      </>
+                      </div>
                     );
                   })()}
                 </li>

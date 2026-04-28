@@ -125,7 +125,12 @@ export function CarrelloView() {
                 </p>
               ) : null}
               <div className="mt-2 flex flex-wrap items-center gap-3 text-mundo-black/80">
-                <span className="font-futura-400">Quantità:</span>
+                <span className="font-futura-400">
+                  Qtà{" "}
+                  <span className="font-futura-500 tabular-nums">
+                    {line.qty}
+                  </span>
+                </span>
                 <div className="inline-flex items-center rounded-full border border-mundo-black/30 bg-white px-2 py-1">
                   <button
                     type="button"
@@ -136,9 +141,6 @@ export function CarrelloView() {
                   >
                     -
                   </button>
-                  <span className="mx-2 min-w-[1.5rem] text-center font-futura-500">
-                    {line.qty}
-                  </span>
                   <button
                     type="button"
                     className="px-1 text-lg leading-none text-mundo-black"
@@ -170,10 +172,15 @@ export function CarrelloView() {
       </ul>
       <div className="space-y-3 border-y border-mundo-black/15 py-4">
         <div className="flex min-h-[80px] flex-col items-start justify-center gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-          <p className="font-futura-500 text-xl text-mundo-black">
-            <span className="font-futura-500 font-bold">Totale:</span>{" "}
-            {formatEur(total)}
-          </p>
+          <div>
+            <p className="font-futura-500 text-xl text-mundo-black">
+              <span className="font-futura-500 font-bold">Totale:</span>{" "}
+              {formatEur(total)}
+            </p>
+            <p className="mt-1 font-futura-400 text-sm text-mundo-black/60">
+              Spedizione calcolata al checkout
+            </p>
+          </div>
           <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end">
             <Link
               href="/shop"
@@ -251,7 +258,7 @@ export function CarrelloView() {
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-futura-500 text-sm uppercase text-mundo-black">
-                Acqua Brillante Recoaro x6
+                Acqua Brillante Recoaro (Conf. 6 pz)
               </p>
               <p className="mt-1 font-futura-400 text-sm text-mundo-black/70">
                 Una tonica italiana dal gusto fresco, unico ed inimitabile
@@ -266,7 +273,7 @@ export function CarrelloView() {
                   onClick={() =>
                     addToCart({
                       productId: "recoaro-x6",
-                      name: "Acqua Brillante Recoaro x6",
+                      name: "Acqua Brillante Recoaro (Conf. 6 pz)",
                       subtitle:
                         "Una tonica italiana dal gusto fresco, unico ed inimitabile",
                       priceEur: 4.5,
