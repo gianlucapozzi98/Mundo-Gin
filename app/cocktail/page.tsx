@@ -44,7 +44,7 @@ export default function CocktailPage() {
               </p>
               <ul className="list-disc space-y-2 pl-6 font-futura-400 text-[22px] leading-relaxed text-mundo-black/80">
                 <li>Mundo Gin - 50 ml</li>
-                <li>Acqua tonica secca - 100 ml</li>
+                <li>Acqua tonica secca - 150 ml</li>
               </ul>
             </div>
           </div>
