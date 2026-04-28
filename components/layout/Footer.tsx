@@ -13,8 +13,11 @@ const menuLinks = [
 ];
 
 const legalLinks = [
-  { href: "/privacy-policy", label: "Privacy Policy" },
-  { href: "/cookie-policy", label: "Cookie Policy" },
+  { href: "https://www.iubenda.com/privacy-policy/58280897", label: "Privacy Policy" },
+  {
+    href: "https://www.iubenda.com/privacy-policy/58280897/cookie-policy",
+    label: "Cookie Policy",
+  },
   { href: "/termini-e-condizioni", label: "Termini e condizioni" },
   { href: "/sostenibilita", label: "Sostenibilità" },
 ];
@@ -90,13 +93,24 @@ export function Footer() {
             <ul className="space-y-2 font-futura-500 font-medium text-sm">
               {legalLinks.map(({ href, label }) => (
                 <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-mundo-white hover:text-mundo-gold transition-colors"
-                    onClick={scrollToTop}
-                  >
-                    {label}
-                  </Link>
+                  {href.startsWith("http") ? (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-mundo-white hover:text-mundo-gold transition-colors"
+                    >
+                      {label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={href}
+                      className="text-mundo-white hover:text-mundo-gold transition-colors"
+                      onClick={scrollToTop}
+                    >
+                      {label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
