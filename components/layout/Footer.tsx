@@ -31,7 +31,7 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="relative z-10 bg-mundo-black/50 backdrop-blur-md text-mundo-white pt-[30px] pb-[15px] overflow-hidden">
-      <div className="container relative z-10 mx-auto max-w-7xl translate-x-[70px] px-4 sm:px-6 lg:px-8">
+      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:translate-x-[70px] lg:px-8">
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo + indirizzo */}
           <div className="col-span-2 sm:col-span-1">
@@ -142,7 +142,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 border-t border-mundo-white/10 pb-[4px] pt-4 text-center -translate-x-[70px]">
+        <div className="mt-6 border-t border-mundo-white/10 pb-[4px] pt-4 text-center lg:-translate-x-[70px]">
           <p className="font-futura-400 text-sm text-mundo-white/50">
             © Mundo Gin. All rights reserved.
           </p>
