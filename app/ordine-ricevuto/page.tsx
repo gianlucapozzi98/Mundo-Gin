@@ -6,11 +6,7 @@ export const metadata: Metadata = {
   description: "Grazie per il tuo ordine su Mundo Gin.",
 };
 
-type Props = { searchParams: Promise<{ session_id?: string }> };
-
-export default async function OrdineRicevutoPage({ searchParams }: Props) {
-  const { session_id: sessionId } = await searchParams;
-
+export default function OrdineRicevutoPage() {
   return (
     <div className="min-h-[50vh] bg-[#F2F2F2] pt-24 pb-16 sm:pt-28">
       <div className="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
@@ -18,14 +14,9 @@ export default async function OrdineRicevutoPage({ searchParams }: Props) {
           Ordine ricevuto
         </h1>
         <p className="mt-6 font-futura-400 text-[22px] leading-relaxed text-mundo-black/80">
-          Grazie per il tuo acquisto. Riceverai un&apos;email di conferma da
-          Stripe con i dettagli del pagamento.
+          Grazie per far parte di Mundo. ✈️ Riceverai un&apos;email di conferma con i
+          dettagli del pagamento.
         </p>
-        {sessionId ? (
-          <p className="mt-4 font-futura-400 text-sm text-mundo-black/50">
-            Riferimento sessione: {sessionId}
-          </p>
-        ) : null}
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Link
             href="/shop"
