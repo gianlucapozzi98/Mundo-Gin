@@ -7,7 +7,7 @@ export type StripeCatalogEntry = {
 
 export const STRIPE_CATALOG: Record<string, StripeCatalogEntry> = {
   "mundo-gin": {
-    stripePriceId: "price_1TQw5mFVc589tw39F4Y79lGZ",
+    stripePriceId: "price_1Q8IXoFVc589tw39TSZLFojV",
     unitAmountCents: 4500,
   },
   "gift-pack": {
@@ -15,7 +15,7 @@ export const STRIPE_CATALOG: Record<string, StripeCatalogEntry> = {
     unitAmountCents: 400,
   },
   "recoaro-x6": {
-    stripePriceId: "price_1TQwBkFVc589tw39ndPd8gj1",
+    stripePriceId: "price_1TQvsZFVc589tw39IjxHw7JN",
     unitAmountCents: 450,
   },
 };
