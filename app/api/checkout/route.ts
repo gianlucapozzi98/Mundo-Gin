@@ -102,6 +102,7 @@ export async function POST(req: NextRequest) {
       mode: "payment",
       locale: "it",
       line_items: lineItems,
+      allow_promotion_codes: true,
       shipping_options: shippingOptions,
       billing_address_collection: "required",
       shipping_address_collection: {
