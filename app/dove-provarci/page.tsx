@@ -25,19 +25,19 @@ const LOCATION_IMAGE_MAP: Record<string, string> = {
   "Let It Be": "/images/Let It Be.webp",
   "Madame del Borgo": "/images/MA.DA.ME..webp",
   "Mary's Pub": "/images/Mary's Pub.webp",
-  "Moon Cafè": "/images/Moon Cafè.webp",
+  "Moon Cafè": "/images/Moon-Cafe.webp",
   Origin: "/images/Origin.webp",
   "Prosciutteria Jesolo": "/images/Prosciutteria.webp",
   Pulp: "/images/pulp.webp",
   "Fiaschetteria Quanto Basta": "/images/Quanto Basta.webp",
-  "The First Caffè": "/images/The First Caffè.webp",
+  "The First Caffè": "/images/The-First-Caffe.webp",
   "The Manhattan": "/images/The Manhattan.webp",
   "This Agio Cocktail Bar": "/images/This Agio.webp",
   Tipiko: "/images/Tipiko.webp",
   Tosti: "/images/Tosti.webp",
   Verdi: "/images/Verdi.webp",
   "Vinyl Pub": "/images/vinyl.jpg",
-  "Violet Hill Cafè": "/images/Violet Hill Café.webp",
+  "Violet Hill Cafè": "/images/Violet-Hill-Cafe.webp",
 };
 
 export default function DoveProvarciPage() {
