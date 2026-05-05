@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
       line_items: lineItems,
       allow_promotion_codes: true,
       shipping_options: shippingOptions,
-      billing_address_collection: "required",
+      billing_address_collection: "auto",
       shipping_address_collection: {
         allowed_countries: ["IT"],
       },
