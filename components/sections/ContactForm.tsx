@@ -12,7 +12,8 @@ export function ContactForm() {
     e.preventDefault();
     if (!privacyAccepted) return;
     setStatus("sending");
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -26,7 +27,7 @@ export function ContactForm() {
       });
       if (!res.ok) throw new Error("Errore invio");
       setStatus("done");
-      e.currentTarget.reset();
+      form.reset();
       setPrivacyAccepted(false);
     } catch {
       setStatus("error");
