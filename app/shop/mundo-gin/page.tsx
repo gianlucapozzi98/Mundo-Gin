@@ -28,10 +28,10 @@ const PRODUCT_SPECS: { label: string; value: string }[] = [
 const FOOTER_GALLERY_MAIN = "/images/mundo-still8.png";
 /** Riquadro che era la 7: ciclo 6 → 7 → 8 → 9 ogni secondo */
 const FOOTER_ROTATING_IMAGES = [
-  "/images/6.png?v=3",
-  "/images/7.png?v=3",
-  "/images/8.png?v=3",
-  "/images/9.png?v=3",
+  "/images/6.png?v=4",
+  "/images/7.png?v=4",
+  "/images/8.png?v=4",
+  "/images/9.png?v=4",
 ] as const;
 
 function RotatingFooterCell({ images }: { images: readonly string[] }) {
@@ -345,7 +345,7 @@ export default function MundoGinProductPage() {
                 <div className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6">
                   <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
                     <img
-                      src="/images/3.png"
+                      src="/images/3.png?v=2"
                       alt=""
                       className="h-full w-full object-cover"
                     />
@@ -355,14 +355,14 @@ export default function MundoGinProductPage() {
                 <div className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6">
                   <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
                     <img
-                      src="/images/10.png"
+                      src="/images/10.png?v=2"
                       alt=""
                       className="h-full w-full object-cover"
                     />
                   </div>
                   <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
                     <img
-                      src="/images/11.png"
+                      src="/images/11.png?v=2"
                       alt=""
                       className="h-full w-full object-cover"
                     />
