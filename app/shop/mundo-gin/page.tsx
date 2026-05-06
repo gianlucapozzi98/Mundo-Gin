@@ -25,13 +25,13 @@ const PRODUCT_SPECS: { label: string; value: string }[] = [
   { label: "Formato", value: "70cl" },
 ];
 
-const FOOTER_GALLERY_MAIN = "/images/mundo-still8.png";
+const FOOTER_GALLERY_MAIN = "/images/mundo-gin-italian-caffe-gin.png";
 /** Riquadro che era la 7: ciclo 6 → 7 → 8 → 9 ogni secondo */
 const FOOTER_ROTATING_IMAGES = [
-  "/images/6.png?v=4",
-  "/images/7.png?v=4",
-  "/images/8.png?v=4",
-  "/images/9.png?v=4",
+  "/images/mundo-gin-serving-01.png",
+  "/images/mundo-gin-serving-02.png",
+  "/images/mundo-gin-serving-03.png",
+  "/images/mundo-gin-serving-04.png",
 ] as const;
 
 function RotatingFooterCell({ images }: { images: readonly string[] }) {
@@ -345,7 +345,7 @@ export default function MundoGinProductPage() {
                 <div className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6">
                   <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
                     <img
-                      src="/images/3.png?v=2"
+                      src="/images/mundo-gin-bottle-closeup.png"
                       alt=""
                       className="h-full w-full object-cover"
                     />
@@ -355,14 +355,14 @@ export default function MundoGinProductPage() {
                 <div className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6">
                   <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
                     <img
-                      src="/images/10.png?v=2"
+                      src="/images/mundo-gin-product-shot-01.png"
                       alt=""
                       className="h-full w-full object-cover"
                     />
                   </div>
                   <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
                     <img
-                      src="/images/11.png?v=2"
+                      src="/images/mundo-gin-product-shot-02.png"
                       alt=""
                       className="h-full w-full object-cover"
                     />

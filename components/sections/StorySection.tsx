@@ -16,7 +16,7 @@ export function StorySection() {
           >
             <div className="bg-mundo-black aspect-square rounded-lg overflow-hidden min-h-[280px] border border-mundo-white/10">
               <img
-                src="/images/mundo-still4.png"
+                src="/images/mundo-gin-italian-coffee-dry-gin.png"
                 alt="Mundo Gin"
                 className="w-full h-full object-cover"
               />

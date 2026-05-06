@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 };
 
 const COCK_GALLERY = [
-  "/images/cock1.png",
-  "/images/cock2.jpg",
-  "/images/cock3.png",
+  "/images/cocktail-evento-mundo-gin.png",
+  "/images/negroni-cocktail-evento-mundo-gin.jpg",
+  "/images/cocktail-negroni-evento-mundo-gin.png",
   "/images/cock4.jpg",
   "/images/cock5.jpeg",
   "/images/cock6.jpg",
