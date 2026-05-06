@@ -220,7 +220,7 @@ export default function DoveProvarciPage() {
       {/* Separatore prima del footer */}
       <section className="w-full">
         <img
-          src="/images/bott bar.JPG"
+          src="/images/bottiglie-mundo-gin-al-caffe.JPG"
           alt=""
           aria-hidden
           className="w-[124vw] max-w-none -ml-[12vw] sm:w-full sm:max-w-full sm:ml-0 h-auto object-cover object-[center_42%] max-h-[560px]"
