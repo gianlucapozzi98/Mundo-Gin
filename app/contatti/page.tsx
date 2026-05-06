@@ -13,7 +13,7 @@ export default function ContattiPage() {
       {/* Hero: immagine a tutta pagina con titolo e sottotitolo in basso a sinistra */}
       <section className="relative h-screen min-h-[480px] w-full">
         <img
-          src="/images/biglietti.png"
+          src="/images/mundo-gin-contatti.png"
           alt=""
           aria-hidden
           className="absolute inset-0 w-full h-full object-cover object-center"
