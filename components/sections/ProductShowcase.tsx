@@ -48,7 +48,7 @@ export function ProductShowcase() {
           {/* Bottiglia sinistra — +20% ulteriore (totale 1.44x), margine per non sovrapporre il testo */}
           <div className="hidden sm:flex flex-1 justify-end items-end h-[400px] max-w-[280px] lg:max-w-[360px] overflow-visible">
             <img
-              src="/images/Bottiglia sinistra.png"
+              src="/images/bottiglia-mundo-gin-sx.png"
               alt="Mundo Gin bottiglia"
               className="w-full h-full object-contain object-bottom min-h-0 scale-[1.44]"
               style={{ transformOrigin: "bottom center" }}
@@ -57,13 +57,13 @@ export function ProductShowcase() {
           {/* Bottiglia centrale */}
           <div className="flex-shrink-0 h-[400px] w-[280px] sm:w-[360px] lg:w-[420px] flex items-end justify-center overflow-visible">
             <motion.img
-              src="/images/Bottiglia centrale.png"
+              src="/images/bottiglia-mundo-gin-front.png"
               alt="Mundo Gin bottiglia"
               className="w-full h-full object-contain object-bottom min-h-0 sm:hidden"
               style={{ scale: mobileBottleScale, transformOrigin: "bottom center" }}
             />
             <img
-              src="/images/Bottiglia centrale.png"
+              src="/images/bottiglia-mundo-gin-front.png"
               alt="Mundo Gin bottiglia"
               className="hidden sm:block w-full h-full object-contain object-bottom min-h-0 scale-[1.44]"
               style={{ transformOrigin: "bottom center" }}
@@ -72,7 +72,7 @@ export function ProductShowcase() {
           {/* Bottiglia destra */}
           <div className="hidden sm:flex flex-1 justify-start items-end h-[400px] max-w-[280px] lg:max-w-[360px] overflow-visible">
             <img
-              src="/images/Bottiglia destra.png"
+              src="/images/bottiglia-mundo-gin-dx.png"
               alt="Mundo Gin bottiglia"
               className="w-full h-full object-contain object-bottom min-h-0 scale-[1.44]"
               style={{ transformOrigin: "bottom center" }}

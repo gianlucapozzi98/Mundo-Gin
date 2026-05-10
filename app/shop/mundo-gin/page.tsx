@@ -13,8 +13,8 @@ import {
 } from "@/lib/mundo-gin-product";
 
 const PRODUCT_IMAGES = [
-  "/images/bottiglia.png",
-  "/images/bottiglia+pack.png",
+  "/images/bottiglia-mundo-gin-al-caffe.png",
+  "/images/bottiglia-mundo-gin-%20caffe-pack.png",
 ];
 
 const PRODUCT_SPECS: { label: string; value: string }[] = [

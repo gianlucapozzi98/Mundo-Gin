@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const BOTANICHE = [
-  { id: 1, name: "Ginepro", image: "/images/Ginepro.png" },
+  { id: 1, name: "Ginepro", image: "/images/mundo-gin-ginepro.png" },
   { id: 2, name: "Coriandolo", image: "/images/Coriandolo.png" },
   { id: 3, name: "Cardamomo", image: "/images/Cardamomo.png" },
   { id: 4, name: "Scorza d'arancia", image: "/images/Scorza d'arancia.png" },

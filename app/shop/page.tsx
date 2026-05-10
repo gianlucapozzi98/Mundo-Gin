@@ -19,12 +19,12 @@ export default function ShopPage() {
             <article>
               <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
                 <img
-                  src="/images/bottiglia.png"
+                  src="/images/bottiglia-mundo-gin-al-caffe.png"
                   alt="Mundo Gin bottiglia"
                   className="absolute inset-0 h-full w-full object-cover opacity-100 transition-opacity duration-500 group-hover:opacity-0"
                 />
                 <img
-                  src="/images/bottiglia+pack.png"
+                  src="/images/bottiglia-mundo-gin-%20caffe-pack.png"
                   alt="Mundo Gin bottiglia con pack"
                   className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                 />
