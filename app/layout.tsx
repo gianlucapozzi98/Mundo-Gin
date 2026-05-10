@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { AgeGate } from "@/components/layout/AgeGate";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { GSAPProvider } from "@/components/providers/GSAPProvider";
@@ -41,6 +42,7 @@ export default function RootLayout({
       >
         <SmoothScroll>
           <GSAPProvider>
+            <AgeGate />
             <ScrollToTop />
             <Header />
             {children}

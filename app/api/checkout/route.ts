@@ -108,20 +108,6 @@ export async function POST(req: NextRequest) {
       shipping_address_collection: {
         allowed_countries: ["IT"],
       },
-      custom_fields: [
-        {
-          key: "codice_fiscale",
-          label: {
-            type: "custom",
-            custom: "Codice fiscale",
-          },
-          type: "text",
-          optional: false,
-          text: {
-            maximum_length: 16,
-          },
-        },
-      ],
       custom_text: {
         shipping_address: {
           message:
