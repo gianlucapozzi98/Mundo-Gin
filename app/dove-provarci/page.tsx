@@ -15,7 +15,7 @@ const LOCATION_IMAGE_MAP: Record<string, string> = {
   "Altrimenti Mixology Art": "/images/Altrimenti Mixology Art.webp",
   Anvil: "/images/Anvil.webp",
   Botero: "/images/Botero.webp",
-  "BV Rooftop": "/images/bv.jpg?v=2",
+  "BV Rooftop": "/images/BV Rooftop.jpg",
   "Chiosco Mercedes": "/images/Chiosco Mercedes.webp",
   Dabass: "/images/Dabass.webp",
   "Dall'Antiquario": "/images/anticq.jpg",

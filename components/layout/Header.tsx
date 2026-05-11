@@ -110,7 +110,7 @@ export function Header() {
 
             <Link href="/" className="inline-flex items-center justify-center" aria-label="Mundo Gin Home">
               <img
-                src="/images/Logo 6 n.png"
+                src="/images/Logo 5 n.png"
                 alt="Mundo Gin"
                 className={`${isScrolled ? "h-8 lg:h-9" : "h-10 lg:h-11"} w-auto object-contain transition-all duration-300`}
               />
@@ -171,7 +171,7 @@ export function Header() {
             aria-label="Mundo Gin Home"
           >
             <img
-              src="/images/Logo 6 n.png"
+              src="/images/Logo 5 n.png"
               alt="Mundo Gin"
               className="h-8 w-auto object-contain"
             />
