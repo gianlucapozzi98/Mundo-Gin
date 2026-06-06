@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { Suspense } from "react";
+import { PurchaseTracker } from "./PurchaseTracker";
 
 export const metadata: Metadata = {
   title: "Ordine ricevuto | Mundo Gin",
@@ -9,6 +11,9 @@ export const metadata: Metadata = {
 export default function OrdineRicevutoPage() {
   return (
     <div className="min-h-[50vh] bg-[#F2F2F2] pt-24 pb-16 sm:pt-28">
+      <Suspense fallback={null}>
+        <PurchaseTracker />
+      </Suspense>
       <div className="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
         <h1 className="font-futura-500 text-3xl font-medium uppercase tracking-wide text-mundo-black sm:text-4xl">
           Ordine ricevuto

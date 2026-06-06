@@ -1,0 +1,52 @@
+type MetaPixelParams = Record<string, string | number | boolean | object>;
+
+declare global {
+  interface Window {
+    fbq?: (
+      command: "track" | "trackCustom" | "init",
+      eventOrId: string,
+      params?: MetaPixelParams,
+    ) => void;
+  }
+}
+
+function track(event: string, params?: MetaPixelParams) {
+  if (typeof window === "undefined" || typeof window.fbq !== "function") return;
+  window.fbq("track", event, params);
+}
+
+export function trackAddToCart(line: {
+  productId: string;
+  name: string;
+  priceEur: number;
+  qty: number;
+}) {
+  track("AddToCart", {
+    content_ids: [line.productId],
+    content_name: line.name,
+    content_type: "product",
+    contents: [{ id: line.productId, quantity: line.qty }],
+    currency: "EUR",
+    value: line.priceEur * line.qty,
+    num_items: line.qty,
+  });
+}
+
+export type PurchasePayload = {
+  value: number;
+  currency: string;
+  content_ids: string[];
+  contents: { id: string; quantity: number }[];
+  num_items: number;
+};
+
+export function trackPurchase(payload: PurchasePayload) {
+  track("Purchase", {
+    value: payload.value,
+    currency: payload.currency,
+    content_ids: payload.content_ids,
+    content_type: "product",
+    contents: payload.contents,
+    num_items: payload.num_items,
+  });
+}

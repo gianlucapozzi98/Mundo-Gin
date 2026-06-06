@@ -1,3 +1,5 @@
+import { trackAddToCart } from "@/lib/meta-pixel";
+
 export const CART_STORAGE_KEY = "mundo-cart";
 
 export type CartLine = {
@@ -49,6 +51,7 @@ export function addToCart(
     cart.push({ ...line, qty: line.qty });
   }
   setCart(cart);
+  trackAddToCart(line);
 }
 
 export function removeFromCart(productId: string): void {
