@@ -10,6 +10,7 @@ import {
   addToCart,
   type CartLine,
 } from "@/lib/cart";
+import { trackViewCart } from "@/lib/meta-pixel";
 
 export function CarrelloView() {
   const [lines, setLines] = useState<CartLine[]>([]);
@@ -19,6 +20,7 @@ export function CarrelloView() {
   useEffect(() => {
     const sync = () => setLines(getCart());
     sync();
+    trackViewCart(getCart());
     window.addEventListener("mundo-cart-updated", sync);
     window.addEventListener("storage", sync);
     return () => {
