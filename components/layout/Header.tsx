@@ -25,6 +25,18 @@ const MOBILE_NAV_LINKS = [
 
 const SCROLL_THRESHOLD = 20;
 
+const LIQUID_GLASS_NAV =
+  "border border-white/55 bg-gradient-to-b from-white/55 via-white/35 to-white/25 backdrop-blur-[28px] backdrop-saturate-[1.85] shadow-[0_14px_44px_-10px_rgba(0,0,0,0.18),inset_0_1px_1px_rgba(255,255,255,0.85),inset_0_-1px_0_rgba(255,255,255,0.3)] ring-1 ring-inset ring-white/25";
+
+const LIQUID_GLASS_NAV_MOBILE =
+  "max-md:border max-md:border-white/50 max-md:bg-gradient-to-b max-md:from-white/45 max-md:via-white/30 max-md:to-white/20 max-md:backdrop-blur-[24px] max-md:backdrop-saturate-[1.75] max-md:shadow-[0_10px_36px_-12px_rgba(0,0,0,0.14),inset_0_1px_0_rgba(255,255,255,0.75)] max-md:ring-1 max-md:ring-inset max-md:ring-white/20";
+
+const LIQUID_GLASS_BTN =
+  "rounded-full border border-white/50 bg-white/30 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] transition-all duration-300 hover:border-white/70 hover:bg-white/45 hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.9)]";
+
+const LIQUID_GLASS_MENU_OPEN =
+  "max-md:from-white/55 max-md:via-white/40 max-md:to-white/30 max-md:backdrop-blur-[30px] max-md:backdrop-saturate-[1.9]";
+
 export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -59,10 +71,7 @@ export function Header() {
     };
   }, []);
 
-  // Menu desktop sempre nero per massima leggibilità su sfondi chiari/grigi.
-  const isBlackTextAtTop = true;
   const linkClass = "text-mundo-black";
-  const textColorClass = "text-mundo-black";
   const menuHoverColorClass = "text-mundo-black";
 
   return (
@@ -70,15 +79,11 @@ export function Header() {
       className="fixed top-0 left-0 right-0 z-[1001] transition-all duration-300"
     >
       <nav
-        className={`mx-auto px-4 sm:px-6 lg:px-8 py-4 transition-all duration-300 ${
+        className={`mx-auto px-4 sm:px-6 lg:px-8 py-4 transition-all duration-500 ease-out ${
           isScrolled
-            ? "max-w-[56rem] w-[calc(100%-24px)] sm:w-auto mx-3 sm:mx-auto mt-2 md:mt-3 py-[7px] rounded-2xl bg-white/55 backdrop-blur-xl border border-white/50 shadow-[0_10px_30px_rgba(0,0,0,0.18)]"
-            : "max-w-7xl bg-transparent"
-        } ${
-          mobileMenuOpen
-            ? "bg-white/65 backdrop-blur-xl md:bg-white/55 md:backdrop-blur-xl"
-            : ""
-        }`}
+            ? `max-w-[56rem] mx-3 mt-2 w-[calc(100%-24px)] rounded-[1.35rem] py-[7px] sm:mx-auto sm:w-auto md:mt-3 ${LIQUID_GLASS_NAV}`
+            : `max-w-7xl bg-transparent ${LIQUID_GLASS_NAV_MOBILE} max-md:mx-3 max-md:mt-2 max-md:w-[calc(100%-24px)] max-md:rounded-[1.35rem] max-md:py-3`
+        } ${mobileMenuOpen ? LIQUID_GLASS_MENU_OPEN : ""}`}
       >
         <div className="relative flex items-center justify-between">
           <div
@@ -141,7 +146,7 @@ export function Header() {
 
           <Link
             href="/carrello"
-            className="hidden md:inline-flex items-center justify-center gap-1.5 absolute right-0 top-1/2 -translate-y-1/2 rounded-lg p-2 text-mundo-black transition-colors hover:bg-mundo-black/10"
+            className="absolute right-0 top-1/2 hidden -translate-y-1/2 items-center justify-center gap-1.5 rounded-lg p-2 text-mundo-black transition-colors hover:bg-mundo-black/10 md:inline-flex"
             aria-label="Carrello"
           >
             <svg
@@ -208,13 +213,7 @@ export function Header() {
               type="button"
               aria-label="Menu"
               aria-expanded={mobileMenuOpen}
-              className={`p-2 shrink-0 rounded-lg transition-colors ${
-                mobileMenuOpen
-                  ? "text-mundo-black hover:bg-mundo-black/10"
-                  : isBlackTextAtTop
-                    ? "text-mundo-black hover:bg-mundo-black/10"
-                    : "text-[#F2F2F2] hover:bg-mundo-white/10"
-              }`}
+              className={`shrink-0 p-2.5 text-mundo-black ${LIQUID_GLASS_BTN}`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -259,17 +258,17 @@ export function Header() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25 }}
-              className="md:hidden overflow-hidden"
+              className="md:hidden overflow-hidden border-t border-white/35"
             >
               <ul
-                className={`py-4 space-y-2 font-futura-500 font-medium text-base text-mundo-black`}
+                className="space-y-1 py-4 font-futura-500 text-base font-medium text-mundo-black"
                 style={{ fontFamily: "var(--font-futura), sans-serif" }}
               >
                 {MOBILE_NAV_LINKS.map(({ href, label }) => (
                   <li key={href}>
                     <Link
                       href={href}
-                      className="inline-block group py-2 px-4 rounded-lg"
+                      className="group inline-block rounded-xl border border-transparent px-4 py-2 transition-all duration-300 hover:border-white/45 hover:bg-white/35 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <div className="relative overflow-hidden">
