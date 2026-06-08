@@ -92,9 +92,9 @@ export function MundoClubEvents() {
                   <TextStaggerHover
                     index={index}
                     text={event.title}
-                    className="cursor-pointer font-futura-500 text-3xl font-bold uppercase tracking-tighter text-mundo-black sm:text-4xl lg:text-5xl"
+                    className="cursor-pointer font-futura-500 text-3xl font-bold uppercase leading-[0.8] tracking-tighter text-mundo-black sm:text-4xl sm:leading-[0.85] lg:text-5xl lg:leading-[0.9]"
                   />
-                  <p className="mt-2 font-futura-400 text-sm text-mundo-black/60 sm:text-base">
+                  <p className="mt-1 font-futura-400 text-sm text-mundo-black/60 sm:text-base">
                     {event.date} · {event.location}
                   </p>
                 </div>
