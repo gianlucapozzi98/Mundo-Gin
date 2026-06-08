@@ -18,14 +18,8 @@ interface HoverSliderContextValue {
   changeSlide: (index: number) => void;
 }
 
-function splitText(text: string) {
-  const words = text.split(" ").map((word) => word.concat(" "));
-  const characters = words.map((word) => word.split("")).flat(1);
-
-  return {
-    words,
-    characters,
-  };
+function splitWords(text: string) {
+  return text.split(" ").filter(Boolean);
 }
 
 const HoverSliderContext = React.createContext<
@@ -61,21 +55,58 @@ export const HoverSlider = React.forwardRef<
 });
 HoverSlider.displayName = "HoverSlider";
 
+function StaggerChar({
+  char,
+  charIndex,
+  isActive,
+}: {
+  char: string;
+  charIndex: number;
+  isActive: boolean;
+}) {
+  return (
+    <span className="relative inline-block overflow-hidden">
+      <MotionConfig
+        transition={{
+          delay: charIndex * 0.025,
+          duration: 0.3,
+          ease: [0.25, 0.46, 0.45, 0.94],
+        }}
+      >
+        <motion.span
+          className="inline-block opacity-20"
+          initial={{ y: "0%" }}
+          animate={isActive ? { y: "-110%" } : { y: "0%" }}
+        >
+          {char}
+        </motion.span>
+
+        <motion.span
+          className="absolute left-0 top-0 inline-block opacity-100"
+          initial={{ y: "110%" }}
+          animate={isActive ? { y: "0%" } : { y: "110%" }}
+        >
+          {char}
+        </motion.span>
+      </MotionConfig>
+    </span>
+  );
+}
+
 export const TextStaggerHover = React.forwardRef<
   HTMLElement,
   React.HTMLAttributes<HTMLElement> & TextStaggerHoverProps
 >(({ text, index, className, ...props }, ref) => {
   const { activeSlide, changeSlide } = useHoverSliderContext();
-  const { characters } = splitText(text);
+  const words = splitWords(text);
   const isActive = activeSlide === index;
   const handleMouse = () => changeSlide(index);
 
+  let charIndex = 0;
+
   return (
     <span
-      className={cn(
-        "relative inline-block origin-bottom overflow-hidden",
-        className,
-      )}
+      className={cn("relative inline origin-bottom", className)}
       {...props}
       ref={ref}
       onMouseEnter={handleMouse}
@@ -83,39 +114,26 @@ export const TextStaggerHover = React.forwardRef<
       tabIndex={0}
       role="button"
     >
-      {characters.map((char, charIndex) => (
-        <span
-          key={`${char}-${charIndex}`}
-          className="relative inline-block overflow-hidden"
-        >
-          <MotionConfig
-            transition={{
-              delay: charIndex * 0.025,
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-          >
-            <motion.span
-              className="inline-block opacity-20"
-              initial={{ y: "0%" }}
-              animate={isActive ? { y: "-110%" } : { y: "0%" }}
-            >
-              {char}
-              {char === " " && charIndex < characters.length - 1 && (
-                <>&nbsp;</>
-              )}
-            </motion.span>
+      {words.map((word, wordIndex) => {
+        const wordStartIndex = charIndex;
+        charIndex += word.length;
 
-            <motion.span
-              className="absolute left-0 top-0 inline-block opacity-100"
-              initial={{ y: "110%" }}
-              animate={isActive ? { y: "0%" } : { y: "110%" }}
-            >
-              {char}
-            </motion.span>
-          </MotionConfig>
-        </span>
-      ))}
+        return (
+          <React.Fragment key={`${word}-${wordIndex}`}>
+            {wordIndex > 0 ? " " : null}
+            <span className="inline-block whitespace-nowrap">
+              {word.split("").map((char, letterIndex) => (
+                <StaggerChar
+                  key={`${char}-${letterIndex}`}
+                  char={char}
+                  charIndex={wordStartIndex + letterIndex}
+                  isActive={isActive}
+                />
+              ))}
+            </span>
+          </React.Fragment>
+        );
+      })}
     </span>
   );
 });

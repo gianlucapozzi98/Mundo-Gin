@@ -25,7 +25,7 @@ export const CLUB_EVENTS: ClubEvent[] = [
     title: "CULTURE CIRCLE FESTIVAL",
     date: "Maggio 2026",
     location: "Milano",
-    imageUrl: "/images/mundo-gin-CULTURE-CIRCLE -FESTIVAL - .jpg",
+    imageUrl: "/images/mundo-gin-CULTURE-CIRCLE -FESTIVAL - .jpg?v=2",
     imageLayout: "fill",
   },
   {
