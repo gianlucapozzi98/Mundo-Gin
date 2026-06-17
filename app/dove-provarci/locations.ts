@@ -341,6 +341,18 @@ const LOCATIONS_RAW: Location[] = [
     mapUrl: "https://maps.app.goo.gl/NPfJ7vtSiJZAqKjb6",
     instagramUrl: "https://www.instagram.com/vinylpubmilano/tagged/",
   },
+  {
+    id: "30",
+    name: "Minimarket Milan",
+    address: "Via Alfredo Albertini, 8",
+    city: "Milano",
+    cap: "20154",
+    province: "MI",
+    lat: 45.480846,
+    lng: 9.1720921,
+    mapUrl: "https://maps.app.goo.gl/gYZJoYxbTCbNM9fk7",
+    instagramUrl: "https://www.instagram.com/minimarketmilan__/",
+  },
 ];
 
 export const LOCATIONS = [...LOCATIONS_RAW].sort((a, b) =>
