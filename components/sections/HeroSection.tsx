@@ -34,7 +34,7 @@ export function HeroSection() {
           className="max-w-2xl"
         >
           <h1
-            className="-translate-y-[5px] text-mundo-black font-futura-500 font-medium mb-8 tracking-tight uppercase text-[57px] leading-[66px] sm:translate-y-0 sm:text-[60px] sm:leading-[69px]"
+            className="-translate-y-[20px] text-mundo-black font-futura-500 font-medium mb-8 tracking-tight uppercase text-[57px] leading-[66px] sm:translate-y-0 sm:text-[60px] sm:leading-[69px]"
           >
             <span className="block sm:whitespace-nowrap">Scopri il sapore del mondo</span>
             <span className="block sm:whitespace-nowrap">con il gusto di Mundo</span>
