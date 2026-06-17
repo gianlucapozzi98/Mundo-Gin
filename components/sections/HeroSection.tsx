@@ -8,7 +8,7 @@ const HERO_IMAGE = "/images/image-01-hero.jpeg";
 export function HeroSection() {
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
-      <div className="fixed inset-0 z-0 bg-mundo-white" aria-hidden>
+      <div className="absolute inset-0 z-0 bg-mundo-white" aria-hidden>
         <div className="absolute inset-0">
           <Image
             src={HERO_IMAGE}
@@ -22,7 +22,10 @@ export function HeroSection() {
           />
         </div>
       </div>
-      <div className="fixed inset-0 z-0 bg-white/20 pointer-events-none" aria-hidden />
+      <div
+        className="absolute inset-0 z-0 bg-white/20 pointer-events-none"
+        aria-hidden
+      />
       <div className="relative z-10 min-h-screen flex flex-col justify-end px-4 sm:px-6 lg:px-8 lg:px-12 xl:px-16 pb-6 sm:pb-14 lg:pb-16">
         <motion.div
           initial={{ opacity: 0, x: -24 }}

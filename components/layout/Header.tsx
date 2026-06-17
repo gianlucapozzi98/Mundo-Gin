@@ -28,8 +28,8 @@ const SCROLL_THRESHOLD = 20;
 const LIQUID_GLASS_NAV =
   "border border-white/55 bg-gradient-to-b from-white/55 via-white/35 to-white/25 backdrop-blur-[28px] backdrop-saturate-[1.85] shadow-[0_14px_44px_-10px_rgba(0,0,0,0.18),inset_0_1px_1px_rgba(255,255,255,0.85),inset_0_-1px_0_rgba(255,255,255,0.3)] ring-1 ring-inset ring-white/25";
 
-const LIQUID_GLASS_NAV_MOBILE =
-  "max-md:border max-md:border-white/50 max-md:bg-gradient-to-b max-md:from-white/45 max-md:via-white/30 max-md:to-white/20 max-md:backdrop-blur-[24px] max-md:backdrop-saturate-[1.75] max-md:shadow-[0_10px_36px_-12px_rgba(0,0,0,0.14),inset_0_1px_0_rgba(255,255,255,0.75)] max-md:ring-1 max-md:ring-inset max-md:ring-white/20";
+const LIQUID_GLASS_NAV_MOBILE_OPEN =
+  "max-md:mx-3 max-md:mt-2 max-md:w-[calc(100%-24px)] max-md:rounded-[1.35rem] max-md:py-3 max-md:border max-md:border-white/50 max-md:bg-gradient-to-b max-md:from-white/45 max-md:via-white/30 max-md:to-white/20 max-md:backdrop-blur-[24px] max-md:backdrop-saturate-[1.75] max-md:shadow-[0_10px_36px_-12px_rgba(0,0,0,0.14),inset_0_1px_0_rgba(255,255,255,0.75)] max-md:ring-1 max-md:ring-inset max-md:ring-white/20";
 
 const LIQUID_GLASS_BTN =
   "rounded-full border border-white/50 bg-white/30 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] transition-all duration-300 hover:border-white/70 hover:bg-white/45 hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.9)]";
@@ -82,7 +82,9 @@ export function Header() {
         className={`mx-auto px-4 sm:px-6 lg:px-8 py-4 transition-all duration-500 ease-out ${
           isScrolled
             ? `max-w-[56rem] mx-3 mt-2 w-[calc(100%-24px)] rounded-[1.35rem] py-[7px] sm:mx-auto sm:w-auto md:mt-3 ${LIQUID_GLASS_NAV}`
-            : `max-w-7xl bg-transparent ${LIQUID_GLASS_NAV_MOBILE} max-md:mx-3 max-md:mt-2 max-md:w-[calc(100%-24px)] max-md:rounded-[1.35rem] max-md:py-3`
+            : mobileMenuOpen
+              ? `max-w-7xl bg-transparent ${LIQUID_GLASS_NAV_MOBILE_OPEN}`
+              : "max-w-7xl bg-transparent"
         } ${mobileMenuOpen ? LIQUID_GLASS_MENU_OPEN : ""}`}
       >
         <div className="relative flex items-center justify-between">

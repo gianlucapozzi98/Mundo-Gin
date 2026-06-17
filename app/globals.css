@@ -289,15 +289,10 @@ small,
   color: #000 !important;
 }
 
-/* Hero home: object-position come l’ex background (mobile vs md) */
+/* Hero home: immagine fissa nel contenitore, senza shift allo scroll */
 .hero-home-bg-image {
   object-fit: cover;
-  object-position: calc(100% + 230px) 50%;
-}
-@media (min-width: 768px) {
-  .hero-home-bg-image {
-    object-position: center center;
-  }
+  object-position: center center;
 }
 
 /* Forza grigio #F2F2F2 ovunque sia usato mundo-gold (sostituzione giallo) */
