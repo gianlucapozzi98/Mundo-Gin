@@ -15,7 +15,10 @@ export default function ShopPage() {
           Welcome to the Mundo&apos;s Webshop
         </h1>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <Link href="/shop/mundo-gin" className="group block">
+          <Link
+            href="/shop/mundo-gin"
+            className="group mx-auto block w-[90%] sm:mx-0 sm:w-full"
+          >
             <article>
               <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
                 <img
@@ -29,16 +32,16 @@ export default function ShopPage() {
                   className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                 />
               </div>
-              <div className="mt-4 flex items-baseline justify-between gap-3">
+              <div className="mt-3.5 flex items-baseline justify-between gap-3 sm:mt-4">
                 <div>
-                  <h2 className="font-futura-500 text-2xl font-medium uppercase text-mundo-black">
+                  <h2 className="font-futura-500 text-[1.35rem] font-medium uppercase text-mundo-black sm:text-2xl">
                     Mundo Gin
                   </h2>
-                  <p className="mt-1 font-futura-400 text-lg text-mundo-black/70">
+                  <p className="mt-1 font-futura-400 text-base text-mundo-black/70 sm:text-lg">
                     700 ml
                   </p>
                 </div>
-                <p className="text-right font-futura-500 text-2xl font-medium text-mundo-black">
+                <p className="text-right font-futura-500 text-[1.35rem] font-medium text-mundo-black sm:text-2xl">
                   {MUNDO_GIN_PRICE_DISPLAY}
                 </p>
               </div>
