@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "motion/react";
 
 export function StorySection() {
@@ -33,12 +34,18 @@ export function StorySection() {
             className="order-1 lg:order-2"
           >
             <h2
-              className="text-mundo-white font-futura-500 font-medium mb-6 uppercase leading-tight"
+              className="text-mundo-white font-futura-500 font-medium mb-5 uppercase leading-tight"
               style={{ fontSize: "60px", lineHeight: "69px" }}
             >
               <span className="block sm:whitespace-nowrap">Il gin che racconta</span>
               <span className="block sm:whitespace-nowrap">il mondo</span>
             </h2>
+            <Link
+              href="/shop"
+              className="mb-8 inline-flex items-center border border-mundo-white/25 px-5 py-2 font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-white/85 transition-colors hover:border-mundo-gold/50 hover:text-mundo-gold"
+            >
+              Vai allo shop
+            </Link>
             <p className="text-mundo-white/80 font-futura-400 text-[22px] leading-relaxed">
               Un gin contemporaneo, autentico, capace di distinguersi al palato
               e alla vista. Mundo vuole raccontare una storia attraverso ogni
