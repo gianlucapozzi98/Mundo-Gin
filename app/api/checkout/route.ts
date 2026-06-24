@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     const { productId, qty } = raw as BodyItem;
     if (typeof productId !== "string" || typeof qty !== "number") continue;
     const entry = STRIPE_CATALOG[productId];
-    if (!entry) {
+    if (!entry || !entry.stripePriceId.trim()) {
       return NextResponse.json(
         { error: "Uno o più prodotti non sono disponibili al checkout." },
         { status: 400 }

@@ -96,6 +96,14 @@ export default function MundoGinProductPage() {
   return (
     <div className="min-h-screen bg-[#F2F2F2] pt-24 pb-0 sm:pt-28 sm:pb-0">
       <div className="container mx-auto max-w-7xl px-4 pt-10 sm:px-6 sm:pt-14 lg:px-8">
+        <div className="mb-6 sm:mb-8">
+          <Link
+            href="/shop"
+            className="inline-block font-futura-500 text-mundo-black/70 transition-colors hover:text-mundo-black"
+          >
+            ← Torna allo shop
+          </Link>
+        </div>
         <div className="flex w-full flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-center lg:gap-16">
           <section className="w-full shrink-0 lg:w-auto">
             <div className="mx-auto grid w-full max-w-[min(100%,676px)] grid-cols-1 items-start gap-6 lg:mx-0 lg:h-[448px] lg:max-w-none lg:grid-cols-[448px_212px] lg:items-stretch">

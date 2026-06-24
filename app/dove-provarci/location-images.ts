@@ -13,7 +13,7 @@ export const LOCATION_IMAGE_MAP: Record<string, string> = {
   "Let It Be": "/images/Let It Be.webp",
   "Madame del Borgo": "/images/MA.DA.ME..webp",
   "Mary's Pub": "/images/Mary's Pub.webp",
-  "Minimarket Milan": "/images/Minimarket Milan.webp",
+  "Minimarket Milan": "/images/Minimarket Milan.jpg",
   "Moon Cafè": "/images/Moon-Cafe.webp",
   Origin: "/images/Origin.webp",
   "Prosciutteria Jesolo": "/images/Prosciutteria.webp",

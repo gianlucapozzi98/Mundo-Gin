@@ -10,6 +10,7 @@ import {
   addToCart,
   type CartLine,
 } from "@/lib/cart";
+import { isBeerProductId } from "@/lib/mundo-beer-product";
 import { trackViewCart } from "@/lib/meta-pixel";
 
 export function CarrelloView() {
@@ -112,6 +113,13 @@ export function CarrelloView() {
               {line.productId === "mundo-gin" ? (
                 <Link
                   href="/shop/mundo-gin"
+                  className="inline-block font-futura-500 text-lg uppercase text-mundo-black underline-offset-4 hover:underline"
+                >
+                  {line.name}
+                </Link>
+              ) : isBeerProductId(line.productId) ? (
+                <Link
+                  href="/shop/mundo-beer"
                   className="inline-block font-futura-500 text-lg uppercase text-mundo-black underline-offset-4 hover:underline"
                 >
                   {line.name}

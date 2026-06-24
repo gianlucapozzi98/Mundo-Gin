@@ -18,6 +18,18 @@ export const STRIPE_CATALOG: Record<string, StripeCatalogEntry> = {
     stripePriceId: "price_1TQvsZFVc589tw39IjxHw7JN",
     unitAmountCents: 450,
   },
+  "mundo-beer-6": {
+    stripePriceId: "price_1TlcR8FVc589tw39BMTTjzQz",
+    unitAmountCents: 2100,
+  },
+  "mundo-beer-9": {
+    stripePriceId: "price_1TlcR8FVc589tw39pzkaKhn5",
+    unitAmountCents: 3000,
+  },
+  "mundo-beer-24": {
+    stripePriceId: "price_1TlcR8FVc589tw39Z3JgRzQU",
+    unitAmountCents: 7500,
+  },
 };
 
 /** Soglia per spedizione gratuita (50,00 €). */

@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { MUNDO_BEER_FROM_PRICE_DISPLAY, MUNDO_BEER_IMAGE } from "@/lib/mundo-beer-product";
 import { MUNDO_GIN_PRICE_DISPLAY } from "@/lib/mundo-gin-product";
 
 export const metadata: Metadata = {
   title: "Shop | Mundo Gin",
-  description: "Acquista Mundo Gin.",
+  description: "Acquista Mundo Gin e preordina Mundo Beer.",
 };
 
 export default function ShopPage() {
@@ -43,6 +44,37 @@ export default function ShopPage() {
                 </div>
                 <p className="text-right font-futura-500 text-[1.35rem] font-medium text-mundo-black sm:text-2xl">
                   {MUNDO_GIN_PRICE_DISPLAY}
+                </p>
+              </div>
+            </article>
+          </Link>
+
+          <Link
+            href="/shop/mundo-beer"
+            className="group mx-auto block w-[90%] sm:mx-0 sm:w-full"
+          >
+            <article>
+              <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
+                <img
+                  src={MUNDO_BEER_IMAGE}
+                  alt="Mundo Beer"
+                  className="absolute inset-0 h-full w-full scale-110 object-contain p-6 transition-transform duration-500 group-hover:scale-[1.12]"
+                />
+                <span className="absolute left-3 top-3 rounded-full border border-mundo-black/20 bg-mundo-white/90 px-2.5 py-1 font-futura-500 text-[10px] uppercase tracking-[0.12em] text-mundo-black backdrop-blur-sm sm:left-4 sm:top-4 sm:text-xs">
+                  Pre-ordine
+                </span>
+              </div>
+              <div className="mt-3.5 flex items-baseline justify-between gap-3 sm:mt-4">
+                <div>
+                  <h2 className="font-futura-500 text-[1.35rem] font-medium uppercase text-mundo-black sm:text-2xl">
+                    Mundo Beer
+                  </h2>
+                  <p className="mt-1 font-futura-400 text-base text-mundo-black/70 sm:text-lg">
+                    6, 9 o 24 lattine
+                  </p>
+                </div>
+                <p className="text-right font-futura-500 text-[1.35rem] font-medium text-mundo-black sm:text-2xl">
+                  da {MUNDO_BEER_FROM_PRICE_DISPLAY}
                 </p>
               </div>
             </article>
