@@ -73,7 +73,7 @@ export default function CocktailPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-20">
             <div className="aspect-[4/5] max-w-[420px] w-full rounded-lg overflow-hidden mx-auto self-start">
               <img
                 src="/images/espr%20m.jpeg"
@@ -95,6 +95,37 @@ export default function CocktailPage() {
                 <li>Caffe espresso</li>
                 <li>Garnish - 3 chicchi di caffe</li>
               </ul>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <div className="order-2 lg:order-1 self-center max-w-[420px] w-full mx-auto">
+              <h2 className="text-mundo-black font-futura-500 font-medium text-3xl sm:text-4xl mb-6">
+                Dormo Domani by{" "}
+                <a
+                  href="https://www.eternomilano.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 transition-colors hover:text-mundo-black/70"
+                >
+                  Eterno Milano
+                </a>
+              </h2>
+              <p className="font-futura-400 text-mundo-black/80 text-[22px] leading-relaxed mb-4">
+                Ingredienti:
+              </p>
+              <ul className="list-disc space-y-2 pl-6 font-futura-400 text-[22px] leading-relaxed text-mundo-black/80">
+                <li>Mundo Gin</li>
+                <li>Vermouth</li>
+                <li>Campari</li>
+              </ul>
+            </div>
+            <div className="aspect-[4/5] max-w-[420px] w-full order-1 lg:order-2 rounded-lg overflow-hidden mx-auto self-start">
+              <img
+                src="/images/dormo.domani.drink.by.eterno.milano.jpg"
+                alt="Dormo Domani by Eterno Milano"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
