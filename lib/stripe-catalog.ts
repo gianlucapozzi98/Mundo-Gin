@@ -23,7 +23,7 @@ export const STRIPE_CATALOG: Record<string, StripeCatalogEntry> = {
     unitAmountCents: 2400,
   },
   "mundo-beer-9": {
-    stripePriceId: "price_1TtREJFVc589tw39eBphRCyc",
+    stripePriceId: "price_1TtRMbFVc589tw39WILOehRS",
     unitAmountCents: 3600,
   },
   "mundo-beer-24": {
