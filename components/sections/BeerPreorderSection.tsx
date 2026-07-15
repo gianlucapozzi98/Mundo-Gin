@@ -44,7 +44,7 @@ export function BeerPreorderSection() {
               style={{ fontSize: "60px", lineHeight: "69px" }}
             >
               <span className="block sm:whitespace-nowrap">Mundo Beer</span>
-              <span className="block sm:whitespace-nowrap">è quasi pronta</span>
+              <span className="block sm:whitespace-nowrap">è finalmente disponibile</span>
             </h2>
             <Link
               href="/shop/mundo-beer"
@@ -53,11 +53,12 @@ export function BeerPreorderSection() {
               Acquista
             </Link>
             <p className="font-futura-400 text-[22px] leading-relaxed text-mundo-black/80">
-              Scegli il pack che preferisci e completa il tuo preordine. Le
-              prime lattine hanno qualcosa in più.
+              Leggera, rinfrescante e facile da bere, nasce per condividere
+              momenti, persone ed esperienze.
             </p>
             <p className="mt-6 font-futura-400 text-[22px] leading-relaxed text-mundo-black/80">
-              Un prezzo dedicato a chi entra in Mundo prima del lancio.
+              Scegli il pack che preferisci e scopri il nuovo modo di vivere
+              Mundo.
             </p>
             <p className="mt-8 hidden border-t border-mundo-black/15 pt-6 font-futura-400 text-base tracking-wide text-mundo-black/60 sm:text-lg lg:block">
               Pilsner · 0,33 cl · 5% / pack da 6, 9 o 24 lattine / da{" "}
