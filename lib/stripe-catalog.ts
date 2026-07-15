@@ -20,15 +20,15 @@ export const STRIPE_CATALOG: Record<string, StripeCatalogEntry> = {
   },
   "mundo-beer-6": {
     stripePriceId: "price_1TqxWYFVc589tw39lh5e5DBz",
-    unitAmountCents: 2100,
+    unitAmountCents: 2400,
   },
   "mundo-beer-9": {
     stripePriceId: "price_1TqxWnFVc589tw39KD7OUUaz",
-    unitAmountCents: 3000,
+    unitAmountCents: 3600,
   },
   "mundo-beer-24": {
     stripePriceId: "price_1TqxX2FVc589tw39IgB9RfcV",
-    unitAmountCents: 7500,
+    unitAmountCents: 9600,
   },
 };
 

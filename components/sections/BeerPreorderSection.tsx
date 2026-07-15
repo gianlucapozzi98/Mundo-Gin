@@ -50,7 +50,7 @@ export function BeerPreorderSection() {
               href="/shop/mundo-beer"
               className="mb-8 inline-flex items-center border border-mundo-black/25 px-5 py-2 font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-black/85 transition-colors hover:border-mundo-black hover:text-mundo-black"
             >
-              Preordina
+              Acquista
             </Link>
             <p className="font-futura-400 text-[22px] leading-relaxed text-mundo-black/80">
               Scegli il pack che preferisci e completa il tuo preordine. Le

@@ -5,12 +5,13 @@ import Link from "next/link";
 import { addToCart } from "@/lib/cart";
 import {
   MUNDO_BEER_IMAGE,
+  MUNDO_BEER_IMAGE_BACK,
   MUNDO_BEER_NAME,
-  MUNDO_BEER_SUBTITLE,
+  MUNDO_BEER_PRODUCT_IMAGES,
   MUNDO_BEER_VARIANTS,
 } from "@/lib/mundo-beer-product";
 
-const GALLERY_SLOTS = [MUNDO_BEER_IMAGE, MUNDO_BEER_IMAGE, MUNDO_BEER_IMAGE];
+const GALLERY_SLOTS = [...MUNDO_BEER_PRODUCT_IMAGES];
 
 const PRODUCT_SPECS: { label: string; value: string }[] = [
   { label: "Formato", value: "0,33 cl" },
@@ -44,7 +45,7 @@ export default function MundoBeerProductPage() {
     addToCart({
       productId: selectedVariant.id,
       name: MUNDO_BEER_NAME,
-      subtitle: `${MUNDO_BEER_SUBTITLE} · ${selectedVariant.label}`,
+      subtitle: selectedVariant.label,
       priceEur: selectedVariant.priceEur,
       qty,
       image: MUNDO_BEER_IMAGE,
@@ -68,9 +69,6 @@ export default function MundoBeerProductPage() {
           <section className="w-full shrink-0 lg:w-auto">
             <div className="mx-auto grid w-full max-w-[min(100%,676px)] grid-cols-1 items-start gap-6 lg:mx-0 lg:h-[448px] lg:max-w-none lg:grid-cols-[448px_212px] lg:items-stretch">
               <div className="relative aspect-square overflow-hidden rounded-[32px] border border-mundo-black/10 bg-mundo-white lg:h-full lg:w-auto">
-                <span className="absolute left-4 top-4 z-10 rounded-full border border-mundo-black/20 bg-mundo-white/90 px-3 py-1 font-futura-500 text-xs uppercase tracking-[0.14em] text-mundo-black backdrop-blur-sm">
-                  Coming soon
-                </span>
                 <img
                   src={selectedImage}
                   alt="Mundo Beer"
@@ -79,13 +77,13 @@ export default function MundoBeerProductPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-6 lg:h-full lg:grid-cols-1 lg:grid-rows-2">
-                {GALLERY_SLOTS.slice(1).map((img, index) => (
+                {GALLERY_SLOTS.map((img, index) => (
                   <button
                     key={`${img}-${index}`}
                     type="button"
-                    onClick={() => setSelectedIndex(index + 1)}
+                    onClick={() => setSelectedIndex(index)}
                     className="aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:h-full lg:w-full"
-                    aria-label={`Seleziona immagine ${index + 2}`}
+                    aria-label={`Seleziona immagine ${index + 1}`}
                   >
                     <img
                       src={img}
@@ -100,9 +98,6 @@ export default function MundoBeerProductPage() {
           </section>
 
           <section className="w-full max-w-md shrink-0 text-center lg:max-w-sm">
-            <p className="mb-3 inline-block rounded-full border border-mundo-black/25 px-4 py-1 font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-black/80">
-              Pre-ordine
-            </p>
             <h1 className="mb-2 font-futura-500 text-4xl font-medium uppercase text-mundo-black sm:text-5xl">
               {MUNDO_BEER_NAME}
             </h1>
@@ -169,7 +164,7 @@ export default function MundoBeerProductPage() {
                     : "border-mundo-black bg-mundo-black text-mundo-white hover:bg-transparent hover:text-mundo-black"
                 }`}
               >
-                {cartAdded ? "Aggiunto al carrello" : "Preordina"}
+                {cartAdded ? "Aggiunto al carrello" : "Aggiungi al carrello"}
               </button>
             </div>
           </section>
@@ -303,32 +298,36 @@ export default function MundoBeerProductPage() {
 
               <div className="mx-auto grid w-full max-w-md grid-cols-2 gap-3 sm:gap-4 lg:mx-0 lg:max-w-none lg:contents">
                 <div className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6">
-                  {[0, 1].map((slot) => (
-                    <div
-                      key={`footer-left-${slot}`}
-                      className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0"
-                    >
-                      <img
-                        src={MUNDO_BEER_IMAGE}
-                        alt=""
-                        className="h-full w-full object-contain p-4"
-                      />
-                    </div>
-                  ))}
+                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
+                    <img
+                      src={MUNDO_BEER_IMAGE_BACK}
+                      alt=""
+                      className="h-full w-full object-contain p-4"
+                    />
+                  </div>
+                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
+                    <img
+                      src={MUNDO_BEER_IMAGE}
+                      alt=""
+                      className="h-full w-full object-contain p-4"
+                    />
+                  </div>
                 </div>
                 <div className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6">
-                  {[0, 1].map((slot) => (
-                    <div
-                      key={`footer-right-${slot}`}
-                      className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0"
-                    >
-                      <img
-                        src={MUNDO_BEER_IMAGE}
-                        alt=""
-                        className="h-full w-full object-contain p-4"
-                      />
-                    </div>
-                  ))}
+                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
+                    <img
+                      src={MUNDO_BEER_IMAGE_BACK}
+                      alt=""
+                      className="h-full w-full object-contain p-4"
+                    />
+                  </div>
+                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
+                    <img
+                      src={MUNDO_BEER_IMAGE}
+                      alt=""
+                      className="h-full w-full object-contain p-4"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
