@@ -221,17 +221,14 @@ export default function MundoBeerProductPage() {
 
         <section className="mx-auto mt-10 max-w-3xl space-y-4 pt-4 text-center lg:mt-12 lg:max-w-none lg:pt-6">
           <p className="font-futura-400 text-[20px] leading-relaxed text-mundo-black/80 sm:text-[22px]">
-            Mundo Beer è quasi pronta.
-          </p>
-          <p className="font-futura-400 text-[20px] leading-relaxed text-mundo-black/80 sm:text-[22px] lg:whitespace-nowrap">
-            Scegli il pack che preferisci e completa il tuo preordine: ti
-            avviseremo non appena le prime lattine saranno pronte a partire.
+            Mundo Beer è finalmente disponibile.
           </p>
           <p className="font-futura-400 text-[20px] leading-relaxed text-mundo-black/80 sm:text-[22px]">
-            Approfitta del prezzo esclusivo!
+            Leggera, rinfrescante e facile da bere, nasce per condividere
+            momenti, persone ed esperienze.
           </p>
           <p className="font-futura-400 text-[20px] leading-relaxed text-mundo-black/80 sm:text-[22px]">
-            Spedizione stimata a partire dal 13 luglio.
+            Scegli il pack che preferisci e scopri il nuovo modo di vivere Mundo.
           </p>
         </section>
 
