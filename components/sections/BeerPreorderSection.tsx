@@ -1,13 +1,31 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import {
-  MUNDO_BEER_FROM_PRICE_DISPLAY,
+  MUNDO_BEER_HOME_VIDEO,
   MUNDO_BEER_IMAGE,
 } from "@/lib/mundo-beer-product";
 
 export function BeerPreorderSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const play = () => {
+      void video.play().catch(() => {
+        /* autoplay blocked until user interaction */
+      });
+    };
+
+    play();
+    video.addEventListener("loadeddata", play);
+    return () => video.removeEventListener("loadeddata", play);
+  }, []);
+
   return (
     <section className="relative z-10 min-h-screen w-full bg-mundo-white py-16 sm:py-20 lg:py-32">
       <div className="container mx-auto flex h-full max-w-7xl flex-col justify-center px-4 sm:px-6 lg:px-8">
@@ -20,16 +38,20 @@ export function BeerPreorderSection() {
             className="order-2 lg:order-1"
           >
             <div className="aspect-square min-h-[280px] overflow-hidden rounded-lg border border-mundo-black/10 bg-mundo-white">
-              <img
-                src={MUNDO_BEER_IMAGE}
-                alt="Mundo Beer"
-                className="h-full w-full object-contain p-8 sm:p-10"
-              />
+              <video
+                ref={videoRef}
+                className="h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                poster={MUNDO_BEER_IMAGE}
+                aria-label="Mundo Beer"
+              >
+                <source src={MUNDO_BEER_HOME_VIDEO} type="video/mp4" />
+              </video>
             </div>
-            <p className="mt-6 border-t border-mundo-black/15 pt-5 font-futura-400 text-base tracking-wide text-mundo-black/60 lg:hidden">
-              Pilsner · 0,33 cl · 5% / pack da 6, 9 o 24 lattine / da{" "}
-              {MUNDO_BEER_FROM_PRICE_DISPLAY}
-            </p>
           </motion.div>
 
           <motion.div
@@ -59,10 +81,6 @@ export function BeerPreorderSection() {
             <p className="mt-6 font-futura-400 text-[22px] leading-relaxed text-mundo-black/80">
               Scegli il pack che preferisci e scopri il nuovo modo di vivere
               Mundo.
-            </p>
-            <p className="mt-8 hidden border-t border-mundo-black/15 pt-6 font-futura-400 text-base tracking-wide text-mundo-black/60 sm:text-lg lg:block">
-              Pilsner · 0,33 cl · 5% / pack da 6, 9 o 24 lattine / da{" "}
-              {MUNDO_BEER_FROM_PRICE_DISPLAY}
             </p>
           </motion.div>
         </div>

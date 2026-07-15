@@ -6,6 +6,7 @@ import { addToCart } from "@/lib/cart";
 import {
   MUNDO_BEER_IMAGE,
   MUNDO_BEER_IMAGE_BACK,
+  MUNDO_BEER_LATTINE_IMAGE,
   MUNDO_BEER_NAME,
   MUNDO_BEER_PRODUCT_IMAGES,
   MUNDO_BEER_VARIANTS,
@@ -320,9 +321,9 @@ export default function MundoBeerProductPage() {
                   </div>
                   <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
                     <img
-                      src={MUNDO_BEER_IMAGE}
+                      src={MUNDO_BEER_LATTINE_IMAGE}
                       alt=""
-                      className="h-full w-full object-contain p-4"
+                      className="h-full w-full object-cover"
                     />
                   </div>
                 </div>

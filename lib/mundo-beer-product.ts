@@ -2,6 +2,10 @@ export const MUNDO_BEER_IMAGE = "/images/Mundo-Beer-Front.png";
 
 export const MUNDO_BEER_IMAGE_BACK = "/images/Mundo-Beer-back.png";
 
+export const MUNDO_BEER_LATTINE_IMAGE = "/images/Mundo-beer-lattine.jpg";
+
+export const MUNDO_BEER_HOME_VIDEO = "/videos/Mundo-beer-lattina.mp4";
+
 export const MUNDO_BEER_PRODUCT_IMAGES = [
   MUNDO_BEER_IMAGE,
   MUNDO_BEER_IMAGE_BACK,
