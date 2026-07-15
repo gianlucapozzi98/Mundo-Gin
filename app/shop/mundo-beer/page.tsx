@@ -28,6 +28,27 @@ const CONSIGLI_AVVERTENZE = [
   "Birra non pastorizzata e non filtrata senza aggiunta di conservanti.",
 ];
 
+function LattineSplitGalleryColumn() {
+  return (
+    <div className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6">
+      <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
+        <img
+          src={MUNDO_BEER_LATTINE_IMAGE}
+          alt=""
+          className="absolute inset-x-0 top-0 h-[200%] w-full max-w-none object-cover object-top"
+        />
+      </div>
+      <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
+        <img
+          src={MUNDO_BEER_LATTINE_IMAGE}
+          alt=""
+          className="absolute inset-x-0 bottom-0 h-[200%] w-full max-w-none object-cover object-bottom"
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function MundoBeerProductPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [variantIndex, setVariantIndex] = useState(0);
@@ -311,22 +332,7 @@ export default function MundoBeerProductPage() {
                     />
                   </div>
                 </div>
-                <div className="grid grid-rows-2 gap-3 sm:gap-4 lg:h-full lg:min-h-0 lg:gap-6">
-                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
-                    <img
-                      src={MUNDO_BEER_IMAGE_BACK}
-                      alt=""
-                      className="h-full w-full object-contain p-4"
-                    />
-                  </div>
-                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white lg:aspect-auto lg:min-h-0">
-                    <img
-                      src={MUNDO_BEER_LATTINE_IMAGE}
-                      alt=""
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                </div>
+                <LattineSplitGalleryColumn />
               </div>
             </div>
           </div>
