@@ -14,7 +14,7 @@ export type ClubEvent = {
 export const CLUB_EVENTS: ClubEvent[] = [
   {
     id: "event-jesolo-2026",
-    title: "JESOLO",
+    title: "TOSTI",
     date: "Luglio 2026",
     location: "Jesolo",
     imageUrl: "/images/Mundo-Gin-jesolo.JPG",
