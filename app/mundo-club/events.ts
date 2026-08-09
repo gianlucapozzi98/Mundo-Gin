@@ -13,6 +13,14 @@ export type ClubEvent = {
 /** Aggiorna questa lista man mano che pubblichi nuovi eventi Mundo Club. */
 export const CLUB_EVENTS: ClubEvent[] = [
   {
+    id: "event-jesolo-2026",
+    title: "JESOLO",
+    date: "Luglio 2026",
+    location: "Jesolo",
+    imageUrl: "/images/Mundo-Gin-jesolo.JPG",
+    imageLayout: "fill",
+  },
+  {
     id: "event-1",
     title: "MINIMARKET",
     date: "Giugno 2026",
