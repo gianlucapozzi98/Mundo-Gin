@@ -2,6 +2,7 @@ export const LOCATION_IMAGE_MAP: Record<string, string> = {
   Aguadecoco: "/images/Aguadecoco.webp",
   "Altrimenti Mixology Art": "/images/Altrimenti Mixology Art.webp",
   Anvil: "/images/Anvil.webp",
+  "Bar Picchio": "/images/mundo-gin-at-bar-picchio-milano.jpg",
   Botero: "/images/Botero.webp",
   "BV Rooftop": "/images/BV Rooftop.jpg",
   "Chiosco Mercedes": "/images/Chiosco Mercedes.webp",
