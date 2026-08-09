@@ -353,6 +353,18 @@ const LOCATIONS_RAW: Location[] = [
     mapUrl: "https://maps.app.goo.gl/gYZJoYxbTCbNM9fk7",
     instagramUrl: "https://www.instagram.com/minimarketmilan__/",
   },
+  {
+    id: "31",
+    name: "Bar Picchio",
+    address: "Via Melzo, 11",
+    city: "Milano",
+    cap: "20129",
+    province: "MI",
+    lat: 45.4735532,
+    lng: 9.2092225,
+    mapUrl: "https://maps.app.goo.gl/SqyS1n2nPV9idVja8",
+    instagramUrl: "https://www.instagram.com/barpicchiodapaolo/",
+  },
 ];
 
 export const LOCATIONS = [...LOCATIONS_RAW].sort((a, b) =>
