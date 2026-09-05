@@ -203,7 +203,7 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
           Admin
         </h1>
         <p className="mt-3 font-futura-400 text-[17px] text-mundo-black/70">
-          Gestisci iscritti e ingressi Mundo Castel.
+          Gestisci iscritti e ingressi.
         </p>
         <label className="mt-8 block font-futura-500 text-sm text-mundo-black">
           Password
