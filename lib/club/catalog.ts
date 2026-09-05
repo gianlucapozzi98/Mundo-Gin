@@ -1,6 +1,8 @@
 export type ClubPromoter = {
   name: string;
   code: string;
+  /** Vecchi path ancora accettati (redirect logico in registrazione). */
+  aliases?: string[];
 };
 
 export type ClubEventDetails = {
@@ -43,8 +45,8 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
       "L'ingresso è gratuito con registrazione. Prenota il tuo accesso, salva il QR e mostralo all'ingresso.",
     ],
     promoters: [
-      { name: "Pausa Caffè", code: "pausa-caffe" },
-      { name: "Rub", code: "rub" },
+      { name: "Pausa Caffè", code: "pc", aliases: ["pausa-caffe"] },
+      { name: "Rub", code: "rg", aliases: ["rub"] },
     ],
     whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
   },
@@ -59,7 +61,13 @@ export function getPromoterByCode(slug: string, code: string | undefined) {
   const event = getRegisterableEvent(slug);
   if (!event) return null;
   const normalized = code.trim().toLowerCase();
-  return event.promoters.find((p) => p.code === normalized) ?? null;
+  return (
+    event.promoters.find(
+      (p) =>
+        p.code === normalized ||
+        p.aliases?.some((alias) => alias === normalized)
+    ) ?? null
+  );
 }
 
 export function isValidPromoterCode(slug: string, code: string) {

@@ -48,10 +48,10 @@ on conflict (slug) do update set
   event_date = excluded.event_date,
   location = excluded.location;
 
--- Seed: PR
+-- Seed: PR (codici corti nei link: /pc, /rg)
 insert into promoters (name, code)
 values
-  ('Pausa Caffè', 'pausa-caffe'),
-  ('Rub', 'rub')
+  ('Pausa Caffè', 'pc'),
+  ('Rub', 'rg')
 on conflict (code) do update set
   name = excluded.name;
