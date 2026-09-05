@@ -80,7 +80,10 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Event registration error:", error);
     return NextResponse.json(
-      { error: "Impossibile completare la registrazione. Riprova." },
+      {
+        error: "Impossibile completare la registrazione. Riprova.",
+        storage: getRegistrationStorageMode(),
+      },
       { status: 500 }
     );
   }

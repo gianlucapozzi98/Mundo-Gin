@@ -49,7 +49,12 @@ function getSupabaseAdmin(): SupabaseClient {
 }
 
 function localStorePath() {
-  return path.join(process.cwd(), ".data", "registrations.json");
+  // On Vercel the app filesystem is read-only; /tmp is writable per instance.
+  const base =
+    process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
+      ? "/tmp"
+      : path.join(process.cwd(), ".data");
+  return path.join(base, "registrations.json");
 }
 
 async function readLocalStore(): Promise<RegistrationRecord[]> {
