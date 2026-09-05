@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRegisterableEvent } from "@/lib/club/catalog";
-import { isCheckinAuthenticated } from "@/lib/club/checkin-auth";
+import { isStaffAuthenticated } from "@/lib/club/checkin-auth";
 import { getEventStats } from "@/lib/club/registrations";
 
 export async function GET(req: NextRequest) {
-  if (!(await isCheckinAuthenticated())) {
+  if (!(await isStaffAuthenticated("admin"))) {
     return NextResponse.json({ error: "Non autorizzato." }, { status: 401 });
   }
 

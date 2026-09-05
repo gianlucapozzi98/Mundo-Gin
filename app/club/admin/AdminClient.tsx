@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
-type AuthState = "loading" | "login" | "ready";
+type AuthState = "loading" | "login" | "ready" | "scanner_blocked";
+type StaffRole = "scanner" | "admin";
 
 type RegistrationRow = {
   id: string;
@@ -77,11 +78,16 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
     (async () => {
       try {
         const res = await fetch("/api/club/checkin/auth");
-        const data = (await res.json()) as { authenticated?: boolean };
+        const data = (await res.json()) as {
+          authenticated?: boolean;
+          role?: StaffRole | null;
+        };
         if (cancelled) return;
-        if (data.authenticated) {
+        if (data.authenticated && data.role === "admin") {
           setAuth("ready");
           await load();
+        } else if (data.authenticated && data.role === "scanner") {
+          setAuth("scanner_blocked");
         } else {
           setAuth("login");
         }
@@ -102,9 +108,9 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
       const res = await fetch("/api/club/checkin/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password, requiredRole: "admin" }),
       });
-      const data = (await res.json()) as { error?: string };
+      const data = (await res.json()) as { error?: string; role?: StaffRole };
       if (!res.ok) {
         setLoginError(data.error ?? "Accesso non riuscito.");
         return;
@@ -159,6 +165,28 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
   if (auth === "loading") {
     return (
       <p className="font-futura-400 text-mundo-black/70">Caricamento…</p>
+    );
+  }
+
+  if (auth === "scanner_blocked") {
+    return (
+      <div className="mx-auto w-full max-w-md rounded-2xl border border-mundo-black/10 bg-mundo-white p-6 sm:p-8">
+        <p className="font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-black/55">
+          Accesso limitato
+        </p>
+        <h1 className="mt-3 font-futura-500 text-3xl font-medium uppercase text-mundo-black">
+          Solo admin
+        </h1>
+        <p className="mt-3 font-futura-400 text-[17px] text-mundo-black/70">
+          Sei autenticato come scanner. Questa area è riservata agli admin.
+        </p>
+        <Link
+          href="/club/checkin"
+          className="mt-8 inline-flex w-full items-center justify-center rounded-lg bg-mundo-black px-5 py-3 font-futura-500 text-sm uppercase tracking-[0.14em] text-mundo-white"
+        >
+          Vai al check-in
+        </Link>
+      </div>
     );
   }
 

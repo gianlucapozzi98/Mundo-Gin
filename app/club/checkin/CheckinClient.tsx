@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Html5Qrcode } from "html5-qrcode";
 
 type AuthState = "loading" | "login" | "ready";
+type StaffRole = "scanner" | "admin";
 
 type ScanResult = {
   status: "ok" | "already" | "not_found";
@@ -43,6 +44,7 @@ function formatTime(iso: string | null | undefined) {
 
 export function CheckinClient({ eventSlug }: { eventSlug: string }) {
   const [auth, setAuth] = useState<AuthState>("loading");
+  const [role, setRole] = useState<StaffRole | null>(null);
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loggingIn, setLoggingIn] = useState(false);
@@ -54,7 +56,10 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const lastTokenRef = useRef<string>("");
 
+  const isAdmin = role === "admin";
+
   const refreshStats = useCallback(async () => {
+    if (role !== "admin") return;
     try {
       const res = await fetch(
         `/api/club/checkin/stats?event=${encodeURIComponent(eventSlug)}`
@@ -65,17 +70,24 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
     } catch {
       /* ignore */
     }
-  }, [eventSlug]);
+  }, [eventSlug, role]);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
         const res = await fetch("/api/club/checkin/auth");
-        const data = (await res.json()) as { authenticated?: boolean };
+        const data = (await res.json()) as {
+          authenticated?: boolean;
+          role?: StaffRole | null;
+        };
         if (!cancelled) {
-          setAuth(data.authenticated ? "ready" : "login");
-          if (data.authenticated) void refreshStats();
+          if (data.authenticated && data.role) {
+            setRole(data.role);
+            setAuth("ready");
+          } else {
+            setAuth("login");
+          }
         }
       } catch {
         if (!cancelled) setAuth("login");
@@ -84,7 +96,13 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
     return () => {
       cancelled = true;
     };
-  }, [refreshStats]);
+  }, []);
+
+  useEffect(() => {
+    if (auth === "ready" && role === "admin") {
+      void refreshStats();
+    }
+  }, [auth, role, refreshStats]);
 
   useEffect(() => {
     return () => {
@@ -111,14 +129,17 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),
       });
-      const data = (await res.json()) as { error?: string };
+      const data = (await res.json()) as {
+        error?: string;
+        role?: StaffRole;
+      };
       if (!res.ok) {
         setLoginError(data.error ?? "Accesso non riuscito.");
         return;
       }
+      setRole(data.role ?? null);
       setAuth("ready");
       setPassword("");
-      void refreshStats();
     } catch {
       setLoginError("Connessione non riuscita.");
     } finally {
@@ -134,6 +155,7 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
     });
     await stopScanner();
     setAuth("login");
+    setRole(null);
     setResult(null);
     setStats(null);
   }
@@ -303,13 +325,15 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
             Mundo Castel · ingresso
           </p>
         </div>
-          <div className="flex flex-wrap gap-3">
-          <Link
-            href="/club/admin"
-            className="inline-flex items-center justify-center rounded-lg border border-mundo-black/20 px-4 py-2.5 font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-black/80"
-          >
-            Admin iscritti
-          </Link>
+        <div className="flex flex-wrap items-center justify-end gap-3">
+          {isAdmin ? (
+            <Link
+              href="/club/admin"
+              className="inline-flex items-center justify-center rounded-lg border border-mundo-black/20 px-4 py-2.5 font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-black/80"
+            >
+              Admin iscritti
+            </Link>
+          ) : null}
           <button
             type="button"
             onClick={() => void handleLogout()}
@@ -320,7 +344,7 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
         </div>
       </div>
 
-      {stats ? (
+      {isAdmin && stats ? (
         <div className="grid grid-cols-3 gap-3">
           <div className="rounded-xl border border-mundo-black/10 bg-mundo-white p-4 text-center">
             <p className="font-futura-500 text-2xl text-mundo-black">
@@ -372,13 +396,15 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
               Ferma fotocamera
             </button>
           )}
-          <button
-            type="button"
-            onClick={() => void refreshStats()}
-            className="inline-flex items-center justify-center rounded-lg border border-mundo-black/20 px-5 py-3 font-futura-500 text-sm uppercase tracking-[0.14em] text-mundo-black/80"
-          >
-            Aggiorna stats
-          </button>
+          {isAdmin ? (
+            <button
+              type="button"
+              onClick={() => void refreshStats()}
+              className="inline-flex items-center justify-center rounded-lg border border-mundo-black/20 px-5 py-3 font-futura-500 text-sm uppercase tracking-[0.14em] text-mundo-black/80"
+            >
+              Aggiorna stats
+            </button>
+          ) : null}
         </div>
 
         <form
@@ -427,7 +453,7 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
         </div>
       ) : null}
 
-      {stats && stats.byPromoter.length > 0 ? (
+      {isAdmin && stats && stats.byPromoter.length > 0 ? (
         <div className="overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white">
           <div className="border-b border-mundo-black/10 px-4 py-3">
             <p className="font-futura-500 text-sm uppercase tracking-[0.14em] text-mundo-black">
