@@ -76,6 +76,46 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
     }
   }
 
+  async function saveQrToDevice() {
+    if (!success) return;
+    const fileName = `mundo-castel-${success.qrToken}.png`;
+
+    try {
+      const res = await fetch(success.qrDataUrl);
+      const blob = await res.blob();
+      const file = new File([blob], fileName, { type: "image/png" });
+
+      // iPhone/iPad: apre il foglio Condividi → "Salva immagine" / Foto
+      if (
+        typeof navigator !== "undefined" &&
+        typeof navigator.share === "function" &&
+        typeof navigator.canShare === "function" &&
+        navigator.canShare({ files: [file] })
+      ) {
+        await navigator.share({
+          files: [file],
+          title: "QR Mundo Club",
+        });
+        return;
+      }
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = fileName;
+      link.rel = "noopener";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      // Utente ha chiuso il foglio Condividi: non è un errore
+      if (err instanceof DOMException && err.name === "AbortError") return;
+      // Ultimo fallback: apri l'immagine (su iPhone → tieni premuto → Salva in Foto)
+      window.open(success.qrDataUrl, "_blank", "noopener,noreferrer");
+    }
+  }
+
   if (success) {
     return (
       <div className="rounded-2xl border border-mundo-black/10 bg-mundo-white p-6 sm:p-8">
@@ -100,14 +140,17 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
         <p className="mt-3 text-center font-futura-500 text-sm tracking-wide text-mundo-black/60">
           {success.qrToken}
         </p>
+        <p className="mt-2 text-center font-futura-400 text-sm text-mundo-black/55">
+          Su iPhone: Salva QR → Salva immagine, oppure tieni premuto il QR.
+        </p>
 
-        <a
-          href={success.qrDataUrl}
-          download={`mundo-castel-${success.qrToken}.png`}
+        <button
+          type="button"
+          onClick={() => void saveQrToDevice()}
           className="mt-6 inline-flex w-full items-center justify-center rounded-lg border border-mundo-black px-5 py-3 font-futura-500 text-sm uppercase tracking-[0.14em] text-mundo-black transition-colors hover:bg-mundo-black hover:text-mundo-white"
         >
           Salva QR
-        </a>
+        </button>
 
         <a
           href={event.whatsappCommunityUrl}
