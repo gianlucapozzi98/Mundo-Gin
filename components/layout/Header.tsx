@@ -13,7 +13,7 @@ const LEFT_NAV_LINKS = [
 ];
 
 const RIGHT_NAV_LINKS = [
-  { href: "/mundo-club", label: "Club" },
+  { href: "/club", label: "Club" },
   { href: "/shop", label: "Shop" },
   { href: "/contatti", label: "Contatti" },
 ];

@@ -42,7 +42,7 @@ export function MundoClubSection() {
               Un programma dedicato a chi condivide la nostra passione per la qualità, dentro e fuori dal bancone. Mundo Club è il nostro modo di creare connessioni, offrendo esperienze e vantaggi esclusivi.
             </p>
             <Link
-              href="/mundo-club"
+              href="/club"
               className="inline-block px-8 py-4 bg-mundo-gold text-mundo-black font-futura-500 font-medium rounded-lg hover:bg-mundo-gold/90 transition-all min-h-[44px]"
             >
               Scopri Mundo Club

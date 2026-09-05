@@ -8,17 +8,20 @@ export type ClubEvent = {
   imageUrl: string;
   /** fit = intera immagine se 4:5, fill = fino al bordo, fill-bottom = fino al bordo ancorata in basso */
   imageLayout: ClubEventImageLayout;
+  /** Se presente, l'evento apre la pagina di registrazione dedicata */
+  href?: string;
 };
 
 /** Aggiorna questa lista man mano che pubblichi nuovi eventi Mundo Club. */
 export const CLUB_EVENTS: ClubEvent[] = [
   {
     id: "event-castello-pagazzano-2026",
-    title: "MUNDO CLUB #1",
+    title: "MUNDO CASTEL",
     date: "Settembre 2026",
     location: "Bergamo",
     imageUrl: "/images/Mundo-Gin-castello-pagazzano.JPG",
     imageLayout: "fill",
+    href: "/club/mundo-castel",
   },
   {
     id: "event-jesolo-2026",

@@ -1,17 +1,6 @@
-import { Metadata } from "next";
-import { MundoClubCollage } from "./MundoClubCollage";
-import { MundoClubEvents } from "./MundoClubEvents";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Mundo Club | Mundo Gin",
-  description: "Scopri gli eventi Mundo Club: tasting, serate cocktail e novità del mondo Mundo Gin.",
-};
-
-export default function MundoClubPage() {
-  return (
-    <div className="bg-[#F2F2F2]">
-      <MundoClubCollage />
-      <MundoClubEvents />
-    </div>
-  );
+/** Vecchio URL: redirect permanente a /club */
+export default function MundoClubRedirectPage() {
+  redirect("/club");
 }
