@@ -31,7 +31,11 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-14">
+        <div
+          className={`grid grid-cols-1 items-start lg:grid-cols-2 lg:gap-14 ${
+            promoterCode === "pc" ? "gap-5" : "gap-10"
+          }`}
+        >
           <div>
             <div className="aspect-[4/5] overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white">
               <img
@@ -41,7 +45,7 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
               />
             </div>
             {promoterCode === "pc" ? (
-              <div className="mt-5 -mb-1 flex justify-center lg:hidden">
+              <div className="mt-4 -mb-1 flex justify-center lg:hidden">
                 <img
                   src="/images/pausa-caffe-logo.png"
                   alt="Pausa Caffè"
