@@ -68,6 +68,15 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
             </div>
 
             <div className="mt-10">
+              {promoterCode === "pc" ? (
+                <div className="mb-6 flex justify-center sm:justify-start">
+                  <img
+                    src="/images/pausa-caffe-logo.png"
+                    alt="Pausa Caffè"
+                    className="h-16 w-auto object-contain sm:h-20"
+                  />
+                </div>
+              ) : null}
               <EventRegistrationForm
                 event={event}
                 promoterCode={promoterCode}
