@@ -8,6 +8,17 @@ type Props = {
 };
 
 export function EventRegistrationPage({ event, promoterCode }: Props) {
+  const description = event.description.map((paragraph, index) => {
+    if (
+      index === 0 &&
+      promoterCode === "pc" &&
+      paragraph.startsWith("Mundo Club presenta:")
+    ) {
+      return paragraph.replace(/\.$/, "") + ", in collaborazione con Pausa Caffè.";
+    }
+    return paragraph;
+  });
+
   return (
     <div className="min-h-screen bg-[#F2F2F2] pt-24 sm:pt-28">
       <div className="container mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6 sm:pb-20 lg:px-8">
@@ -46,7 +57,7 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
             </p>
 
             <div className="mt-8 space-y-4">
-              {event.description.map((paragraph) => (
+              {description.map((paragraph) => (
                 <p
                   key={paragraph}
                   className="font-futura-400 text-[18px] leading-relaxed text-mundo-black/80 sm:text-[20px]"
