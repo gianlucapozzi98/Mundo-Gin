@@ -52,6 +52,6 @@ on conflict (slug) do update set
 insert into promoters (name, code)
 values
   ('Pausa Caffè', 'pc'),
-  ('Rub', 'rg')
+  ('Rubin', 'rg')
 on conflict (code) do update set
   name = excluded.name;

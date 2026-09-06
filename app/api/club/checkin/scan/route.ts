@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isStaffAuthenticated } from "@/lib/club/checkin-auth";
+import { canScanCheckin } from "@/lib/club/checkin-auth";
 import { checkInByToken } from "@/lib/club/registrations";
 
 export async function POST(req: NextRequest) {
-  if (!(await isStaffAuthenticated("scanner"))) {
+  if (!(await canScanCheckin())) {
     return NextResponse.json({ error: "Non autorizzato." }, { status: 401 });
   }
 

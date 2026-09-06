@@ -3,6 +3,11 @@ export type ClubPromoter = {
   code: string;
   /** Vecchi path ancora accettati (redirect logico in registrazione). */
   aliases?: string[];
+  /**
+   * Password login pannello PR (default: nome minuscolo senza spazi/accenti).
+   * Es. "Pausa Caffè" → pausacaffe, "Rubin" → rubin.
+   */
+  loginPassword?: string;
 };
 
 export type ClubEventDetails = {
@@ -27,6 +32,15 @@ export const WHATSAPP_COMMUNITY_URL =
 export const PRIVACY_POLICY_URL =
   "https://www.iubenda.com/privacy-policy/58280897";
 
+/** Nome PR → password: minuscolo, senza spazi né accenti. */
+export function promoterLoginPassword(name: string) {
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+}
+
 /** Eventi con pagina registrazione dedicata. */
 export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
   "mundo-castel": {
@@ -46,7 +60,7 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     ],
     promoters: [
       { name: "Pausa Caffè", code: "pc", aliases: ["pausa-caffe"] },
-      { name: "Rub", code: "rg", aliases: ["rub"] },
+      { name: "Rubin", code: "rg", aliases: ["rub"] },
     ],
     whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
   },
@@ -54,6 +68,16 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
 
 export function getRegisterableEvent(slug: string) {
   return REGISTERABLE_EVENTS[slug] ?? null;
+}
+
+export function listAllPromoters() {
+  const byCode = new Map<string, ClubPromoter>();
+  for (const event of Object.values(REGISTERABLE_EVENTS)) {
+    for (const promoter of event.promoters) {
+      byCode.set(promoter.code, promoter);
+    }
+  }
+  return [...byCode.values()];
 }
 
 export function getPromoterByCode(slug: string, code: string | undefined) {

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 type AuthState = "loading" | "login" | "ready" | "scanner_blocked";
-type StaffRole = "scanner" | "admin";
+type StaffRole = "scanner" | "admin" | "promoter";
 
 type RegistrationRow = {
   id: string;
@@ -47,6 +47,8 @@ function formatDateTime(iso: string | null) {
 
 export function AdminClient({ eventSlug }: { eventSlug: string }) {
   const [auth, setAuth] = useState<AuthState>("loading");
+  const [role, setRole] = useState<StaffRole | null>(null);
+  const [promoterName, setPromoterName] = useState<string | null>(null);
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loggingIn, setLoggingIn] = useState(false);
@@ -56,21 +58,31 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
   const [filter, setFilter] = useState<"all" | "present" | "absent">("all");
   const [busyId, setBusyId] = useState<string | null>(null);
 
+  const isAdmin = role === "admin";
+  const isPromoter = role === "promoter";
+
   const load = useCallback(async () => {
     const res = await fetch(
       `/api/club/admin/registrations?event=${encodeURIComponent(eventSlug)}`
     );
     if (res.status === 401) {
       setAuth("login");
+      setRole(null);
       return;
     }
     if (!res.ok) return;
     const data = (await res.json()) as {
       registrations?: RegistrationRow[];
       stats?: Stats;
+      role?: StaffRole;
+      promoterName?: string | null;
     };
     setRows(data.registrations ?? []);
     setStats(data.stats ?? null);
+    if (data.role) setRole(data.role);
+    if (data.promoterName !== undefined) {
+      setPromoterName(data.promoterName ?? null);
+    }
   }, [eventSlug]);
 
   useEffect(() => {
@@ -81,9 +93,15 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
         const data = (await res.json()) as {
           authenticated?: boolean;
           role?: StaffRole | null;
+          promoterName?: string | null;
         };
         if (cancelled) return;
-        if (data.authenticated && data.role === "admin") {
+        if (
+          data.authenticated &&
+          (data.role === "admin" || data.role === "promoter")
+        ) {
+          setRole(data.role);
+          setPromoterName(data.promoterName ?? null);
           setAuth("ready");
           await load();
         } else if (data.authenticated && data.role === "scanner") {
@@ -108,13 +126,19 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
       const res = await fetch("/api/club/checkin/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password, requiredRole: "admin" }),
+        body: JSON.stringify({ password, requiredRole: "adminPanel" }),
       });
-      const data = (await res.json()) as { error?: string; role?: StaffRole };
+      const data = (await res.json()) as {
+        error?: string;
+        role?: StaffRole;
+        promoterName?: string | null;
+      };
       if (!res.ok) {
         setLoginError(data.error ?? "Accesso non riuscito.");
         return;
       }
+      setRole(data.role ?? null);
+      setPromoterName(data.promoterName ?? null);
       setAuth("ready");
       setPassword("");
       await load();
@@ -132,11 +156,14 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
       body: JSON.stringify({ action: "logout" }),
     });
     setAuth("login");
+    setRole(null);
+    setPromoterName(null);
     setRows([]);
     setStats(null);
   }
 
   async function togglePresent(row: RegistrationRow) {
+    if (!isAdmin) return;
     setBusyId(row.id);
     try {
       const res = await fetch("/api/club/admin/registrations", {
@@ -175,10 +202,10 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
           Accesso limitato
         </p>
         <h1 className="mt-3 font-futura-500 text-3xl font-medium uppercase text-mundo-black">
-          Solo admin
+          Solo admin / PR
         </h1>
         <p className="mt-3 font-futura-400 text-[17px] text-mundo-black/70">
-          Sei autenticato come scanner. Questa area è riservata agli admin.
+          Sei autenticato come scanner. Questa area è per admin e promoter.
         </p>
         <Link
           href="/club/checkin"
@@ -197,13 +224,13 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
         className="mx-auto w-full max-w-md rounded-2xl border border-mundo-black/10 bg-mundo-white p-6 sm:p-8"
       >
         <p className="font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-black/55">
-          Staff only
+          Staff &amp; PR
         </p>
         <h1 className="mt-3 font-futura-500 text-3xl font-medium uppercase text-mundo-black">
           Admin
         </h1>
         <p className="mt-3 font-futura-400 text-[17px] text-mundo-black/70">
-          Gestisci iscritti e ingressi.
+          Gestisci iscritti e ingressi. I PR vedono solo la propria lista.
         </p>
         <label className="mt-8 block font-futura-500 text-sm text-mundo-black">
           Password
@@ -238,21 +265,26 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
         <div>
           <p className="font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-black/55">
             Mundo Club
+            {isPromoter && promoterName ? ` · ${promoterName}` : ""}
           </p>
           <h1 className="mt-2 font-futura-500 text-3xl font-medium uppercase text-mundo-black sm:text-4xl">
-            Admin
+            {isPromoter ? "La tua lista" : "Admin"}
           </h1>
           <p className="mt-2 font-futura-400 text-mundo-black/70">
-            Mundo Castel · iscritti e ingressi
+            {isPromoter
+              ? "Iscritti e ingressi dal tuo link referral"
+              : "Mundo Castel · iscritti e ingressi"}
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
-          <Link
-            href="/club/checkin"
-            className="inline-flex items-center justify-center rounded-lg border border-mundo-black px-4 py-2.5 font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-black"
-          >
-            Vai al check-in
-          </Link>
+          {isAdmin ? (
+            <Link
+              href="/club/checkin"
+              className="inline-flex items-center justify-center rounded-lg border border-mundo-black px-4 py-2.5 font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-black"
+            >
+              Vai al check-in
+            </Link>
+          ) : null}
           <button
             type="button"
             onClick={() => void load()}
@@ -299,7 +331,7 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
         </div>
       ) : null}
 
-      {stats && stats.byPromoter.length > 0 ? (
+      {isAdmin && stats && stats.byPromoter.length > 0 ? (
         <div className="overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white">
           <div className="border-b border-mundo-black/10 px-4 py-3">
             <p className="font-futura-500 text-sm uppercase tracking-[0.14em] text-mundo-black">
@@ -345,7 +377,7 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Cerca nome, referral o token…"
+          placeholder="Cerca nome o token…"
           className="min-w-0 flex-1 rounded-lg border border-mundo-black/20 bg-mundo-white px-4 py-3 font-futura-400 outline-none focus:border-mundo-black"
         />
         <div className="flex gap-2">
@@ -378,18 +410,20 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
             <thead>
               <tr className="border-b border-mundo-black/10 font-futura-500 text-xs uppercase tracking-wide text-mundo-black/55">
                 <th className="px-4 py-3">Nome</th>
-                <th className="px-4 py-3">Referral</th>
+                {isAdmin ? <th className="px-4 py-3">Referral</th> : null}
                 <th className="px-4 py-3">Token</th>
                 <th className="px-4 py-3">Iscrizione</th>
                 <th className="px-4 py-3">Stato</th>
-                <th className="px-4 py-3 text-right">Azione</th>
+                {isAdmin ? (
+                  <th className="px-4 py-3 text-right">Azione</th>
+                ) : null}
               </tr>
             </thead>
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={6}
+                    colSpan={isAdmin ? 6 : 4}
                     className="px-4 py-8 text-center font-futura-400 text-mundo-black/55"
                   >
                     Nessuna registrazione trovata.
@@ -404,9 +438,11 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
                     <td className="px-4 py-3 font-futura-500 text-mundo-black">
                       {row.firstName} {row.lastName}
                     </td>
-                    <td className="px-4 py-3">
-                      {row.promoterName ?? "—"}
-                    </td>
+                    {isAdmin ? (
+                      <td className="px-4 py-3">
+                        {row.promoterName ?? "—"}
+                      </td>
+                    ) : null}
                     <td className="px-4 py-3 font-mono text-xs">
                       {row.qrToken}
                     </td>
@@ -420,16 +456,18 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
                         <span className="text-mundo-black/50">Assente</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-right">
-                      <button
-                        type="button"
-                        disabled={busyId === row.id}
-                        onClick={() => void togglePresent(row)}
-                        className="rounded-full border border-mundo-black/25 px-3 py-1.5 font-futura-500 text-xs uppercase tracking-wide text-mundo-black disabled:opacity-50"
-                      >
-                        {row.present ? "Annulla" : "Segna presente"}
-                      </button>
-                    </td>
+                    {isAdmin ? (
+                      <td className="px-4 py-3 text-right">
+                        <button
+                          type="button"
+                          disabled={busyId === row.id}
+                          onClick={() => void togglePresent(row)}
+                          className="rounded-full border border-mundo-black/25 px-3 py-1.5 font-futura-500 text-xs uppercase tracking-wide text-mundo-black disabled:opacity-50"
+                        >
+                          {row.present ? "Annulla" : "Segna presente"}
+                        </button>
+                      </td>
+                    ) : null}
                   </tr>
                 ))
               )}
