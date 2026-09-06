@@ -33,6 +33,30 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
   },
+  openGraph: {
+    type: "website",
+    locale: "it_IT",
+    url: "https://www.mundogin.com",
+    siteName: "Mundo Gin",
+    title: "Mundo Gin | Italian Coffee Dry Gin",
+    description:
+      "Scopri Mundo Gin. Un gin contemporaneo, autentico, capace di distinguersi al palato e alla vista.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Mundo Gin — Italian Coffee Dry Gin",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mundo Gin | Italian Coffee Dry Gin",
+    description:
+      "Scopri Mundo Gin. Un gin contemporaneo, autentico, capace di distinguersi al palato e alla vista.",
+    images: ["/og-image.jpg"],
+  },
   verification: {
     other: {
       "facebook-domain-verification": "9s5h3gpy1dsug77z53xlhpvjpr3s89",
