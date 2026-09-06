@@ -40,15 +40,33 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
                 className="h-full w-full object-cover"
               />
             </div>
+            {promoterCode === "pc" ? (
+              <div className="mt-5 flex justify-center lg:hidden">
+                <img
+                  src="/images/pausa-caffe-logo.png"
+                  alt="Pausa Caffè"
+                  className="h-16 w-auto object-contain"
+                />
+              </div>
+            ) : null}
           </div>
 
           <div>
             <p className="font-futura-500 text-xs uppercase tracking-[0.18em] text-mundo-black/55">
               Mundo Club
             </p>
-            <h1 className="mt-3 font-futura-500 text-4xl font-medium uppercase text-mundo-black sm:text-5xl">
-              {event.title}
-            </h1>
+            <div className="mt-3 flex flex-wrap items-center gap-4 sm:gap-5">
+              <h1 className="font-futura-500 text-4xl font-medium uppercase text-mundo-black sm:text-5xl">
+                {event.title}
+              </h1>
+              {promoterCode === "pc" ? (
+                <img
+                  src="/images/pausa-caffe-logo.png"
+                  alt="Pausa Caffè"
+                  className="hidden h-14 w-auto object-contain lg:block lg:h-16"
+                />
+              ) : null}
+            </div>
             <p className="mt-4 font-futura-400 text-[20px] text-mundo-black/75">
               {event.dateLabel} · {event.timeLabel}
             </p>
@@ -68,15 +86,6 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
             </div>
 
             <div className="mt-10">
-              {promoterCode === "pc" ? (
-                <div className="mb-6 flex justify-center sm:justify-start">
-                  <img
-                    src="/images/pausa-caffe-logo.png"
-                    alt="Pausa Caffè"
-                    className="h-16 w-auto object-contain sm:h-20"
-                  />
-                </div>
-              ) : null}
               <EventRegistrationForm
                 event={event}
                 promoterCode={promoterCode}
