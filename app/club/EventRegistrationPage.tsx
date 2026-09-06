@@ -41,11 +41,11 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
               />
             </div>
             {promoterCode === "pc" ? (
-              <div className="mt-5 flex justify-center lg:hidden">
+              <div className="mt-5 -mb-1 flex justify-center lg:hidden">
                 <img
                   src="/images/pausa-caffe-logo.png"
                   alt="Pausa Caffè"
-                  className="h-16 w-auto object-contain"
+                  className="h-[4.6rem] w-auto object-contain"
                 />
               </div>
             ) : null}
