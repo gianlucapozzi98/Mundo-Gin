@@ -52,7 +52,7 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     timeLabel: "18:00 – 00:00",
     location: "Pagazzano (BG)",
     address: "Piazza Castello, 1, Pagazzano (BG)",
-    imageUrl: "/images/Mundo-Gin-castello-pagazzano.JPG",
+    imageUrl: "/images/Mundo-Gin-castle-pagazzano.JPG",
     description: [
       "Mundo Club presenta: Mundo Castle.",
       "Una serata all'interno di uno dei castelli medievali meglio conservati della Lombardia, circondato dal suo storico fossato e da oltre mille anni di storia. Tra antiche mura, cocktail e buona musica, daremo vita al primo incontro della community Mundo.",
