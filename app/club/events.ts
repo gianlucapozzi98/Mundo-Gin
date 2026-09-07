@@ -16,12 +16,12 @@ export type ClubEvent = {
 export const CLUB_EVENTS: ClubEvent[] = [
   {
     id: "event-castello-pagazzano-2026",
-    title: "MUNDO CASTEL",
+    title: "MUNDO CASTLE",
     date: "Settembre 2026",
     location: "Bergamo",
     imageUrl: "/images/Mundo-Gin-castello-pagazzano.JPG",
     imageLayout: "fill",
-    href: "/club/mundo-castel",
+    href: "/club/mundo-castle",
   },
   {
     id: "event-jesolo-2026",

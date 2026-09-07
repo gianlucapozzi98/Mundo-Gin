@@ -35,11 +35,11 @@ create index if not exists registrations_event_id_idx on registrations(event_id)
 create index if not exists registrations_promoter_id_idx on registrations(promoter_id);
 create index if not exists registrations_qr_token_idx on registrations(qr_token);
 
--- Seed: Mundo Castel
+-- Seed: Mundo Castle
 insert into events (slug, name, event_date, location)
 values (
-  'mundo-castel',
-  'Mundo Castel',
+  'mundo-castle',
+  'Mundo Castle',
   '2026-09-20',
   'Piazza Castello, 1, Pagazzano (BG)'
 )

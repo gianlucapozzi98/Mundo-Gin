@@ -78,7 +78,7 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
 
   async function saveQrToDevice() {
     if (!success) return;
-    const fileName = `mundo-castel-${success.qrToken}.png`;
+    const fileName = `mundo-castle-${success.qrToken}.png`;
 
     try {
       const res = await fetch(success.qrDataUrl);

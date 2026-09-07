@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
 
   const session = await getStaffSession();
   const eventSlug =
-    req.nextUrl.searchParams.get("event")?.trim() || "mundo-castel";
+    req.nextUrl.searchParams.get("event")?.trim() || "mundo-castle";
 
   if (!getRegisterableEvent(eventSlug)) {
     return NextResponse.json({ error: "Evento non trovato." }, { status: 404 });

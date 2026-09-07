@@ -11,7 +11,7 @@ export default function ClubAdminPage() {
   return (
     <div className="min-h-screen bg-[#F2F2F2] pt-24 sm:pt-28">
       <div className="container mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
-        <AdminClient eventSlug="mundo-castel" />
+        <AdminClient eventSlug="mundo-castle" />
       </div>
     </div>
   );

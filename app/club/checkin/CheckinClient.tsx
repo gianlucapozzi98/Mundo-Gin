@@ -322,7 +322,7 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
             Check-in
           </h1>
           <p className="mt-2 font-futura-400 text-mundo-black/70">
-            Mundo Castel · ingresso
+            Mundo Castle · ingresso
           </p>
         </div>
         <div className="flex flex-wrap items-center justify-end gap-3">

@@ -1,5 +1,6 @@
 -- Aggiorna i codici PR corti (eseguire una volta nel SQL Editor di Supabase).
--- Link nuovi: /club/mundo-castel/pc  e  /club/mundo-castel/rg
+-- Link nuovi: /club/mundo-castle/pc  e  /club/mundo-castle/rg
+-- (i vecchi /club/mundo-castel/... restano validi come alias sul sito)
 
 update promoters set code = 'pc' where code = 'pausa-caffe';
 update promoters set code = 'rg' where code = 'rub';

@@ -43,9 +43,9 @@ export function promoterLoginPassword(name: string) {
 
 /** Eventi con pagina registrazione dedicata. */
 export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
-  "mundo-castel": {
-    slug: "mundo-castel",
-    title: "Mundo Castel",
+  "mundo-castle": {
+    slug: "mundo-castle",
+    title: "Mundo Castle",
     shortDate: "Settembre 2026",
     shortLocation: "Bergamo",
     dateLabel: "20 settembre 2026",
@@ -54,7 +54,7 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     address: "Piazza Castello, 1, Pagazzano (BG)",
     imageUrl: "/images/Mundo-Gin-castello-pagazzano.JPG",
     description: [
-      "Mundo Club presenta: Mundo Castel.",
+      "Mundo Club presenta: Mundo Castle.",
       "Una serata all'interno di uno dei castelli medievali meglio conservati della Lombardia, circondato dal suo storico fossato e da oltre mille anni di storia. Tra antiche mura, cocktail e buona musica, daremo vita al primo incontro della community Mundo.",
       "L'ingresso è gratuito con registrazione. Prenota il tuo accesso, salva il QR e mostralo all'ingresso.",
     ],
@@ -66,8 +66,17 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
   },
 };
 
+/** Vecchi path ancora validi (es. link PR già condivisi). */
+const EVENT_SLUG_ALIASES: Record<string, string> = {
+  "mundo-castel": "mundo-castle",
+};
+
+export function resolveEventSlug(slug: string) {
+  return EVENT_SLUG_ALIASES[slug] ?? slug;
+}
+
 export function getRegisterableEvent(slug: string) {
-  return REGISTERABLE_EVENTS[slug] ?? null;
+  return REGISTERABLE_EVENTS[resolveEventSlug(slug)] ?? null;
 }
 
 export function listAllPromoters() {

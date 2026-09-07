@@ -273,7 +273,7 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
           <p className="mt-2 font-futura-400 text-mundo-black/70">
             {isPromoter
               ? "Iscritti e ingressi dal tuo link referral"
-              : "Mundo Castel · iscritti e ingressi"}
+              : "Mundo Castle · iscritti e ingressi"}
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
