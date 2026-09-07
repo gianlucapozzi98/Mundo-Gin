@@ -15,7 +15,7 @@ export type ClubEvent = {
 /** Aggiorna questa lista man mano che pubblichi nuovi eventi Mundo Club. */
 export const CLUB_EVENTS: ClubEvent[] = [
   {
-    id: "event-castle-pagazzano-2026",
+    id: "event-castello-pagazzano-2026",
     title: "MUNDO CASTLE",
     date: "Settembre 2026",
     location: "Bergamo",
