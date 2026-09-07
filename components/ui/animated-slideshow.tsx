@@ -26,7 +26,7 @@ const HoverSliderContext = React.createContext<
   HoverSliderContextValue | undefined
 >(undefined);
 
-function useHoverSliderContext() {
+export function useHoverSliderContext() {
   const context = React.useContext(HoverSliderContext);
   if (context === undefined) {
     throw new Error(
@@ -101,6 +101,7 @@ export const TextStaggerHover = React.forwardRef<
   const words = splitWords(text);
   const isActive = activeSlide === index;
   const handleMouse = () => changeSlide(index);
+  const handleActivate = () => changeSlide(index);
 
   let charIndex = 0;
 
@@ -111,8 +112,15 @@ export const TextStaggerHover = React.forwardRef<
       ref={ref}
       onMouseEnter={handleMouse}
       onFocus={handleMouse}
+      onClick={handleActivate}
       tabIndex={0}
       role="button"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleActivate();
+        }
+      }}
     >
       {words.map((word, wordIndex) => {
         const wordStartIndex = charIndex;
