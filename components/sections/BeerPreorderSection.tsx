@@ -65,8 +65,15 @@ export function BeerPreorderSection() {
               className="mb-5 font-futura-500 font-medium uppercase leading-tight text-mundo-black"
               style={{ fontSize: "60px", lineHeight: "69px" }}
             >
-              <span className="block sm:whitespace-nowrap">Mundo Beer</span>
-              <span className="block sm:whitespace-nowrap">è finalmente disponibile</span>
+              <span className="sm:hidden">
+                Mundo Beer{"\u00A0"}è finalmente disponibile
+              </span>
+              <span className="hidden sm:block">
+                <span className="block whitespace-nowrap">Mundo Beer</span>
+                <span className="block whitespace-nowrap">
+                  è finalmente disponibile
+                </span>
+              </span>
             </h2>
             <Link
               href="/shop/mundo-beer"
