@@ -13,6 +13,26 @@ const nextConfig: NextConfig = {
         destination: "/club/:path*",
         permanent: true,
       },
+      {
+        source: "/club/mundo-castel",
+        destination: "/club/mundo-castle",
+        permanent: true,
+      },
+      {
+        source: "/club/mundo-castel/:path*",
+        destination: "/club/mundo-castle/:path*",
+        permanent: true,
+      },
+      {
+        source: "/mundo-castel",
+        destination: "/club/mundo-castle",
+        permanent: true,
+      },
+      {
+        source: "/mundo-castel/:path*",
+        destination: "/club/mundo-castle/:path*",
+        permanent: true,
+      },
     ];
   },
 };
