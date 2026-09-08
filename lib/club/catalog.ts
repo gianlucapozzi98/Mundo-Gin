@@ -75,6 +75,15 @@ export function resolveEventSlug(slug: string) {
   return EVENT_SLUG_ALIASES[slug] ?? slug;
 }
 
+/** Tutti gli slug DB possibili per un evento (canonico + alias). */
+export function eventSlugCandidates(slug: string) {
+  const canonical = resolveEventSlug(slug);
+  const aliases = Object.entries(EVENT_SLUG_ALIASES)
+    .filter(([, to]) => to === canonical)
+    .map(([from]) => from);
+  return [...new Set([canonical, slug, ...aliases])];
+}
+
 export function getRegisterableEvent(slug: string) {
   return REGISTERABLE_EVENTS[resolveEventSlug(slug)] ?? null;
 }

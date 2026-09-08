@@ -2,7 +2,7 @@ import { randomBytes } from "crypto";
 import { promises as fs } from "fs";
 import path from "path";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { getPromoterByCode, getRegisterableEvent } from "./catalog";
+import { getPromoterByCode, getRegisterableEvent, eventSlugCandidates } from "./catalog";
 
 export type RegistrationRecord = {
   id: string;
@@ -87,7 +87,7 @@ async function createLocalRegistration(
   const rows = await readLocalStore();
   const record: RegistrationRecord = {
     id: createId(),
-    eventSlug: input.eventSlug,
+    eventSlug: event.slug,
     promoterCode: promoter?.code ?? null,
     promoterName: promoter?.name ?? null,
     firstName: input.firstName,
@@ -112,8 +112,9 @@ async function createSupabaseRegistration(
   const { data: eventRow, error: eventError } = await supabase
     .from("events")
     .select("id")
-    .eq("slug", input.eventSlug)
-    .single();
+    .in("slug", eventSlugCandidates(input.eventSlug))
+    .limit(1)
+    .maybeSingle();
 
   if (eventError || !eventRow) throw new Error("EVENT_NOT_FOUND");
 
@@ -161,7 +162,7 @@ async function createSupabaseRegistration(
 
   return {
     id: data.id,
-    eventSlug: input.eventSlug,
+    eventSlug: event.slug,
     promoterCode,
     promoterName,
     firstName: data.first_name,
@@ -335,15 +336,18 @@ export type EventStats = {
 
 async function listLocalByEvent(eventSlug: string) {
   const rows = await readLocalStore();
-  return rows.filter((r) => r.eventSlug === eventSlug);
+  const candidates = new Set(eventSlugCandidates(eventSlug));
+  return rows.filter((r) => candidates.has(r.eventSlug));
 }
 
 async function listSupabaseByEvent(eventSlug: string) {
   const supabase = getSupabaseAdmin();
+  const candidates = eventSlugCandidates(eventSlug);
   const { data: eventRow } = await supabase
     .from("events")
     .select("id")
-    .eq("slug", eventSlug)
+    .in("slug", candidates)
+    .limit(1)
     .maybeSingle();
   if (!eventRow) return [] as RegistrationRecord[];
 
@@ -356,6 +360,8 @@ async function listSupabaseByEvent(eventSlug: string) {
 
   if (error || !data) return [];
 
+  const canonical = getRegisterableEvent(eventSlug)?.slug ?? eventSlug;
+
   return data.map((row) => {
     const promoters = row.promoters as
       | { name?: string; code?: string }
@@ -364,7 +370,7 @@ async function listSupabaseByEvent(eventSlug: string) {
     const promoter = Array.isArray(promoters) ? promoters[0] : promoters;
     return {
       id: row.id,
-      eventSlug,
+      eventSlug: canonical,
       promoterCode: promoter?.code ?? null,
       promoterName: promoter?.name ?? null,
       firstName: row.first_name,
