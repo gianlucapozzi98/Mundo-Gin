@@ -170,23 +170,13 @@ function DesktopEventsLayout() {
     <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-16">
       <div className="flex w-full max-w-xl flex-col space-y-6">
         {CLUB_EVENTS.map((event, index) => {
-          const title = (
-            <TextStaggerHover
-              index={index}
-              text={event.title}
-              className="cursor-pointer font-futura-500 text-5xl font-bold uppercase leading-[0.9] tracking-tighter text-mundo-black"
-            />
-          );
-
           return (
             <div key={event.id} className="group">
-              {event.href ? (
-                <Link href={event.href} className="block">
-                  {title}
-                </Link>
-              ) : (
-                title
-              )}
+              <TextStaggerHover
+                index={index}
+                text={event.title}
+                className="cursor-pointer font-futura-500 text-5xl font-bold uppercase leading-[0.9] tracking-tighter text-mundo-black"
+              />
               <p className="mt-1 font-futura-400 text-base text-mundo-black/60">
                 {event.date} · {event.location}
               </p>
