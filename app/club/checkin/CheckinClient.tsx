@@ -16,6 +16,16 @@ type ScanResult = {
   message: string;
 };
 
+type SearchHit = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  promoterName: string | null;
+  present: boolean;
+  checkedInAt: string | null;
+  qrToken: string;
+};
+
 type Stats = {
   total: number;
   present: number;
@@ -50,6 +60,10 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
   const [loggingIn, setLoggingIn] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [manualToken, setManualToken] = useState("");
+  const [nameQuery, setNameQuery] = useState("");
+  const [nameHits, setNameHits] = useState<SearchHit[]>([]);
+  const [nameSearching, setNameSearching] = useState(false);
+  const [nameBusyId, setNameBusyId] = useState<string | null>(null);
   const [scanBusy, setScanBusy] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
@@ -158,6 +172,100 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
     setRole(null);
     setResult(null);
     setStats(null);
+    setNameQuery("");
+    setNameHits([]);
+  }
+
+  async function searchByName(raw: string) {
+    const q = raw.trim();
+    setNameQuery(raw);
+    if (q.length < 2) {
+      setNameHits([]);
+      return;
+    }
+    setNameSearching(true);
+    try {
+      const res = await fetch(
+        `/api/club/checkin/search?event=${encodeURIComponent(eventSlug)}&q=${encodeURIComponent(q)}`
+      );
+      if (!res.ok) {
+        setNameHits([]);
+        return;
+      }
+      const data = (await res.json()) as { registrations?: SearchHit[] };
+      setNameHits(data.registrations ?? []);
+    } catch {
+      setNameHits([]);
+    } finally {
+      setNameSearching(false);
+    }
+  }
+
+  async function markPresentById(hit: SearchHit) {
+    if (nameBusyId) return;
+    setNameBusyId(hit.id);
+    try {
+      const res = await fetch("/api/club/checkin/present", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: hit.id }),
+      });
+      const data = (await res.json()) as {
+        status?: "ok" | "already";
+        error?: string;
+        registration?: {
+          firstName: string;
+          lastName: string;
+          promoterName: string | null;
+          checkedInAt: string | null;
+        };
+      };
+      if (!res.ok || !data.registration) {
+        setResult({
+          status: "not_found",
+          message: data.error ?? "Impossibile segnare presente",
+        });
+        return;
+      }
+      if (data.status === "already") {
+        setResult({
+          status: "already",
+          firstName: data.registration.firstName,
+          lastName: data.registration.lastName,
+          promoterName: data.registration.promoterName,
+          checkedInAt: data.registration.checkedInAt,
+          message: `Già presente · ingresso alle ${formatTime(data.registration.checkedInAt)}`,
+        });
+      } else {
+        setResult({
+          status: "ok",
+          firstName: data.registration.firstName,
+          lastName: data.registration.lastName,
+          promoterName: data.registration.promoterName,
+          checkedInAt: data.registration.checkedInAt,
+          message: "Ingresso registrato",
+        });
+      }
+      setNameHits((prev) =>
+        prev.map((row) =>
+          row.id === hit.id
+            ? {
+                ...row,
+                present: true,
+                checkedInAt: data.registration?.checkedInAt ?? row.checkedInAt,
+              }
+            : row
+        )
+      );
+      void refreshStats();
+    } catch {
+      setResult({
+        status: "not_found",
+        message: "Errore di connessione",
+      });
+    } finally {
+      setNameBusyId(null);
+    }
   }
 
   async function processToken(raw: string) {
@@ -429,6 +537,64 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
             Check
           </button>
         </form>
+
+        <div className="mt-6 border-t border-mundo-black/10 pt-5">
+          <p className="font-futura-500 text-xs uppercase tracking-[0.14em] text-mundo-black/55">
+            Senza QR · cerca per nome
+          </p>
+          <input
+            type="search"
+            value={nameQuery}
+            onChange={(e) => void searchByName(e.target.value)}
+            placeholder="Nome o cognome…"
+            className="mt-3 w-full rounded-lg border border-mundo-black/20 px-3 py-2.5 font-futura-400 text-sm outline-none focus:border-mundo-black"
+            autoComplete="off"
+          />
+          {nameSearching ? (
+            <p className="mt-3 font-futura-400 text-sm text-mundo-black/55">
+              Ricerca…
+            </p>
+          ) : null}
+          {nameQuery.trim().length >= 2 && !nameSearching && nameHits.length === 0 ? (
+            <p className="mt-3 font-futura-400 text-sm text-mundo-black/55">
+              Nessun iscritto trovato.
+            </p>
+          ) : null}
+          {nameHits.length > 0 ? (
+            <ul className="mt-3 divide-y divide-mundo-black/10 overflow-hidden rounded-xl border border-mundo-black/10">
+              {nameHits.map((hit) => (
+                <li
+                  key={hit.id}
+                  className="flex flex-col gap-3 bg-white px-3 py-3 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div>
+                    <p className="font-futura-500 text-sm text-mundo-black">
+                      {hit.firstName} {hit.lastName}
+                    </p>
+                    <p className="mt-0.5 font-futura-400 text-xs text-mundo-black/55">
+                      {hit.promoterName ? `${hit.promoterName} · ` : ""}
+                      {hit.present
+                        ? `Presente · ${formatTime(hit.checkedInAt)}`
+                        : "Non ancora entrato"}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    disabled={nameBusyId === hit.id || hit.present}
+                    onClick={() => void markPresentById(hit)}
+                    className="rounded-lg bg-mundo-black px-4 py-2.5 font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-white disabled:opacity-40"
+                  >
+                    {hit.present
+                      ? "Già presente"
+                      : nameBusyId === hit.id
+                        ? "…"
+                        : "Segna presente"}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
       </div>
 
       {result ? (

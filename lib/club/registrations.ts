@@ -461,6 +461,47 @@ export async function listRegistrationsByEvent(eventSlug: string) {
   );
 }
 
+export async function getRegistrationById(
+  id: string
+): Promise<RegistrationRecord | null> {
+  if (hasSupabase()) {
+    const supabase = getSupabaseAdmin();
+    const { data, error } = await supabase
+      .from("registrations")
+      .select(
+        "id, first_name, last_name, qr_token, present, checked_in_at, created_at, promoters(name, code), events(slug)"
+      )
+      .eq("id", id)
+      .maybeSingle();
+
+    if (error || !data) return null;
+
+    const events = data.events as { slug?: string } | { slug?: string }[] | null;
+    const promoters = data.promoters as
+      | { name?: string; code?: string }
+      | { name?: string; code?: string }[]
+      | null;
+    const eventSlug = Array.isArray(events) ? events[0]?.slug : events?.slug;
+    const promoter = Array.isArray(promoters) ? promoters[0] : promoters;
+
+    return {
+      id: data.id,
+      eventSlug: eventSlug ?? "",
+      promoterCode: promoter?.code ?? null,
+      promoterName: promoter?.name ?? null,
+      firstName: data.first_name,
+      lastName: data.last_name,
+      qrToken: data.qr_token,
+      present: data.present,
+      checkedInAt: data.checked_in_at,
+      createdAt: data.created_at,
+    };
+  }
+
+  const rows = await readLocalStore();
+  return rows.find((r) => r.id === id) ?? null;
+}
+
 export async function setPresentById(
   id: string,
   present: boolean
