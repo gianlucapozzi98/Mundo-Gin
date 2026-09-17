@@ -64,6 +64,10 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
   const [nameHits, setNameHits] = useState<SearchHit[]>([]);
   const [nameSearching, setNameSearching] = useState(false);
   const [nameBusyId, setNameBusyId] = useState<string | null>(null);
+  const [showWalkIn, setShowWalkIn] = useState(false);
+  const [walkInFirst, setWalkInFirst] = useState("");
+  const [walkInLast, setWalkInLast] = useState("");
+  const [walkInBusy, setWalkInBusy] = useState(false);
   const [scanBusy, setScanBusy] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
@@ -174,11 +178,15 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
     setStats(null);
     setNameQuery("");
     setNameHits([]);
+    setShowWalkIn(false);
+    setWalkInFirst("");
+    setWalkInLast("");
   }
 
   async function searchByName(raw: string) {
     const q = raw.trim();
     setNameQuery(raw);
+    setShowWalkIn(false);
     if (q.length < 2) {
       setNameHits([]);
       return;
@@ -198,6 +206,84 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
       setNameHits([]);
     } finally {
       setNameSearching(false);
+    }
+  }
+
+  function openWalkInForm() {
+    const parts = nameQuery.trim().split(/\s+/).filter(Boolean);
+    if (parts.length >= 2) {
+      setWalkInFirst(parts[0] ?? "");
+      setWalkInLast(parts.slice(1).join(" "));
+    } else {
+      setWalkInFirst(parts[0] ?? "");
+      setWalkInLast("");
+    }
+    setShowWalkIn(true);
+  }
+
+  async function submitWalkIn(e: React.FormEvent) {
+    e.preventDefault();
+    if (walkInBusy) return;
+    setWalkInBusy(true);
+    try {
+      const res = await fetch("/api/club/checkin/walkin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          eventSlug,
+          firstName: walkInFirst,
+          lastName: walkInLast,
+        }),
+      });
+      const data = (await res.json()) as {
+        status?: "ok";
+        error?: string;
+        registration?: {
+          id: string;
+          firstName: string;
+          lastName: string;
+          promoterName: string | null;
+          checkedInAt: string | null;
+          present: boolean;
+          qrToken: string;
+        };
+      };
+      if (!res.ok || !data.registration) {
+        setResult({
+          status: "not_found",
+          message: data.error ?? "Impossibile aggiungere",
+        });
+        return;
+      }
+      setResult({
+        status: "ok",
+        firstName: data.registration.firstName,
+        lastName: data.registration.lastName,
+        promoterName: data.registration.promoterName,
+        checkedInAt: data.registration.checkedInAt,
+        message: "Aggiunto e ingresso registrato",
+      });
+      setNameHits([
+        {
+          id: data.registration.id,
+          firstName: data.registration.firstName,
+          lastName: data.registration.lastName,
+          promoterName: data.registration.promoterName,
+          present: true,
+          checkedInAt: data.registration.checkedInAt,
+          qrToken: data.registration.qrToken,
+        },
+      ]);
+      setShowWalkIn(false);
+      setNameQuery(`${data.registration.firstName} ${data.registration.lastName}`);
+      void refreshStats();
+    } catch {
+      setResult({
+        status: "not_found",
+        message: "Errore di connessione",
+      });
+    } finally {
+      setWalkInBusy(false);
     }
   }
 
@@ -556,9 +642,61 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
             </p>
           ) : null}
           {nameQuery.trim().length >= 2 && !nameSearching && nameHits.length === 0 ? (
-            <p className="mt-3 font-futura-400 text-sm text-mundo-black/55">
-              Nessun iscritto trovato.
-            </p>
+            <div className="mt-3 space-y-3">
+              <p className="font-futura-400 text-sm text-mundo-black/55">
+                Nessun iscritto trovato.
+              </p>
+              {!showWalkIn ? (
+                <button
+                  type="button"
+                  onClick={openWalkInForm}
+                  className="inline-flex w-full items-center justify-center rounded-lg border border-mundo-black px-4 py-2.5 font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-black"
+                >
+                  Aggiungi manualmente
+                </button>
+              ) : (
+                <form
+                  onSubmit={(e) => void submitWalkIn(e)}
+                  className="space-y-3 rounded-xl border border-mundo-black/10 bg-mundo-black/[0.02] p-3"
+                >
+                  <p className="font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-black/55">
+                    Nuovo iscritto sul posto
+                  </p>
+                  <input
+                    type="text"
+                    value={walkInFirst}
+                    onChange={(e) => setWalkInFirst(e.target.value)}
+                    placeholder="Nome"
+                    required
+                    className="w-full rounded-lg border border-mundo-black/20 px-3 py-2.5 font-futura-400 text-sm outline-none focus:border-mundo-black"
+                  />
+                  <input
+                    type="text"
+                    value={walkInLast}
+                    onChange={(e) => setWalkInLast(e.target.value)}
+                    placeholder="Cognome"
+                    required
+                    className="w-full rounded-lg border border-mundo-black/20 px-3 py-2.5 font-futura-400 text-sm outline-none focus:border-mundo-black"
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowWalkIn(false)}
+                      className="flex-1 rounded-lg border border-mundo-black/20 px-4 py-2.5 font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-black/70"
+                    >
+                      Annulla
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={walkInBusy}
+                      className="flex-1 rounded-lg bg-mundo-black px-4 py-2.5 font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-white disabled:opacity-50"
+                    >
+                      {walkInBusy ? "…" : "Aggiungi e presente"}
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
           ) : null}
           {nameHits.length > 0 ? (
             <ul className="mt-3 divide-y divide-mundo-black/10 overflow-hidden rounded-xl border border-mundo-black/10">
