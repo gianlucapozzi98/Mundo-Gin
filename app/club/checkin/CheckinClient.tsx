@@ -3,9 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Html5Qrcode } from "html5-qrcode";
+import { listRegisterableEvents } from "@/lib/club/catalog";
 
 type AuthState = "loading" | "login" | "ready";
 type StaffRole = "scanner" | "admin";
+
+const STAFF_EVENTS = listRegisterableEvents();
+const DEFAULT_EVENT_SLUG = STAFF_EVENTS[0]?.slug ?? "milan-fashion-week";
 
 type ScanResult = {
   status: "ok" | "already" | "not_found";
@@ -52,7 +56,8 @@ function formatTime(iso: string | null | undefined) {
   }
 }
 
-export function CheckinClient({ eventSlug }: { eventSlug: string }) {
+export function CheckinClient() {
+  const [eventSlug, setEventSlug] = useState(DEFAULT_EVENT_SLUG);
   const [auth, setAuth] = useState<AuthState>("loading");
   const [role, setRole] = useState<StaffRole | null>(null);
   const [password, setPassword] = useState("");
@@ -74,6 +79,8 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
   const lastTokenRef = useRef<string>("");
 
   const isAdmin = role === "admin";
+  const selectedEvent =
+    STAFF_EVENTS.find((e) => e.slug === eventSlug) ?? STAFF_EVENTS[0];
 
   const refreshStats = useCallback(async () => {
     if (role !== "admin") return;
@@ -88,6 +95,16 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
       /* ignore */
     }
   }, [eventSlug, role]);
+
+  useEffect(() => {
+    if (auth !== "ready") return;
+    setNameQuery("");
+    setNameHits([]);
+    setShowWalkIn(false);
+    setResult(null);
+    setStats(null);
+    if (role === "admin") void refreshStats();
+  }, [eventSlug, auth, role, refreshStats]);
 
   useEffect(() => {
     let cancelled = false;
@@ -114,12 +131,6 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
       cancelled = true;
     };
   }, []);
-
-  useEffect(() => {
-    if (auth === "ready" && role === "admin") {
-      void refreshStats();
-    }
-  }, [auth, role, refreshStats]);
 
   useEffect(() => {
     return () => {
@@ -515,8 +526,22 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
             Check-in
           </h1>
           <p className="mt-2 font-futura-400 text-mundo-black/70">
-            Mundo Castle · ingresso
+            {selectedEvent?.title ?? "Evento"} · ingresso
           </p>
+          <label className="mt-4 block font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-black/55">
+            Evento
+            <select
+              value={eventSlug}
+              onChange={(e) => setEventSlug(e.target.value)}
+              className="mt-2 w-full max-w-md rounded-lg border border-mundo-black/20 bg-white px-3 py-2.5 font-futura-400 text-sm normal-case tracking-normal text-mundo-black outline-none focus:border-mundo-black"
+            >
+              {STAFF_EVENTS.map((event) => (
+                <option key={event.slug} value={event.slug}>
+                  {event.title}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
         <div className="flex flex-wrap items-center justify-end gap-3">
           {isAdmin ? (

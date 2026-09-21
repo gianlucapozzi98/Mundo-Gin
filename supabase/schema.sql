@@ -48,6 +48,19 @@ on conflict (slug) do update set
   event_date = excluded.event_date,
   location = excluded.location;
 
+-- Seed: Milan Fashion Week
+insert into events (slug, name, event_date, location)
+values (
+  'milan-fashion-week',
+  'Milan Fashion Week',
+  '2026-09-01',
+  'Milano'
+)
+on conflict (slug) do update set
+  name = excluded.name,
+  event_date = excluded.event_date,
+  location = excluded.location;
+
 -- Seed: PR (codici corti nei link: /pc, /rg)
 insert into promoters (name, code)
 values

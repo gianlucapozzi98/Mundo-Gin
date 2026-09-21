@@ -2,9 +2,13 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { listRegisterableEvents } from "@/lib/club/catalog";
 
 type AuthState = "loading" | "login" | "ready" | "scanner_blocked";
 type StaffRole = "scanner" | "admin" | "promoter";
+
+const STAFF_EVENTS = listRegisterableEvents();
+const DEFAULT_EVENT_SLUG = STAFF_EVENTS[0]?.slug ?? "milan-fashion-week";
 
 type RegistrationRow = {
   id: string;
@@ -45,7 +49,8 @@ function formatDateTime(iso: string | null) {
   }
 }
 
-export function AdminClient({ eventSlug }: { eventSlug: string }) {
+export function AdminClient() {
+  const [eventSlug, setEventSlug] = useState(DEFAULT_EVENT_SLUG);
   const [auth, setAuth] = useState<AuthState>("loading");
   const [role, setRole] = useState<StaffRole | null>(null);
   const [promoterName, setPromoterName] = useState<string | null>(null);
@@ -60,6 +65,8 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
 
   const isAdmin = role === "admin";
   const isPromoter = role === "promoter";
+  const selectedEvent =
+    STAFF_EVENTS.find((e) => e.slug === eventSlug) ?? STAFF_EVENTS[0];
 
   const load = useCallback(async () => {
     const res = await fetch(
@@ -86,6 +93,13 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
   }, [eventSlug]);
 
   useEffect(() => {
+    if (auth === "ready") {
+      setQuery("");
+      void load();
+    }
+  }, [eventSlug, auth, load]);
+
+  useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
@@ -103,7 +117,6 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
           setRole(data.role);
           setPromoterName(data.promoterName ?? null);
           setAuth("ready");
-          await load();
         } else if (data.authenticated && data.role === "scanner") {
           setAuth("scanner_blocked");
         } else {
@@ -116,7 +129,7 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
     return () => {
       cancelled = true;
     };
-  }, [load]);
+  }, []);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -141,7 +154,6 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
       setPromoterName(data.promoterName ?? null);
       setAuth("ready");
       setPassword("");
-      await load();
     } catch {
       setLoginError("Connessione non riuscita.");
     } finally {
@@ -273,8 +285,24 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
           <p className="mt-2 font-futura-400 text-mundo-black/70">
             {isPromoter
               ? "Iscritti e ingressi dal tuo link referral"
-              : "Mundo Castle · iscritti e ingressi"}
+              : `${selectedEvent?.title ?? "Evento"} · iscritti e ingressi`}
           </p>
+          {isAdmin || isPromoter ? (
+            <label className="mt-4 block font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-black/55">
+              Evento
+              <select
+                value={eventSlug}
+                onChange={(e) => setEventSlug(e.target.value)}
+                className="mt-2 w-full max-w-md rounded-lg border border-mundo-black/20 bg-white px-3 py-2.5 font-futura-400 text-sm normal-case tracking-normal text-mundo-black outline-none focus:border-mundo-black"
+              >
+                {STAFF_EVENTS.map((event) => (
+                  <option key={event.slug} value={event.slug}>
+                    {event.title}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : null}
         </div>
         <div className="flex flex-wrap gap-3">
           {isAdmin ? (

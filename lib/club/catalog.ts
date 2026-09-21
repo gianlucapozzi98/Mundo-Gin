@@ -41,8 +41,22 @@ export function promoterLoginPassword(name: string) {
     .replace(/[^a-z0-9]/g, "");
 }
 
-/** Eventi con pagina registrazione dedicata. */
+/** Eventi gestibili da admin / check-in (anche senza pagina registrazione pubblica). */
 export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
+  "milan-fashion-week": {
+    slug: "milan-fashion-week",
+    title: "Milan Fashion Week",
+    shortDate: "Settembre 2026",
+    shortLocation: "Milano",
+    dateLabel: "Settembre 2026",
+    timeLabel: "",
+    location: "Milano",
+    address: "Milano",
+    imageUrl: "/images/Mundo-Gin-manhattan.JPG",
+    description: [],
+    promoters: [],
+    whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
+  },
   "mundo-castle": {
     slug: "mundo-castle",
     title: "Mundo Castle",
@@ -86,6 +100,10 @@ export function eventSlugCandidates(slug: string) {
 
 export function getRegisterableEvent(slug: string) {
   return REGISTERABLE_EVENTS[resolveEventSlug(slug)] ?? null;
+}
+
+export function listRegisterableEvents() {
+  return Object.values(REGISTERABLE_EVENTS);
 }
 
 export function listAllPromoters() {
