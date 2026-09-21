@@ -184,7 +184,7 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
       if (filter === "present" && !row.present) return false;
       if (filter === "absent" && row.present) return false;
       if (!q) return true;
-      const hay = `${row.firstName} ${row.lastName} ${row.promoterName ?? ""} ${row.qrToken}`.toLowerCase();
+      const hay = `${row.firstName} ${row.lastName} ${row.promoterName ?? ""}`.toLowerCase();
       return hay.includes(q);
     });
   }, [rows, query, filter]);
@@ -377,7 +377,7 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Cerca nome o token…"
+          placeholder="Cerca nome o cognome…"
           className="min-w-0 flex-1 rounded-lg border border-mundo-black/20 bg-mundo-white px-4 py-3 font-futura-400 outline-none focus:border-mundo-black"
         />
         <div className="flex gap-2">
@@ -411,7 +411,6 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
               <tr className="border-b border-mundo-black/10 font-futura-500 text-xs uppercase tracking-wide text-mundo-black/55">
                 <th className="px-4 py-3">Nome</th>
                 {isAdmin ? <th className="px-4 py-3">Referral</th> : null}
-                <th className="px-4 py-3">Token</th>
                 <th className="px-4 py-3">Iscrizione</th>
                 <th className="px-4 py-3">Stato</th>
                 {isAdmin ? (
@@ -423,7 +422,7 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
               {filtered.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={isAdmin ? 6 : 4}
+                    colSpan={isAdmin ? 5 : 3}
                     className="px-4 py-8 text-center font-futura-400 text-mundo-black/55"
                   >
                     Nessuna registrazione trovata.
@@ -443,9 +442,6 @@ export function AdminClient({ eventSlug }: { eventSlug: string }) {
                         {row.promoterName ?? "—"}
                       </td>
                     ) : null}
-                    <td className="px-4 py-3 font-mono text-xs">
-                      {row.qrToken}
-                    </td>
                     <td className="px-4 py-3">{formatDateTime(row.createdAt)}</td>
                     <td className="px-4 py-3">
                       {row.present ? (

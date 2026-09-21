@@ -59,7 +59,6 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loggingIn, setLoggingIn] = useState(false);
   const [scanning, setScanning] = useState(false);
-  const [manualToken, setManualToken] = useState("");
   const [nameQuery, setNameQuery] = useState("");
   const [nameHits, setNameHits] = useState<SearchHit[]>([]);
   const [nameSearching, setNameSearching] = useState(false);
@@ -436,7 +435,7 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
       setResult({
         status: "not_found",
         message:
-          "Impossibile aprire la fotocamera. Usa l'inserimento manuale del token.",
+          "Impossibile aprire la fotocamera. Usa la ricerca per nome.",
       });
     }
   }
@@ -601,32 +600,9 @@ export function CheckinClient({ eventSlug }: { eventSlug: string }) {
           ) : null}
         </div>
 
-        <form
-          className="mt-5 flex gap-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            void processToken(manualToken);
-            setManualToken("");
-          }}
-        >
-          <input
-            type="text"
-            value={manualToken}
-            onChange={(e) => setManualToken(e.target.value)}
-            placeholder="Token manuale (MUNDO-...)"
-            className="min-w-0 flex-1 rounded-lg border border-mundo-black/20 px-3 py-2.5 font-futura-400 text-sm outline-none focus:border-mundo-black"
-          />
-          <button
-            type="submit"
-            className="rounded-lg bg-mundo-black px-4 py-2.5 font-futura-500 text-xs uppercase tracking-[0.12em] text-mundo-white"
-          >
-            Check
-          </button>
-        </form>
-
         <div className="mt-6 border-t border-mundo-black/10 pt-5">
           <p className="font-futura-500 text-xs uppercase tracking-[0.14em] text-mundo-black/55">
-            Senza QR · cerca per nome
+            Cerca per nome
           </p>
           <input
             type="search"
