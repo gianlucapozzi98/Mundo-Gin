@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/animated-slideshow";
 import { cn } from "@/lib/utils";
 import { getRegisterableEvent, isEventRegistrationOpen } from "@/lib/club/catalog";
-import { CLUB_EVENTS, type ClubEvent, type ClubEventImageLayout } from "./events";
+import { CLUB_EVENTS, clubEventDateLabel, type ClubEvent, type ClubEventImageLayout } from "./events";
 
 function eventRegistrationHref(event: ClubEvent) {
   if (!event.href) return null;
@@ -157,7 +157,7 @@ function MobileEventsList() {
             ) : null}
 
             <p className="mt-2 font-futura-400 text-sm text-mundo-black/60 sm:text-base">
-              {event.date} · {event.location}
+              {clubEventDateLabel(event)} · {event.location}
             </p>
             {registrationHref ? (
               <Link
@@ -188,7 +188,7 @@ function DesktopEventsLayout() {
                 className="cursor-pointer font-futura-500 text-5xl font-bold uppercase leading-[0.9] tracking-tighter text-mundo-black"
               />
               <p className="mt-1 font-futura-400 text-base text-mundo-black/60">
-                {event.date} · {event.location}
+                {clubEventDateLabel(event)} · {event.location}
               </p>
               {registrationHref ? (
                 <Link
