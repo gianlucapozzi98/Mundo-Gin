@@ -49,6 +49,15 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
                 className="h-full w-full object-cover"
               />
             </div>
+            {event.partnerLogoUrl ? (
+              <div className="mt-4 flex justify-center">
+                <img
+                  src={event.partnerLogoUrl}
+                  alt={event.partnerLogoAlt ?? "Partner"}
+                  className="h-14 w-auto object-contain sm:h-16"
+                />
+              </div>
+            ) : null}
             {promoterCode === "pc" ? (
               <div className="mt-4 -mb-1 flex justify-center lg:hidden">
                 <img

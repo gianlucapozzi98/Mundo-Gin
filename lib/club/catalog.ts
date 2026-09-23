@@ -24,6 +24,9 @@ export type ClubEventDetails = {
   description: string[];
   promoters: ClubPromoter[];
   whatsappCommunityUrl: string;
+  /** Logo partner sotto la locandina. */
+  partnerLogoUrl?: string;
+  partnerLogoAlt?: string;
   instagramUrl?: string;
   /** Cap iscrizioni pubbliche (es. 100 QR birra gratis). */
   maxRegistrations?: number;
@@ -68,6 +71,8 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     ],
     promoters: [],
     whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
+    partnerLogoUrl: "/images/crz-logo.png",
+    partnerLogoAlt: "CRZ",
     instagramUrl: INSTAGRAM_URL,
     maxRegistrations: 100,
     registrationClosesAt: "2026-09-25T18:00:00+02:00",
