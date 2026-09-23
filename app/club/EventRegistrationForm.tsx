@@ -22,7 +22,6 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
   const [lastName, setLastName] = useState("");
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [followedInstagram, setFollowedInstagram] = useState(false);
-  const [joinedWhatsapp, setJoinedWhatsapp] = useState(false);
   const [socialConfirmed, setSocialConfirmed] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle"
@@ -190,18 +189,16 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
       onSubmit={handleSubmit}
       className="rounded-2xl border border-mundo-black/10 bg-mundo-white p-6 sm:p-8"
     >
-      <p className="font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-black/55">
-        {requireSocialProof ? "Birra gratis · 100 QR" : "Registrazione gratuita"}
-      </p>
+      {requireSocialProof ? null : (
+        <p className="font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-black/55">
+          Registrazione gratuita
+        </p>
+      )}
       <h2
-        className={
-          requireSocialProof
-            ? "mt-3 font-futura-500 text-2xl text-mundo-black sm:text-3xl"
-            : "mt-3 font-futura-500 text-2xl uppercase text-mundo-black sm:text-3xl"
-        }
+        className={`${requireSocialProof ? "mt-0" : "mt-3"} font-futura-500 text-2xl uppercase text-mundo-black sm:text-3xl`}
       >
         {requireSocialProof
-          ? "🍺 Birra omaggio ai primi 100"
+          ? "Completa la registrazione"
           : "Prenota il tuo ingresso"}
       </h2>
       <p className="mt-3 font-futura-400 text-[17px] leading-relaxed text-mundo-black/70">
@@ -261,18 +258,7 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
               onClick={() => setFollowedInstagram(true)}
               className="inline-flex w-full items-center justify-center rounded-lg bg-mundo-black px-5 py-3 font-futura-500 text-sm uppercase tracking-[0.14em] text-mundo-white"
             >
-              {followedInstagram ? "Instagram aperto ✓" : "Segui Instagram"}
-            </a>
-            <a
-              href={event.whatsappCommunityUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setJoinedWhatsapp(true)}
-              className="inline-flex w-full items-center justify-center rounded-lg bg-[#25D366] px-5 py-3 font-futura-500 text-sm uppercase tracking-[0.14em] text-white"
-            >
-              {joinedWhatsapp
-                ? "WhatsApp aperto ✓"
-                : "Entra in community WhatsApp (facoltativo)"}
+              {followedInstagram ? "Segui Mundo ✓" : "Segui Mundo"}
             </a>
             <label className="flex items-start gap-3 font-futura-400 text-sm leading-relaxed text-mundo-black/75">
               <input
