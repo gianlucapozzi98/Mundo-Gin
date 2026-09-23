@@ -193,12 +193,20 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
       <p className="font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-black/55">
         {requireSocialProof ? "Birra gratis · 100 QR" : "Registrazione gratuita"}
       </p>
-      <h2 className="mt-3 font-futura-500 text-2xl uppercase text-mundo-black sm:text-3xl">
-        {requireSocialProof ? "Prenota il tuo QR" : "Prenota il tuo ingresso"}
+      <h2
+        className={
+          requireSocialProof
+            ? "mt-3 font-futura-500 text-2xl text-mundo-black sm:text-3xl"
+            : "mt-3 font-futura-500 text-2xl uppercase text-mundo-black sm:text-3xl"
+        }
+      >
+        {requireSocialProof
+          ? "🍺 Birra omaggio ai primi 100"
+          : "Prenota il tuo ingresso"}
       </h2>
       <p className="mt-3 font-futura-400 text-[17px] leading-relaxed text-mundo-black/70">
         {requireSocialProof
-          ? "Segui Instagram e ricevi il QR per una birra gratis. Un solo utilizzo."
+          ? "Segui @mundodrygin, completa la registrazione e ricevi il QR."
           : "Compila i dati e ricevi subito il QR da mostrare all'ingresso."}
       </p>
 
