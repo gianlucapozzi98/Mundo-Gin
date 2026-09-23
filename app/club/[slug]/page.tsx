@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getRegisterableEvent } from "@/lib/club/catalog";
 import { EventRegistrationPage } from "../EventRegistrationPage";
 
+export const dynamic = "force-dynamic";
+
 type PageProps = {
   params: Promise<{ slug: string }>;
 };

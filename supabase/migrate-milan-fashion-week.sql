@@ -4,7 +4,7 @@ insert into events (slug, name, event_date, location)
 values (
   'milan-fashion-week',
   'Milan Fashion Week',
-  '2026-09-01',
+  '2026-09-25',
   'Milano'
 )
 on conflict (slug) do update set

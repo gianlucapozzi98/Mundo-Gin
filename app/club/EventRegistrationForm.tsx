@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { ClubEventDetails } from "@/lib/club/catalog";
-import { PRIVACY_POLICY_URL } from "@/lib/club/catalog";
+import { INSTAGRAM_URL, PRIVACY_POLICY_URL } from "@/lib/club/catalog";
 
 type Props = {
   event: ClubEventDetails;
@@ -21,15 +21,24 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [followedInstagram, setFollowedInstagram] = useState(false);
+  const [joinedWhatsapp, setJoinedWhatsapp] = useState(false);
+  const [socialConfirmed, setSocialConfirmed] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle"
   );
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<RegistrationSuccess | null>(null);
 
+  const requireSocialProof = Boolean(event.requireSocialProof);
+  const instagramUrl = event.instagramUrl ?? INSTAGRAM_URL;
+  const canSubmit =
+    privacyAccepted &&
+    (!requireSocialProof || (followedInstagram && socialConfirmed));
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!privacyAccepted) return;
+    if (!canSubmit) return;
     setStatus("sending");
     setError(null);
 
@@ -43,6 +52,7 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
           firstName,
           lastName,
           privacyAccepted,
+          socialConfirmed: requireSocialProof ? socialConfirmed : undefined,
         }),
       });
       const data = (await res.json()) as {
@@ -78,7 +88,7 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
 
   async function saveQrToDevice() {
     if (!success) return;
-    const fileName = `mundo-castle-${success.qrToken}.png`;
+    const fileName = `${event.slug}-${success.qrToken}.png`;
 
     try {
       const res = await fetch(success.qrDataUrl);
@@ -126,8 +136,9 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
           Ciao {success.firstName}
         </h2>
         <p className="mt-3 font-futura-400 text-[18px] leading-relaxed text-mundo-black/75">
-          Salva subito il tuo QR: ti servirà all&apos;ingresso. Non te lo potremo
-          reinviare.
+          {event.requireSocialProof
+            ? "Salva subito il tuo QR: vale per una birra gratis al bancone e si usa una sola volta."
+            : "Salva subito il tuo QR: ti servirà all'ingresso. Non te lo potremo reinviare."}
         </p>
 
         <div className="mx-auto mt-8 max-w-[280px] rounded-2xl border border-mundo-black/10 bg-white p-4">
@@ -162,9 +173,13 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
         </a>
 
         <p className="mt-6 font-futura-400 text-sm leading-relaxed text-mundo-black/60">
-          Ti aspettiamo il {event.dateLabel} · {event.timeLabel}
-          <br />
-          {event.address}
+          {[event.dateLabel, event.timeLabel].filter(Boolean).join(" · ")}
+          {event.address ? (
+            <>
+              <br />
+              {event.address}
+            </>
+          ) : null}
         </p>
       </div>
     );
@@ -176,13 +191,15 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
       className="rounded-2xl border border-mundo-black/10 bg-mundo-white p-6 sm:p-8"
     >
       <p className="font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-black/55">
-        Registrazione gratuita
+        {requireSocialProof ? "Birra gratis · 100 QR" : "Registrazione gratuita"}
       </p>
       <h2 className="mt-3 font-futura-500 text-2xl uppercase text-mundo-black sm:text-3xl">
-        Prenota il tuo ingresso
+        {requireSocialProof ? "Prenota il tuo QR" : "Prenota il tuo ingresso"}
       </h2>
       <p className="mt-3 font-futura-400 text-[17px] leading-relaxed text-mundo-black/70">
-        Compila i dati e ricevi subito il QR da mostrare all&apos;ingresso.
+        {requireSocialProof
+          ? "Segui Instagram e ricevi il QR per una birra gratis. Un solo utilizzo."
+          : "Compila i dati e ricevi subito il QR da mostrare all'ingresso."}
       </p>
 
       <div className="mt-8 space-y-5">
@@ -224,6 +241,44 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
           />
         </div>
 
+        {requireSocialProof ? (
+          <div className="space-y-3 rounded-xl border border-mundo-black/10 bg-[#F8F8F8] p-4">
+            <p className="font-futura-500 text-sm text-mundo-black">
+              Prima di ricevere il QR
+            </p>
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setFollowedInstagram(true)}
+              className="inline-flex w-full items-center justify-center rounded-lg bg-mundo-black px-5 py-3 font-futura-500 text-sm uppercase tracking-[0.14em] text-mundo-white"
+            >
+              {followedInstagram ? "Instagram aperto ✓" : "Segui Instagram"}
+            </a>
+            <a
+              href={event.whatsappCommunityUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setJoinedWhatsapp(true)}
+              className="inline-flex w-full items-center justify-center rounded-lg bg-[#25D366] px-5 py-3 font-futura-500 text-sm uppercase tracking-[0.14em] text-white"
+            >
+              {joinedWhatsapp
+                ? "WhatsApp aperto ✓"
+                : "Entra in community WhatsApp (facoltativo)"}
+            </a>
+            <label className="flex items-start gap-3 font-futura-400 text-sm leading-relaxed text-mundo-black/75">
+              <input
+                type="checkbox"
+                checked={socialConfirmed}
+                onChange={(e) => setSocialConfirmed(e.target.checked)}
+                className="mt-1"
+                required
+              />
+              <span>Confermo di aver seguito Instagram.</span>
+            </label>
+          </div>
+        ) : null}
+
         <label className="flex items-start gap-3 font-futura-400 text-sm leading-relaxed text-mundo-black/75">
           <input
             type="checkbox"
@@ -255,7 +310,7 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
 
       <button
         type="submit"
-        disabled={status === "sending" || !privacyAccepted}
+        disabled={status === "sending" || !canSubmit}
         className="mt-8 inline-flex w-full items-center justify-center rounded-lg bg-mundo-black px-5 py-3.5 font-futura-500 text-sm uppercase tracking-[0.14em] text-mundo-white transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
       >
         {status === "sending" ? "Registrazione…" : "Registrati all'evento"}

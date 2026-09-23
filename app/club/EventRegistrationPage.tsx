@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ClubEventDetails } from "@/lib/club/catalog";
+import { isEventRegistrationOpen } from "@/lib/club/catalog";
 import { EventRegistrationForm } from "./EventRegistrationForm";
 
 type Props = {
@@ -8,6 +9,10 @@ type Props = {
 };
 
 export function EventRegistrationPage({ event, promoterCode }: Props) {
+  const registrationOpen = isEventRegistrationOpen(event);
+  const dateLine = [event.dateLabel, event.timeLabel]
+    .filter(Boolean)
+    .join(" · ");
   const description = event.description.map((paragraph, index) => {
     if (
       index === 0 &&
@@ -71,12 +76,16 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
                 />
               ) : null}
             </div>
-            <p className="mt-4 font-futura-400 text-[20px] text-mundo-black/75">
-              {event.dateLabel} · {event.timeLabel}
-            </p>
-            <p className="mt-2 font-futura-400 text-[18px] text-mundo-black/70">
-              {event.address}
-            </p>
+            {dateLine ? (
+              <p className="mt-4 font-futura-400 text-[20px] text-mundo-black/75">
+                {dateLine}
+              </p>
+            ) : null}
+            {event.address ? (
+              <p className="mt-2 font-futura-400 text-[18px] text-mundo-black/70">
+                {event.address}
+              </p>
+            ) : null}
 
             <div className="mt-8 space-y-4">
               {description.map((paragraph) => (
@@ -90,10 +99,24 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
             </div>
 
             <div className="mt-10">
-              <EventRegistrationForm
-                event={event}
-                promoterCode={promoterCode}
-              />
+              {registrationOpen ? (
+                <EventRegistrationForm
+                  event={event}
+                  promoterCode={promoterCode}
+                />
+              ) : (
+                <div className="rounded-2xl border border-mundo-black/10 bg-mundo-white p-6 sm:p-8">
+                  <p className="font-futura-500 text-xs uppercase tracking-[0.16em] text-mundo-black/55">
+                    Registrazioni chiuse
+                  </p>
+                  <h2 className="mt-3 font-futura-500 text-2xl uppercase text-mundo-black sm:text-3xl">
+                    Non è più possibile registrarsi
+                  </h2>
+                  <p className="mt-3 font-futura-400 text-[17px] leading-relaxed text-mundo-black/70">
+                    Le iscrizioni per questo evento sono terminate.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

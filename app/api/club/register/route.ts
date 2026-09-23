@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import QRCode from "qrcode";
-import { getRegisterableEvent } from "@/lib/club/catalog";
 import {
+  getRegisterableEvent,
+  isEventRegistrationOpen,
+} from "@/lib/club/catalog";
+import {
+  countEventRegistrations,
   createRegistration,
   getRegistrationStorageMode,
 } from "@/lib/club/registrations";
@@ -12,6 +16,7 @@ type Body = {
   firstName?: string;
   lastName?: string;
   privacyAccepted?: boolean;
+  socialConfirmed?: boolean;
 };
 
 export async function POST(req: NextRequest) {
@@ -26,9 +31,17 @@ export async function POST(req: NextRequest) {
   const firstName = body.firstName?.trim() ?? "";
   const lastName = body.lastName?.trim() ?? "";
   const promoterCode = body.promoterCode?.trim() || null;
+  const event = getRegisterableEvent(eventSlug);
 
-  if (!getRegisterableEvent(eventSlug)) {
+  if (!event) {
     return NextResponse.json({ error: "Evento non trovato." }, { status: 404 });
+  }
+
+  if (!isEventRegistrationOpen(event)) {
+    return NextResponse.json(
+      { error: "Le registrazioni per questo evento sono chiuse." },
+      { status: 403 }
+    );
   }
 
   if (!firstName || !lastName) {
@@ -43,6 +56,25 @@ export async function POST(req: NextRequest) {
       { error: "Devi accettare la Privacy Policy." },
       { status: 400 }
     );
+  }
+
+  if (event.requireSocialProof && !body.socialConfirmed) {
+    return NextResponse.json(
+      {
+        error: "Conferma di aver seguito Instagram.",
+      },
+      { status: 400 }
+    );
+  }
+
+  if (event.maxRegistrations) {
+    const already = await countEventRegistrations(event.slug);
+    if (already >= event.maxRegistrations) {
+      return NextResponse.json(
+        { error: "I QR sono esauriti." },
+        { status: 409 }
+      );
+    }
   }
 
   try {

@@ -17,10 +17,11 @@ export const CLUB_EVENTS: ClubEvent[] = [
   {
     id: "event-milan-fashion-week-2026",
     title: "MILAN FASHION WEEK",
-    date: "Settembre 2026",
+    date: "25 settembre 2026",
     location: "Milano",
     imageUrl: "/images/Mundo-Gin-manhattan.JPG",
     imageLayout: "fill",
+    href: "/club/milan-fashion-week",
   },
   {
     id: "event-castello-pagazzano-2026",

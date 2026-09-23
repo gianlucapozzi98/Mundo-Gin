@@ -461,6 +461,13 @@ export async function listRegistrationsByEvent(eventSlug: string) {
   );
 }
 
+export async function countEventRegistrations(eventSlug: string) {
+  const rows = hasSupabase()
+    ? await listSupabaseByEvent(eventSlug)
+    : await listLocalByEvent(eventSlug);
+  return rows.length;
+}
+
 export async function getRegistrationById(
   id: string
 ): Promise<RegistrationRecord | null> {

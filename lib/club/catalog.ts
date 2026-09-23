@@ -24,10 +24,19 @@ export type ClubEventDetails = {
   description: string[];
   promoters: ClubPromoter[];
   whatsappCommunityUrl: string;
+  instagramUrl?: string;
+  /** Cap iscrizioni pubbliche (es. 100 QR birra gratis). */
+  maxRegistrations?: number;
+  /** ISO 8601; dopo quest'ora la pagina pubblica di registrazione si chiude. */
+  registrationClosesAt?: string;
+  /** Pulsante Instagram obbligatorio (WhatsApp facoltativo) prima del QR. */
+  requireSocialProof?: boolean;
 };
 
 export const WHATSAPP_COMMUNITY_URL =
   "https://chat.whatsapp.com/KkPuaFhnvBKD8Xw2EyYBL0";
+
+export const INSTAGRAM_URL = "https://www.instagram.com/mundodrygin/";
 
 export const PRIVACY_POLICY_URL =
   "https://www.iubenda.com/privacy-policy/58280897";
@@ -46,16 +55,24 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
   "milan-fashion-week": {
     slug: "milan-fashion-week",
     title: "Milan Fashion Week",
-    shortDate: "Settembre 2026",
+    shortDate: "25 settembre 2026",
     shortLocation: "Milano",
-    dateLabel: "Settembre 2026",
+    dateLabel: "25 settembre 2026",
     timeLabel: "",
     location: "Milano",
     address: "Milano",
     imageUrl: "/images/Mundo-Gin-manhattan.JPG",
-    description: [],
+    description: [
+      "Mundo Club presenta: Milan Fashion Week.",
+      "Registrati, segui Instagram e ritira una birra gratis al bancone con il tuo QR personale.",
+      "I QR sono 100 e valgono un solo utilizzo.",
+    ],
     promoters: [],
     whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
+    instagramUrl: INSTAGRAM_URL,
+    maxRegistrations: 100,
+    registrationClosesAt: "2026-09-25T18:00:00+02:00",
+    requireSocialProof: true,
   },
   "mundo-castle": {
     slug: "mundo-castle",
@@ -100,6 +117,14 @@ export function eventSlugCandidates(slug: string) {
 
 export function getRegisterableEvent(slug: string) {
   return REGISTERABLE_EVENTS[resolveEventSlug(slug)] ?? null;
+}
+
+export function isEventRegistrationOpen(
+  event: ClubEventDetails | null | undefined
+) {
+  if (!event) return false;
+  if (!event.registrationClosesAt) return true;
+  return Date.now() < new Date(event.registrationClosesAt).getTime();
 }
 
 export function listRegisterableEvents() {

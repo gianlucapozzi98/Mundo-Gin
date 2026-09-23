@@ -10,7 +10,15 @@ import {
   useHoverSliderContext,
 } from "@/components/ui/animated-slideshow";
 import { cn } from "@/lib/utils";
-import { CLUB_EVENTS, type ClubEventImageLayout } from "./events";
+import { getRegisterableEvent, isEventRegistrationOpen } from "@/lib/club/catalog";
+import { CLUB_EVENTS, type ClubEvent, type ClubEventImageLayout } from "./events";
+
+function eventRegistrationHref(event: ClubEvent) {
+  if (!event.href) return null;
+  const slug = event.href.split("/").filter(Boolean).pop();
+  if (!slug) return event.href;
+  return isEventRegistrationOpen(getRegisterableEvent(slug)) ? event.href : null;
+}
 
 const TARGET_RATIO = 4 / 5;
 const RATIO_TOLERANCE = 0.04;
@@ -124,6 +132,7 @@ function MobileEventsList() {
     <div className="flex w-full flex-col space-y-8 lg:hidden">
       {CLUB_EVENTS.map((event, index) => {
         const isActive = activeSlide === index;
+        const registrationHref = eventRegistrationHref(event);
         return (
           <div key={event.id} className="group">
             <div
@@ -150,9 +159,9 @@ function MobileEventsList() {
             <p className="mt-2 font-futura-400 text-sm text-mundo-black/60 sm:text-base">
               {event.date} · {event.location}
             </p>
-            {event.href ? (
+            {registrationHref ? (
               <Link
-                href={event.href}
+                href={registrationHref}
                 className="mt-2 inline-block font-futura-500 text-xs uppercase tracking-[0.14em] text-mundo-black/70 underline-offset-4 hover:text-mundo-black hover:underline"
               >
                 Registrati →
@@ -170,6 +179,7 @@ function DesktopEventsLayout() {
     <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-16">
       <div className="flex w-full max-w-xl flex-col space-y-6">
         {CLUB_EVENTS.map((event, index) => {
+          const registrationHref = eventRegistrationHref(event);
           return (
             <div key={event.id} className="group">
               <TextStaggerHover
@@ -180,9 +190,9 @@ function DesktopEventsLayout() {
               <p className="mt-1 font-futura-400 text-base text-mundo-black/60">
                 {event.date} · {event.location}
               </p>
-              {event.href ? (
+              {registrationHref ? (
                 <Link
-                  href={event.href}
+                  href={registrationHref}
                   className="mt-2 inline-block font-futura-500 text-xs uppercase tracking-[0.14em] text-mundo-black/70 underline-offset-4 hover:text-mundo-black hover:underline"
                 >
                   Registrati →
