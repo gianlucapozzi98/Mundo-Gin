@@ -168,7 +168,7 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
           rel="noopener noreferrer"
           className="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-[#25D366] px-5 py-3 font-futura-500 text-sm uppercase tracking-[0.14em] text-white transition-opacity hover:opacity-90"
         >
-          Entra nella community WhatsApp
+          Entra nella community di WhatsApp
         </a>
 
         <p className="mt-6 font-futura-400 text-sm leading-relaxed text-mundo-black/60">
