@@ -64,7 +64,7 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     timeLabel: "",
     location: "Privato",
     address: "",
-    imageUrl: "/images/DSC05918.jpg",
+    imageUrl: "/images/mundo-club-20-9-2026-55.jpg",
     description: [
       "Mundo Club presenta: Club House #1.",
       "Evento privato. Registrati, segui Instagram e ricevi il QR da mostrare all'ingresso.",
