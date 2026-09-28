@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   }
 
   const eventSlug =
-    req.nextUrl.searchParams.get("event")?.trim() || "mundo-castle";
+    req.nextUrl.searchParams.get("event")?.trim() || "club-house-1";
 
   if (!getRegisterableEvent(eventSlug)) {
     return NextResponse.json({ error: "Evento non trovato." }, { status: 404 });

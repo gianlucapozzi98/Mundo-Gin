@@ -135,7 +135,7 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
           Ciao {success.firstName}
         </h2>
         <p className="mt-3 font-futura-400 text-[18px] leading-relaxed text-mundo-black/75">
-          {event.requireSocialProof
+          {event.maxRegistrations
             ? "Salva subito il tuo QR: vale per una birra gratis al bancone e si usa una sola volta."
             : "Salva subito il tuo QR: ti servirà all'ingresso. Non te lo potremo reinviare."}
         </p>

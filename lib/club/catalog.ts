@@ -55,27 +55,23 @@ export function promoterLoginPassword(name: string) {
 
 /** Eventi gestibili da admin / check-in (anche senza pagina registrazione pubblica). */
 export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
-  "milan-fashion-week": {
-    slug: "milan-fashion-week",
-    title: "Milan Fashion Week",
-    shortDate: "25 settembre 2026",
-    shortLocation: "Milano",
-    dateLabel: "25 settembre 2026",
+  "club-house-1": {
+    slug: "club-house-1",
+    title: "Club House 1",
+    shortDate: "",
+    shortLocation: "",
+    dateLabel: "",
     timeLabel: "",
-    location: "Milano",
-    address: "The Manhattan, Milano",
-    imageUrl: "/images/Mundo-Gin-manhattan.JPG",
+    location: "Privato",
+    address: "",
+    imageUrl: "/images/DSC05918.jpg",
     description: [
-      "Mundo Club presenta: Milan Fashion Week at The Manhattan.",
-      "Registrati gratuitamente e ricevi la tua Mundo Beer.",
+      "Mundo Club presenta: Club House 1.",
+      "Evento privato. Registrati, segui Instagram e ricevi il QR da mostrare all'ingresso.",
     ],
     promoters: [],
     whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
-    partnerLogoUrl: "/images/crz-logo.png",
-    partnerLogoAlt: "CRZ",
     instagramUrl: INSTAGRAM_URL,
-    maxRegistrations: 100,
-    registrationClosesAt: "2026-09-25T18:00:00+02:00",
     requireSocialProof: true,
   },
   "mundo-castle": {

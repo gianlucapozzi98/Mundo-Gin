@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Richiesta non valida." }, { status: 400 });
   }
 
-  const eventSlug = body.eventSlug?.trim() || "mundo-castle";
+  const eventSlug = body.eventSlug?.trim() || "club-house-1";
   const firstName = body.firstName?.trim() ?? "";
   const lastName = body.lastName?.trim() ?? "";
   const promoterCode = body.promoterCode?.trim() || null;

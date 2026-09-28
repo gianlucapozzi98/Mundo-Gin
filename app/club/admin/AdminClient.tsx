@@ -8,7 +8,7 @@ type AuthState = "loading" | "login" | "ready" | "scanner_blocked";
 type StaffRole = "scanner" | "admin" | "promoter";
 
 const STAFF_EVENTS = listRegisterableEvents();
-const DEFAULT_EVENT_SLUG = STAFF_EVENTS[0]?.slug ?? "milan-fashion-week";
+const DEFAULT_EVENT_SLUG = STAFF_EVENTS[0]?.slug ?? "club-house-1";
 
 type RegistrationRow = {
   id: string;

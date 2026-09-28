@@ -35,7 +35,6 @@ export const CLUB_EVENTS: ClubEvent[] = [
     location: "Milano",
     imageUrl: "/images/Mundo-Gin-manhattan.JPG",
     imageLayout: "fill",
-    href: "/club/milan-fashion-week",
   },
   {
     id: "event-castello-pagazzano-2026",

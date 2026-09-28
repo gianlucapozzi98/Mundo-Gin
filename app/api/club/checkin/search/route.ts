@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
   }
 
   const eventSlug =
-    req.nextUrl.searchParams.get("event")?.trim() || "mundo-castle";
+    req.nextUrl.searchParams.get("event")?.trim() || "club-house-1";
   const q = req.nextUrl.searchParams.get("q")?.trim() ?? "";
 
   if (!getRegisterableEvent(eventSlug)) {
