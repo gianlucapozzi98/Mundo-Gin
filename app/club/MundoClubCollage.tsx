@@ -8,8 +8,8 @@ const CARD_BASE =
 const POSTCARD_IMAGES = [
   "/images/mundo-gin-style.jpeg",
   "/images/tech.jpg",
-  "/images/IMG_5692.JPG",
-  "/images/DSC06345.jpg",
+  "/images/mundo-club-20-9-2026-24.jpg",
+  "/images/mundo-club-20-9-2026-69.jpg",
 ] as const;
 
 export function MundoClubCollage() {
