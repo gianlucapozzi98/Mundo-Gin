@@ -74,9 +74,29 @@ export function CheckinClient() {
   const [walkInBusy, setWalkInBusy] = useState(false);
   const [scanBusy, setScanBusy] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
+  const [cameraFlash, setCameraFlash] = useState<ScanResult | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const lastTokenRef = useRef<string>("");
+  const flashTimerRef = useRef<number | null>(null);
+
+  function clearCameraFlash() {
+    if (flashTimerRef.current) {
+      window.clearTimeout(flashTimerRef.current);
+      flashTimerRef.current = null;
+    }
+    setCameraFlash(null);
+  }
+
+  function applyResult(next: ScanResult) {
+    setResult(next);
+    setCameraFlash(next);
+    if (flashTimerRef.current) window.clearTimeout(flashTimerRef.current);
+    flashTimerRef.current = window.setTimeout(() => {
+      setCameraFlash(null);
+      flashTimerRef.current = null;
+    }, 2200);
+  }
 
   const isAdmin = role === "admin";
   const selectedEvent =
@@ -102,6 +122,7 @@ export function CheckinClient() {
     setNameHits([]);
     setShowWalkIn(false);
     setResult(null);
+    clearCameraFlash();
     setStats(null);
     if (role === "admin") void refreshStats();
   }, [eventSlug, auth, role, refreshStats]);
@@ -134,6 +155,9 @@ export function CheckinClient() {
 
   useEffect(() => {
     return () => {
+      if (flashTimerRef.current) {
+        window.clearTimeout(flashTimerRef.current);
+      }
       const scanner = scannerRef.current;
       if (scanner) {
         scanner
@@ -185,6 +209,7 @@ export function CheckinClient() {
     setAuth("login");
     setRole(null);
     setResult(null);
+    clearCameraFlash();
     setStats(null);
     setNameQuery("");
     setNameHits([]);
@@ -259,13 +284,13 @@ export function CheckinClient() {
         };
       };
       if (!res.ok || !data.registration) {
-        setResult({
+        applyResult({
           status: "not_found",
           message: data.error ?? "Impossibile aggiungere",
         });
         return;
       }
-      setResult({
+      applyResult({
         status: "ok",
         firstName: data.registration.firstName,
         lastName: data.registration.lastName,
@@ -288,7 +313,7 @@ export function CheckinClient() {
       setNameQuery(`${data.registration.firstName} ${data.registration.lastName}`);
       void refreshStats();
     } catch {
-      setResult({
+      applyResult({
         status: "not_found",
         message: "Errore di connessione",
       });
@@ -317,14 +342,14 @@ export function CheckinClient() {
         };
       };
       if (!res.ok || !data.registration) {
-        setResult({
+        applyResult({
           status: "not_found",
           message: data.error ?? "Impossibile segnare presente",
         });
         return;
       }
       if (data.status === "already") {
-        setResult({
+        applyResult({
           status: "already",
           firstName: data.registration.firstName,
           lastName: data.registration.lastName,
@@ -333,7 +358,7 @@ export function CheckinClient() {
           message: `Già presente · ingresso alle ${formatTime(data.registration.checkedInAt)}`,
         });
       } else {
-        setResult({
+        applyResult({
           status: "ok",
           firstName: data.registration.firstName,
           lastName: data.registration.lastName,
@@ -355,7 +380,7 @@ export function CheckinClient() {
       );
       void refreshStats();
     } catch {
-      setResult({
+      applyResult({
         status: "not_found",
         message: "Errore di connessione",
       });
@@ -389,7 +414,7 @@ export function CheckinClient() {
       };
 
       if (data.status === "ok" && data.registration) {
-        setResult({
+        applyResult({
           status: "ok",
           firstName: data.registration.firstName,
           lastName: data.registration.lastName,
@@ -398,7 +423,7 @@ export function CheckinClient() {
           message: "Ingresso registrato con successo",
         });
       } else if (data.status === "already" && data.registration) {
-        setResult({
+        applyResult({
           status: "already",
           firstName: data.registration.firstName,
           lastName: data.registration.lastName,
@@ -407,14 +432,14 @@ export function CheckinClient() {
           message: `QR già utilizzato · ingresso alle ${formatTime(data.registration.checkedInAt)}`,
         });
       } else {
-        setResult({
+        applyResult({
           status: "not_found",
           message: data.error ?? "QR non valido",
         });
       }
       void refreshStats();
     } catch {
-      setResult({
+      applyResult({
         status: "not_found",
         message: "Errore di connessione",
       });
@@ -428,6 +453,7 @@ export function CheckinClient() {
 
   async function startScanner() {
     setResult(null);
+    clearCameraFlash();
     const scanner = new Html5Qrcode("club-checkin-reader");
     scannerRef.current = scanner;
     setScanning(true);
@@ -443,7 +469,7 @@ export function CheckinClient() {
     } catch {
       setScanning(false);
       scannerRef.current = null;
-      setResult({
+      applyResult({
         status: "not_found",
         message:
           "Impossibile aprire la fotocamera. Usa la ricerca per nome.",
@@ -593,9 +619,47 @@ export function CheckinClient() {
 
       <div className="rounded-2xl border border-mundo-black/10 bg-mundo-white p-4 sm:p-6">
         <div
-          id="club-checkin-reader"
-          className="overflow-hidden rounded-xl bg-mundo-black/5"
-        />
+          className={`relative isolate overflow-hidden rounded-xl bg-mundo-black/5 ${
+            scanning ? "min-h-[280px]" : ""
+          }`}
+          data-scan-flash={cameraFlash?.status ?? undefined}
+        >
+          <div id="club-checkin-reader" />
+          {scanning && cameraFlash ? (
+            <div
+              className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
+              aria-live="assertive"
+            >
+              <div
+                className={`club-checkin-flash flex aspect-square w-[min(260px,68%)] flex-col items-center justify-center rounded-[4px] px-4 text-center ${
+                  cameraFlash.status === "ok"
+                    ? "bg-emerald-500/88"
+                    : cameraFlash.status === "already"
+                      ? "bg-amber-500/90"
+                      : "bg-red-600/90"
+                }`}
+              >
+                {cameraFlash.status === "ok" ? (
+                  <p className="font-futura-500 text-5xl leading-none text-white">
+                    ✓
+                  </p>
+                ) : null}
+                <p className="mt-2 font-futura-500 text-lg uppercase tracking-[0.08em] text-white">
+                  {cameraFlash.status === "ok"
+                    ? "Presente"
+                    : cameraFlash.status === "already"
+                      ? "Già presente"
+                      : cameraFlash.message}
+                </p>
+                {cameraFlash.firstName ? (
+                  <p className="mt-1 font-futura-400 text-[17px] text-white">
+                    {cameraFlash.firstName} {cameraFlash.lastName}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
+        </div>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row">
           {!scanning ? (
             <button
@@ -624,6 +688,28 @@ export function CheckinClient() {
             </button>
           ) : null}
         </div>
+
+        {result ? (
+          <div
+            className={`mt-4 rounded-xl border p-4 ${
+              result.status === "ok"
+                ? "border-emerald-600/30 bg-emerald-50"
+                : result.status === "already"
+                  ? "border-amber-600/30 bg-amber-50"
+                  : "border-red-600/30 bg-red-50"
+            }`}
+          >
+            <p className="font-futura-500 text-base uppercase text-mundo-black">
+              {result.message}
+            </p>
+            {result.firstName ? (
+              <p className="mt-1 font-futura-400 text-[17px] text-mundo-black/80">
+                {result.firstName} {result.lastName}
+                {result.promoterName ? ` · ${result.promoterName}` : ""}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className="mt-6 border-t border-mundo-black/10 pt-5">
           <p className="font-futura-500 text-xs uppercase tracking-[0.14em] text-mundo-black/55">
@@ -735,28 +821,6 @@ export function CheckinClient() {
           ) : null}
         </div>
       </div>
-
-      {result ? (
-        <div
-          className={`rounded-2xl border p-5 ${
-            result.status === "ok"
-              ? "border-emerald-600/30 bg-emerald-50"
-              : result.status === "already"
-                ? "border-amber-600/30 bg-amber-50"
-                : "border-red-600/30 bg-red-50"
-          }`}
-        >
-          <p className="font-futura-500 text-lg uppercase text-mundo-black">
-            {result.message}
-          </p>
-          {result.firstName ? (
-            <p className="mt-2 font-futura-400 text-[18px] text-mundo-black/80">
-              {result.firstName} {result.lastName}
-              {result.promoterName ? ` · ${result.promoterName}` : ""}
-            </p>
-          ) : null}
-        </div>
-      ) : null}
 
       {isAdmin && stats && stats.byPromoter.length > 0 ? (
         <div className="overflow-hidden rounded-2xl border border-mundo-black/10 bg-mundo-white">

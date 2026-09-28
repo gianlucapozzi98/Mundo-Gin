@@ -300,7 +300,26 @@ small,
   }
 }
 
-/* Forza grigio #F2F2F2 ovunque sia usato mundo-gold (sostituzione giallo) */
-:root {
-  --mundo-gold: #F2F2F2 !important;
+/* Check-in: il riquadro QR resta colorato dopo lo scan */
+.club-checkin-flash {
+  animation: club-checkin-flash-in 0.18s ease-out;
+}
+@keyframes club-checkin-flash-in {
+  from {
+    transform: scale(0.92);
+    opacity: 0.35;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+[data-scan-flash="ok"] #qr-shaded-region > div {
+  background-color: #22c55e !important;
+}
+[data-scan-flash="already"] #qr-shaded-region > div {
+  background-color: #f59e0b !important;
+}
+[data-scan-flash="not_found"] #qr-shaded-region > div {
+  background-color: #dc2626 !important;
 }
