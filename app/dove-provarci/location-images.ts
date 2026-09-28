@@ -11,6 +11,7 @@ export const LOCATION_IMAGE_MAP: Record<string, string> = {
   "Degustazione ristoro e dispensa": "/images/Degustazione ristoro dispen.webp",
   Eterno: "/images/Eterno.webp",
   "Il Nemico": "/images/Il Nemico.webp",
+  "Laboratorio Veroamore": "/images/Laboratorio-veroamore.jpg",
   "Let It Be": "/images/Let It Be.webp",
   "Madame del Borgo": "/images/MA.DA.ME..webp",
   "Mary's Pub": "/images/Mary's Pub.webp",

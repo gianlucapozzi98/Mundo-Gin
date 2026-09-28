@@ -365,6 +365,18 @@ const LOCATIONS_RAW: Location[] = [
     mapUrl: "https://maps.app.goo.gl/SqyS1n2nPV9idVja8",
     instagramUrl: "https://www.instagram.com/barpicchiodapaolo/",
   },
+  {
+    id: "32",
+    name: "Laboratorio Veroamore",
+    address: "Piazza Trento e Trieste, 13",
+    city: "Crema",
+    cap: "26013",
+    province: "CR",
+    lat: 45.362083,
+    lng: 9.6868912,
+    mapUrl: "https://maps.app.goo.gl/wD76s7QSCVLxhSEX6",
+    instagramUrl: "https://www.instagram.com/veroamore.lab/",
+  },
 ];
 
 export const LOCATIONS = [...LOCATIONS_RAW].sort((a, b) =>
