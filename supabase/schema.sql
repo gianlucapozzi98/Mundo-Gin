@@ -53,7 +53,7 @@ insert into events (slug, name, event_date, location)
 values (
   'club-house-1',
   'Club House #1',
-  '2026-09-28',
+  '2026-10-03',
   'Treviglio'
 )
 on conflict (slug) do update set

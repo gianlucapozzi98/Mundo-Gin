@@ -60,7 +60,7 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     title: "Club House #1",
     shortDate: "Treviglio",
     shortLocation: "Treviglio",
-    dateLabel: "",
+    dateLabel: "3 ottobre 2026",
     timeLabel: "18:30 – 23:30",
     location: "Treviglio",
     address: "Treviglio",
