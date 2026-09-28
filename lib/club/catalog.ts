@@ -57,7 +57,7 @@ export function promoterLoginPassword(name: string) {
 export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
   "club-house-1": {
     slug: "club-house-1",
-    title: "CLUB HOUSE #1",
+    title: "Club House #1",
     shortDate: "",
     shortLocation: "",
     dateLabel: "",
@@ -66,7 +66,7 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     address: "",
     imageUrl: "/images/DSC05918.jpg",
     description: [
-      "Mundo Club presenta: CLUB HOUSE #1.",
+      "Mundo Club presenta: Club House #1.",
       "Evento privato. Registrati, segui Instagram e ricevi il QR da mostrare all'ingresso.",
     ],
     promoters: [],
