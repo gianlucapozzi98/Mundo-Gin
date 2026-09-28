@@ -58,16 +58,18 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
   "club-house-1": {
     slug: "club-house-1",
     title: "Club House #1",
-    shortDate: "",
-    shortLocation: "",
+    shortDate: "Treviglio",
+    shortLocation: "Treviglio",
     dateLabel: "",
     timeLabel: "",
-    location: "Privato",
+    location: "Treviglio",
     address: "",
     imageUrl: "/images/mundo-club-20-9-2026-55.jpg",
     description: [
-      "Mundo Club presenta: Club House #1.",
-      "Evento privato. Registrati, segui Instagram e ricevi il QR da mostrare all'ingresso.",
+      "Club House by Mundo.",
+      "Evento privato in villa dedicato alla Community di Mundo.",
+      "Treviglio. Ore 18:30 - 23.30.",
+      "L'accesso è limitato e disponibile solo tramite registrazione.",
     ],
     promoters: [],
     whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
@@ -129,6 +131,10 @@ export function isEventRegistrationOpen(
 
 export function listRegisterableEvents() {
   return Object.values(REGISTERABLE_EVENTS);
+}
+
+export function eventPublicPath(slug: string) {
+  return `/club/${encodeURIComponent(resolveEventSlug(slug))}`;
 }
 
 export function listAllPromoters() {

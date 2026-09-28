@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { listRegisterableEvents } from "@/lib/club/catalog";
+import { eventPublicPath, listRegisterableEvents } from "@/lib/club/catalog";
 
 type AuthState = "loading" | "login" | "ready" | "scanner_blocked";
 type StaffRole = "scanner" | "admin" | "promoter";
@@ -302,6 +302,19 @@ export function AdminClient() {
                 ))}
               </select>
             </label>
+          ) : null}
+          {selectedEvent ? (
+            <p className="mt-3 font-futura-400 text-sm text-mundo-black/70">
+              Registrazione:{" "}
+              <Link
+                href={eventPublicPath(selectedEvent.slug)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="break-all underline underline-offset-2 hover:text-mundo-black"
+              >
+                {eventPublicPath(selectedEvent.slug)}
+              </Link>
+            </p>
           ) : null}
         </div>
         <div className="flex flex-wrap gap-3">
