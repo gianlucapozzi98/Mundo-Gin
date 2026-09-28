@@ -6,7 +6,7 @@ values (
   'club-house-1',
   'Club House #1',
   '2026-10-03',
-  'Treviglio'
+  'Treviglio (BG)'
 )
 on conflict (slug) do update set
   name = excluded.name,
