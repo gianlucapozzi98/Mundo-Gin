@@ -36,7 +36,7 @@ export const CLUB_EVENTS: ClubEvent[] = [
     title: "CLUB HOUSE #1",
     date: "Ottobre 2026",
     listedFrom: "2026-10-04T00:00:00+02:00",
-    location: "Treviglio",
+    location: "Bergamo",
     imageUrl: "/images/mundo-club-house.JPG",
     imageLayout: "fill",
   },
