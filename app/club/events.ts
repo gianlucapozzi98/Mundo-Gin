@@ -9,6 +9,11 @@ export type ClubEvent = {
   archiveDate?: string;
   /** Fine evento (ISO); dopo questa ora in lista si mostra `archiveDate`. */
   endsAt?: string;
+  /**
+   * ISO 8601: se presente, l'evento compare su /club solo da questo momento
+   * (es. il giorno dopo un evento privato).
+   */
+  listedFrom?: string;
   location: string;
   imageUrl: string;
   /** fit = intera immagine se 4:5, fill = fino al bordo, fill-bottom = fino al bordo ancorata in basso */
@@ -26,6 +31,15 @@ export function clubEventDateLabel(event: ClubEvent) {
 
 /** Aggiorna questa lista man mano che pubblichi nuovi eventi Mundo Club. */
 export const CLUB_EVENTS: ClubEvent[] = [
+  {
+    id: "event-club-house-1-2026",
+    title: "CLUB HOUSE #1",
+    date: "Ottobre 2026",
+    listedFrom: "2026-10-04T00:00:00+02:00",
+    location: "Treviglio",
+    imageUrl: "/images/mundo-club-house.JPG",
+    imageLayout: "fill",
+  },
   {
     id: "event-milan-fashion-week-2026",
     title: "MILAN FASHION WEEK",
@@ -77,3 +91,12 @@ export const CLUB_EVENTS: ClubEvent[] = [
     imageLayout: "fill-bottom",
   },
 ];
+
+export function isClubEventListed(event: ClubEvent, now = Date.now()) {
+  if (!event.listedFrom) return true;
+  return now >= new Date(event.listedFrom).getTime();
+}
+
+export function listClubEvents(now = Date.now()) {
+  return CLUB_EVENTS.filter((event) => isClubEventListed(event, now));
+}

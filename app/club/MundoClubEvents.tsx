@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/animated-slideshow";
 import { cn } from "@/lib/utils";
 import { getRegisterableEvent, isEventRegistrationOpen } from "@/lib/club/catalog";
-import { CLUB_EVENTS, clubEventDateLabel, type ClubEvent, type ClubEventImageLayout } from "./events";
+import { listClubEvents, clubEventDateLabel, type ClubEvent, type ClubEventImageLayout } from "./events";
 
 function eventRegistrationHref(event: ClubEvent) {
   if (!event.href) return null;
@@ -127,10 +127,11 @@ function MobileInlineCover({
 
 function MobileEventsList() {
   const { activeSlide, changeSlide } = useHoverSliderContext();
+  const events = listClubEvents();
 
   return (
     <div className="flex w-full flex-col space-y-8 lg:hidden">
-      {CLUB_EVENTS.map((event, index) => {
+      {events.map((event, index) => {
         const isActive = activeSlide === index;
         const registrationHref = eventRegistrationHref(event);
         return (
@@ -175,10 +176,11 @@ function MobileEventsList() {
 }
 
 function DesktopEventsLayout() {
+  const events = listClubEvents();
   return (
     <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-16">
       <div className="flex w-full max-w-xl flex-col space-y-6">
-        {CLUB_EVENTS.map((event, index) => {
+        {events.map((event, index) => {
           const registrationHref = eventRegistrationHref(event);
           return (
             <div key={event.id} className="group">
@@ -204,7 +206,7 @@ function DesktopEventsLayout() {
       </div>
 
       <HoverSliderImageWrap className="aspect-[4/5] w-full max-w-lg place-items-center overflow-hidden rounded-2xl shadow-[0_24px_60px_-24px_rgba(0,0,0,0.35)] ring-1 ring-mundo-black/10">
-        {CLUB_EVENTS.map((event, index) => (
+        {events.map((event, index) => (
           <EventCoverImage
             key={event.id}
             index={index}
