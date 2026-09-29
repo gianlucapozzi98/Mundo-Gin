@@ -64,7 +64,7 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     timeLabel: "18:30 – 23:30",
     location: "Treviglio (BG)",
     address: "Location privata - Treviglio (BG)",
-    imageUrl: "/images/mundo-club-20-9-2026-55.jpg",
+    imageUrl: "/images/mundo-club-house.JPG",
     description: [
       "Club House by Mundo.",
       "Evento privato in villa dedicato alla Community di Mundo. L'indirizzo completo sarà comunicato ai partecipanti registrati prima dell'evento.",

@@ -21,6 +21,16 @@ export async function generateMetadata({
   return {
     title: `${event.title} | Mundo Club`,
     description: `${event.title} — ${event.dateLabel}, ${event.address}`,
+    openGraph: {
+      title: `${event.title} | Mundo Club`,
+      description: `${event.title} — ${event.dateLabel}, ${event.address}`,
+      images: [{ url: event.imageUrl, alt: event.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${event.title} | Mundo Club`,
+      images: [event.imageUrl],
+    },
   };
 }
 
