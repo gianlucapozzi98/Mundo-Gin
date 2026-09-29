@@ -412,7 +412,7 @@ export async function getEventStats(eventSlug: string): Promise<EventStats> {
     if (!byPromoterMap.has(key)) {
       byPromoterMap.set(key, {
         code: row.promoterCode,
-        name: row.promoterName ?? (row.promoterCode ? row.promoterCode : "Senza referral"),
+        name: row.promoterName ?? (row.promoterCode ? row.promoterCode : "Mundo Club"),
         registered: 0,
         present: 0,
       });
@@ -425,7 +425,7 @@ export async function getEventStats(eventSlug: string): Promise<EventStats> {
   if (!byPromoterMap.has("__none__")) {
     byPromoterMap.set("__none__", {
       code: null,
-      name: "Senza referral",
+      name: "Mundo Club",
       registered: 0,
       present: 0,
     });

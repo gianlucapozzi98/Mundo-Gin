@@ -480,7 +480,7 @@ export function AdminClient() {
                     </td>
                     {isAdmin ? (
                       <td className="px-4 py-3">
-                        {row.promoterName ?? "—"}
+                        {row.promoterName ?? "Mundo Club"}
                       </td>
                     ) : null}
                     <td className="px-4 py-3">{formatDateTime(row.createdAt)}</td>
