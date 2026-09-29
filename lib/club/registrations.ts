@@ -2,7 +2,12 @@ import { randomBytes } from "crypto";
 import { promises as fs } from "fs";
 import path from "path";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { getPromoterByCode, getRegisterableEvent, eventSlugCandidates } from "./catalog";
+import {
+  getPromoterByCode,
+  getRegisterableEvent,
+  eventSlugCandidates,
+  referralDisplayName,
+} from "./catalog";
 
 export type RegistrationRecord = {
   id: string;
@@ -412,7 +417,7 @@ export async function getEventStats(eventSlug: string): Promise<EventStats> {
     if (!byPromoterMap.has(key)) {
       byPromoterMap.set(key, {
         code: row.promoterCode,
-        name: row.promoterName ?? (row.promoterCode ? row.promoterCode : "Mundo Club"),
+        name: referralDisplayName(row.promoterName, row.promoterCode),
         registered: 0,
         present: 0,
       });
@@ -431,9 +436,13 @@ export async function getEventStats(eventSlug: string): Promise<EventStats> {
     });
   }
 
+  const noneBucket = byPromoterMap.get("__none__");
+  if (noneBucket) noneBucket.name = "Mundo Club";
+
   const byPromoter = [...byPromoterMap.values()]
     .map((b) => ({
       ...b,
+      name: referralDisplayName(b.name, b.code),
       conversion:
         b.registered === 0
           ? 0

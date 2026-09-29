@@ -53,6 +53,15 @@ export function promoterLoginPassword(name: string) {
     .replace(/[^a-z0-9]/g, "");
 }
 
+/** Iscritti senza promoter: in admin/check-in si mostrano come Mundo Club. */
+export function referralDisplayName(
+  name: string | null | undefined,
+  code: string | null | undefined
+) {
+  if (!code || !name || name === "Senza referral") return "Mundo Club";
+  return name;
+}
+
 /** Eventi gestibili da admin / check-in (anche senza pagina registrazione pubblica). */
 export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
   "club-house-1": {

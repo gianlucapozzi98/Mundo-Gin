@@ -2,7 +2,11 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { eventPublicPath, listRegisterableEvents } from "@/lib/club/catalog";
+import {
+  eventPublicPath,
+  listRegisterableEvents,
+  referralDisplayName,
+} from "@/lib/club/catalog";
 
 type AuthState = "loading" | "login" | "ready" | "scanner_blocked";
 type StaffRole = "scanner" | "admin" | "promoter";
@@ -395,7 +399,9 @@ export function AdminClient() {
                     key={row.code ?? "none"}
                     className="border-b border-mundo-black/5 font-futura-400 text-sm text-mundo-black/80"
                   >
-                    <td className="px-4 py-3">{row.name}</td>
+                    <td className="px-4 py-3">
+                      {referralDisplayName(row.name, row.code)}
+                    </td>
                     <td className="px-4 py-3 text-right tabular-nums">
                       {row.registered}
                     </td>
@@ -480,7 +486,7 @@ export function AdminClient() {
                     </td>
                     {isAdmin ? (
                       <td className="px-4 py-3">
-                        {row.promoterName ?? "Mundo Club"}
+                        {referralDisplayName(row.promoterName, row.promoterCode)}
                       </td>
                     ) : null}
                     <td className="px-4 py-3">{formatDateTime(row.createdAt)}</td>

@@ -3,7 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Html5Qrcode } from "html5-qrcode";
-import { listRegisterableEvents } from "@/lib/club/catalog";
+import {
+  listRegisterableEvents,
+  referralDisplayName,
+} from "@/lib/club/catalog";
 
 type AuthState = "loading" | "login" | "ready";
 type StaffRole = "scanner" | "admin";
@@ -845,7 +848,9 @@ export function CheckinClient() {
                     key={row.code ?? "none"}
                     className="border-b border-mundo-black/5 font-futura-400 text-sm text-mundo-black/80"
                   >
-                    <td className="px-4 py-3">{row.name}</td>
+                    <td className="px-4 py-3">
+                      {referralDisplayName(row.name, row.code)}
+                    </td>
                     <td className="px-4 py-3 text-right tabular-nums">
                       {row.registered}
                     </td>
