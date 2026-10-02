@@ -6,7 +6,7 @@ const CARD_BASE =
   "absolute rounded-lg border border-mundo-black/15 bg-mundo-white shadow-[0_14px_30px_rgba(0,0,0,0.12)] overflow-hidden";
 
 const POSTCARD_IMAGES = [
-  "/images/mundo-gin-style.jpeg",
+  "/images/mundo-club-party.jpg",
   "/images/mundo-club-20-9-2026-24.jpg",
   "/images/tech.jpg",
   "/images/mundo-club-20-9-2026-69.jpg",
