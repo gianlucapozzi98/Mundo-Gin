@@ -4,7 +4,7 @@ import { ContactForm } from "@/components/sections/ContactForm";
 export const metadata: Metadata = {
   title: "Contatti | Mundo Gin",
   description:
-    "Per scoprire di più su Mundo Gin, collaborazioni o richieste speciali. Contattaci.",
+    "Per scoprire di più su Mundo, collaborazioni o richieste speciali. Contattaci.",
 };
 
 export default function ContattiPage() {
@@ -24,7 +24,7 @@ export default function ContattiPage() {
               Contatti
             </h1>
             <p className="font-futura-400 text-mundo-white/90 text-lg sm:text-xl max-w-2xl">
-              Per scoprire di più su Mundo Gin, collaborazioni o richieste speciali, non esitare a contattarci. Siamo qui per rispondere alle tue domande.
+              Per scoprire di più su Mundo, collaborazioni o richieste speciali, non esitare a contattarci. Siamo qui per rispondere alle tue domande.
             </p>
           </div>
         </div>
