@@ -31,13 +31,11 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
 
   const requireSocialProof = Boolean(event.requireSocialProof);
   const instagramUrl = event.instagramUrl ?? INSTAGRAM_URL;
-  const canSubmit =
-    privacyAccepted &&
-    (!requireSocialProof || (followedInstagram && socialConfirmed));
+  const showInstagram = Boolean(event.instagramUrl) || requireSocialProof;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!canSubmit) return;
+    if (status === "sending") return;
     setStatus("sending");
     setError(null);
 
@@ -246,11 +244,8 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
           />
         </div>
 
-        {requireSocialProof ? (
-          <div className="space-y-3 rounded-xl border border-mundo-black/10 bg-[#F8F8F8] p-4">
-            <p className="font-futura-500 text-sm text-mundo-black">
-              Prima di ricevere il QR
-            </p>
+        {showInstagram ? (
+          <div className="space-y-3">
             <a
               href={instagramUrl}
               target="_blank"
@@ -260,16 +255,18 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
             >
               {followedInstagram ? "Segui Mundo ✓" : "Segui Mundo"}
             </a>
-            <label className="flex items-start gap-3 font-futura-400 text-sm leading-relaxed text-mundo-black/75">
-              <input
-                type="checkbox"
-                checked={socialConfirmed}
-                onChange={(e) => setSocialConfirmed(e.target.checked)}
-                className="mt-1"
-                required
-              />
-              <span>Confermo di aver seguito Instagram.</span>
-            </label>
+            {requireSocialProof ? (
+              <label className="flex items-start gap-3 font-futura-400 text-sm leading-relaxed text-mundo-black/75">
+                <input
+                  type="checkbox"
+                  checked={socialConfirmed}
+                  onChange={(e) => setSocialConfirmed(e.target.checked)}
+                  className="mt-1"
+                  required
+                />
+                <span>Confermo di aver seguito Instagram.</span>
+              </label>
+            ) : null}
           </div>
         ) : null}
 
@@ -304,7 +301,7 @@ export function EventRegistrationForm({ event, promoterCode }: Props) {
 
       <button
         type="submit"
-        disabled={status === "sending" || !canSubmit}
+        disabled={status === "sending"}
         className="mt-8 inline-flex w-full items-center justify-center rounded-lg bg-mundo-black px-5 py-3.5 font-futura-500 text-sm uppercase tracking-[0.14em] text-mundo-white transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
       >
         {status === "sending" ? "Registrazione…" : "Registrati all'evento"}

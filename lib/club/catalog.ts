@@ -82,7 +82,6 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     promoters: [],
     whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
     instagramUrl: INSTAGRAM_URL,
-    requireSocialProof: true,
   },
   "mundo-castle": {
     slug: "mundo-castle",
