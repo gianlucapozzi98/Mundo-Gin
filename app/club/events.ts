@@ -32,6 +32,17 @@ export function clubEventDateLabel(event: ClubEvent) {
 /** Aggiorna questa lista man mano che pubblichi nuovi eventi Mundo Club. */
 export const CLUB_EVENTS: ClubEvent[] = [
   {
+    id: "event-mundo-pop-up-2026",
+    title: "MUNDO POP UP",
+    date: "17–18 ottobre 2026",
+    archiveDate: "Ottobre 2026",
+    endsAt: "2026-10-18T22:00:00+02:00",
+    location: "Milano",
+    imageUrl: "/images/mundo-club-crz-underground-society.jpg",
+    imageLayout: "fill",
+    href: "/club/mundo-pop-up",
+  },
+  {
     id: "event-club-house-1-2026",
     title: "CLUB HOUSE #1",
     date: "Ottobre 2026",

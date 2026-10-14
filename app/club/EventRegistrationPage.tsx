@@ -3,6 +3,31 @@ import type { ClubEventDetails } from "@/lib/club/catalog";
 import { isEventRegistrationOpen } from "@/lib/club/catalog";
 import { EventRegistrationForm } from "./EventRegistrationForm";
 
+const INSTAGRAM_HANDLE = /(@[A-Za-z0-9._]+)/g;
+
+function DescriptionWithInstagramLinks({ text }: { text: string }) {
+  const parts = text.split(INSTAGRAM_HANDLE);
+  return (
+    <>
+      {parts.map((part, index) => {
+        if (!part.startsWith("@") || part.length < 2) return part;
+        const handle = part.slice(1);
+        return (
+          <a
+            key={`${handle}-${index}`}
+            href={`https://www.instagram.com/${handle}/`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-mundo-black"
+          >
+            {part}
+          </a>
+        );
+      })}
+    </>
+  );
+}
+
 type Props = {
   event: ClubEventDetails;
   promoterCode: string | null;
@@ -100,13 +125,14 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
               {description.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="font-futura-400 text-[18px] leading-relaxed text-mundo-black/80 sm:text-[20px]"
+                  className="whitespace-pre-line font-futura-400 text-[18px] leading-relaxed text-mundo-black/80 sm:text-[20px]"
                 >
-                  {paragraph}
+                  <DescriptionWithInstagramLinks text={paragraph} />
                 </p>
               ))}
             </div>
 
+            {event.infoOnly ? null : (
             <div className="mt-10">
               {registrationOpen ? (
                 <EventRegistrationForm
@@ -127,6 +153,7 @@ export function EventRegistrationPage({ event, promoterCode }: Props) {
                 </div>
               )}
             </div>
+            )}
           </div>
         </div>
       </div>

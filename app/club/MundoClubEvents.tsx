@@ -13,11 +13,16 @@ import { cn } from "@/lib/utils";
 import { getRegisterableEvent, isEventRegistrationOpen } from "@/lib/club/catalog";
 import { listClubEvents, clubEventDateLabel, type ClubEvent, type ClubEventImageLayout } from "./events";
 
-function eventRegistrationHref(event: ClubEvent) {
+function eventCta(event: ClubEvent) {
   if (!event.href) return null;
   const slug = event.href.split("/").filter(Boolean).pop();
-  if (!slug) return event.href;
-  return isEventRegistrationOpen(getRegisterableEvent(slug)) ? event.href : null;
+  if (!slug) return { href: event.href, label: "Scopri →" };
+  const details = getRegisterableEvent(slug);
+  if (details?.infoOnly) return { href: event.href, label: "Scopri →" };
+  if (isEventRegistrationOpen(details)) {
+    return { href: event.href, label: "Registrati →" };
+  }
+  return null;
 }
 
 const TARGET_RATIO = 4 / 5;
@@ -133,7 +138,7 @@ function MobileEventsList() {
     <div className="flex w-full flex-col space-y-8 lg:hidden">
       {events.map((event, index) => {
         const isActive = activeSlide === index;
-        const registrationHref = eventRegistrationHref(event);
+        const cta = eventCta(event);
         return (
           <div key={event.id} className="group">
             <div
@@ -160,12 +165,12 @@ function MobileEventsList() {
             <p className="mt-2 font-futura-400 text-sm text-mundo-black/60 sm:text-base">
               {clubEventDateLabel(event)} · {event.location}
             </p>
-            {registrationHref ? (
+            {cta ? (
               <Link
-                href={registrationHref}
+                href={cta.href}
                 className="mt-2 inline-block font-futura-500 text-xs uppercase tracking-[0.14em] text-mundo-black/70 underline-offset-4 hover:text-mundo-black hover:underline"
               >
-                Registrati →
+                {cta.label}
               </Link>
             ) : null}
           </div>
@@ -181,7 +186,7 @@ function DesktopEventsLayout() {
     <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-16">
       <div className="flex w-full max-w-xl flex-col space-y-6">
         {events.map((event, index) => {
-          const registrationHref = eventRegistrationHref(event);
+          const cta = eventCta(event);
           return (
             <div key={event.id} className="group">
               <TextStaggerHover
@@ -192,12 +197,12 @@ function DesktopEventsLayout() {
               <p className="mt-1 font-futura-400 text-base text-mundo-black/60">
                 {clubEventDateLabel(event)} · {event.location}
               </p>
-              {registrationHref ? (
+              {cta ? (
                 <Link
-                  href={registrationHref}
+                  href={cta.href}
                   className="mt-2 inline-block font-futura-500 text-xs uppercase tracking-[0.14em] text-mundo-black/70 underline-offset-4 hover:text-mundo-black hover:underline"
                 >
-                  Registrati →
+                  {cta.label}
                 </Link>
               ) : null}
             </div>

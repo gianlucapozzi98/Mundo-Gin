@@ -28,6 +28,8 @@ export type ClubEventDetails = {
   partnerLogoUrl?: string;
   partnerLogoAlt?: string;
   instagramUrl?: string;
+  /** Pagina pubblica senza form di registrazione / check-in. */
+  infoOnly?: boolean;
   /** Cap iscrizioni pubbliche (es. 100 QR birra gratis). */
   maxRegistrations?: number;
   /** ISO 8601; dopo quest'ora la pagina pubblica di registrazione si chiude. */
@@ -104,6 +106,26 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     ],
     whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
   },
+  "mundo-pop-up": {
+    slug: "mundo-pop-up",
+    title: "Mundo Pop Up",
+    shortDate: "17–18 ottobre",
+    shortLocation: "Milano",
+    dateLabel: "17–18 ottobre 2026",
+    timeLabel: "18:00 – 22:00",
+    location: "Milano",
+    address: "Via Novati 2, Milano",
+    imageUrl: "/images/mundo-club-crz-underground-society.jpg",
+    description: [
+      "@wearecrz, @_underground.society & @mundodrygin present a two-day weekend of drinks, music and community.",
+      "Start 6pm – 10pm (open bar for the first arrivals).",
+      "Saturday, October 17\nPop-up with @mundodrygin cocktails.\nMusic by @wearecrz",
+      "Sunday, October 18\nMusic by @_underground.society @riblx_ & @massimo.miseria",
+    ],
+    promoters: [],
+    whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
+    infoOnly: true,
+  },
 };
 
 /** Vecchi path ancora validi (es. link PR già condivisi). */
@@ -132,12 +154,13 @@ export function isEventRegistrationOpen(
   event: ClubEventDetails | null | undefined
 ) {
   if (!event) return false;
+  if (event.infoOnly) return false;
   if (!event.registrationClosesAt) return true;
   return Date.now() < new Date(event.registrationClosesAt).getTime();
 }
 
 export function listRegisterableEvents() {
-  return Object.values(REGISTERABLE_EVENTS);
+  return Object.values(REGISTERABLE_EVENTS).filter((event) => !event.infoOnly);
 }
 
 export function eventPublicPath(slug: string) {
