@@ -61,7 +61,7 @@ on conflict (slug) do update set
   event_date = excluded.event_date,
   location = excluded.location;
 
--- Seed: Milan Fashion Week (storico, non più in admin)
+-- Seed: Milan Fashion Week (storico, visibile in admin)
 insert into events (slug, name, event_date, location)
 values (
   'milan-fashion-week',
