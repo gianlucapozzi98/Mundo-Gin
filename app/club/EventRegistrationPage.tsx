@@ -3,13 +3,23 @@ import type { ClubEventDetails } from "@/lib/club/catalog";
 import { isEventRegistrationOpen } from "@/lib/club/catalog";
 import { EventRegistrationForm } from "./EventRegistrationForm";
 
-const INSTAGRAM_HANDLE = /(@[A-Za-z0-9._]+)/g;
+const DESCRIPTION_TOKEN = /(\*\*[^*]+\*\*|@[A-Za-z0-9._]+)/g;
 
 function DescriptionWithInstagramLinks({ text }: { text: string }) {
-  const parts = text.split(INSTAGRAM_HANDLE);
+  const parts = text.split(DESCRIPTION_TOKEN);
   return (
     <>
       {parts.map((part, index) => {
+        if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+          return (
+            <strong
+              key={`bold-${index}`}
+              className="font-futura-500 font-medium text-mundo-black"
+            >
+              {part.slice(2, -2)}
+            </strong>
+          );
+        }
         if (!part.startsWith("@") || part.length < 2) return part;
         const handle = part.slice(1);
         return (

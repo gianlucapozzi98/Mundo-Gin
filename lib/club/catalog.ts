@@ -141,8 +141,8 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     description: [
       "@wearecrz, @_underground.society & @mundodrygin present a two-day weekend of drinks, music and community.",
       "Start 6pm – 10pm (open bar for the first arrivals).",
-      "Saturday, October 17\nPop-up with @mundodrygin cocktails.\nMusic by @wearecrz",
-      "Sunday, October 18\nMusic by @_underground.society @riblx_ & @massimo.miseria",
+      "**Saturday, October 17**\nPop-up with @mundodrygin cocktails.\nMusic by @wearecrz",
+      "**Sunday, October 18**\nMusic by @_underground.society @riblx_ & @massimo.miseria",
     ],
     promoters: [],
     whatsappCommunityUrl: WHATSAPP_COMMUNITY_URL,
