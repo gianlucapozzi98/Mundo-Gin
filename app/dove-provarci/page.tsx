@@ -6,9 +6,9 @@ import { LOCATION_IMAGE_MAP } from "./location-images";
 import { DynamicMapSection } from "./DynamicMapSection";
 
 export const metadata: Metadata = {
-  title: "Dove provarci | Mundo Gin",
+  title: "Dove bere Mundo Gin | Bar e locali in Italia",
   description:
-    "Trova dove assaggiare Mundo Gin. Elenco dei bar e locali dove è disponibile Mundo.",
+    "Trova i bar e cocktail bar dove assaggiare Mundo Gin: Milano, Bergamo, Crema, Jesolo e altre città. Mappa e indicazioni.",
 };
 
 export default function DoveProvarciPage() {

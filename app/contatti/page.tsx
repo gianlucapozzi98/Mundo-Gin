@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import { ContactForm } from "@/components/sections/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contatti | Mundo Gin",
+  title: "Contatti Mundo | Collaborazioni e info",
   description:
-    "Per scoprire di più su Mundo, collaborazioni o richieste speciali. Contattaci.",
+    "Scrivi a Mundo per collaborazioni, locali e richieste.",
 };
 
 export default function ContattiPage() {
