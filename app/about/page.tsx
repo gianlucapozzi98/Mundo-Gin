@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import { IlGinHero } from "./IlGinHero";
 
 export const metadata: Metadata = {
-  title: "Il Gin | Mundo Gin",
+  title: "Il Gin | Italian Coffee Dry Gin Mundo",
   description:
-    "Storia e processo produttivo di Mundo Gin - Premium Italian Gin.",
+    "Mundo è un London Dry gin italiano distillato con caffè specialty. Storia, botaniche e processo produttivo.",
 };
 
 export default function IlGinPage() {

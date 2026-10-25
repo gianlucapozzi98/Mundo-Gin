@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.mundogin.com"),
   title: "Mundo Gin | Italian Coffee Dry Gin",
   description:
-    "Scopri Mundo Gin. Un gin contemporaneo, autentico, capace di distinguersi al palato e alla vista.",
+    "Mundo Gin: Italian Coffee Dry Gin, London Dry italiano distillato con caffè. Scopri il gusto e acquista online.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     siteName: "Mundo Gin",
     title: "Mundo Gin | Italian Coffee Dry Gin",
     description:
-      "Scopri Mundo Gin. Un gin contemporaneo, autentico, capace di distinguersi al palato e alla vista.",
+      "Mundo Gin: Italian Coffee Dry Gin, London Dry italiano distillato con caffè. Scopri il gusto e acquista online.",
     images: [
       {
         url: "/og-image.jpg",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mundo Gin | Italian Coffee Dry Gin",
     description:
-      "Scopri Mundo Gin. Un gin contemporaneo, autentico, capace di distinguersi al palato e alla vista.",
+      "Mundo Gin: Italian Coffee Dry Gin, London Dry italiano distillato con caffè. Scopri il gusto e acquista online.",
     images: ["/og-image.jpg"],
   },
   verification: {

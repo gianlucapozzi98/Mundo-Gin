@@ -4,8 +4,8 @@ import { MUNDO_BEER_FROM_PRICE_DISPLAY, MUNDO_BEER_IMAGE } from "@/lib/mundo-bee
 import { MUNDO_GIN_PRICE_DISPLAY } from "@/lib/mundo-gin-product";
 
 export const metadata: Metadata = {
-  title: "Shop | Mundo Gin",
-  description: "Acquista Mundo Gin e Mundo Beer.",
+  title: "Shop | Acquista Mundo Gin e Mundo Beer",
+  description: "Acquista online Mundo Gin e Mundo Beer. Spedizione in Italia.",
 };
 
 export default function ShopPage() {
