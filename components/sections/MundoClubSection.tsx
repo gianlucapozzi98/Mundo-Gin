@@ -16,14 +16,14 @@ export function MundoClubSection() {
           >
             <div className="aspect-[4/3] rounded-lg overflow-hidden">
               <img
-                src="/images/mundo-gin-apparel.jpeg"
+                src="/images/mundo-club-event-trendt-vision.jpg"
                 alt="Mundo Club"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="aspect-[4/3] rounded-lg overflow-hidden mt-8">
               <img
-                src="/images/DSC05918.jpg"
+                src="/images/mundo-club-event-trendt-vision-beer.jpg"
                 alt="Mundo Club"
                 className="w-full h-full object-cover"
               />
