@@ -1,10 +1,14 @@
 import { Metadata } from "next";
 import { PageHero } from "@/components/sections/PageHero";
+import { JsonLd } from "@/components/JsonLd";
+import { absoluteUrl, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cocktail | Mundo Gin",
-  description: "Ricette e cocktail con Mundo Gin.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Cocktail con gin al caffè | Ricette Mundo Gin",
+  description:
+    "Ricette cocktail con Mundo Gin: Mundo Tonic, Mundo Negroni, Espresso Mundo e Dormo Domani. Ingredienti e dosi per prepararli a casa.",
+  path: "/cocktail",
+});
 
 const COCK_GALLERY = [
   "/images/cocktail-evento-mundo-gin.png",
@@ -16,9 +20,61 @@ const COCK_GALLERY = [
   "/images/cock7.jpeg",
 ];
 
+const COCKTAIL_RECIPES = [
+  {
+    name: "Mundo Tonic",
+    image: "/images/gin tonic.png",
+    author: "Mundo Gin",
+    ingredients: ["50 ml Mundo Gin", "150 ml acqua tonica secca"],
+  },
+  {
+    name: "Mundo Negroni",
+    image: "/images/Negroni.jpeg",
+    author: "Mundo Gin",
+    ingredients: [
+      "30 ml Mundo Gin",
+      "30 ml bitter",
+      "30 ml vermouth rosso",
+      "Scorza d'arancia",
+    ],
+  },
+  {
+    name: "Espresso Mundo",
+    image: "/images/espr m.jpeg",
+    author: "Mundo Gin",
+    ingredients: [
+      "50 ml Mundo Gin",
+      "30 ml liquore al caffè",
+      "10 ml sciroppo di zucchero",
+      "Caffè espresso",
+      "3 chicchi di caffè",
+    ],
+  },
+  {
+    name: "Dormo Domani",
+    image: "/images/dormo.domani.drink.by.eterno.milano.jpg",
+    author: "Eterno Milano",
+    ingredients: ["Mundo Gin", "Vermouth", "Campari"],
+  },
+];
+
+const recipesJsonLd = COCKTAIL_RECIPES.map((recipe) => ({
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  name: recipe.name,
+  image: absoluteUrl(recipe.image),
+  url: absoluteUrl("/cocktail"),
+  description: `${recipe.name}: cocktail con Mundo Gin, Italian Coffee Dry Gin.`,
+  recipeCategory: "Cocktail",
+  recipeYield: "1 cocktail",
+  author: { "@type": "Organization", name: recipe.author },
+  recipeIngredient: recipe.ingredients,
+}));
+
 export default function CocktailPage() {
   return (
     <div className="pt-24 sm:pt-28 bg-[#F2F2F2]">
+      <JsonLd data={recipesJsonLd} />
       <PageHero
         title="Cocktail"
         subtitle="Cocktail pensati per esaltare ogni sfumatura di Mundo, tra equilibrio, carattere e creatività."

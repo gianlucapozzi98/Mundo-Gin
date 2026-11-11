@@ -7,6 +7,9 @@ import { AgeGate } from "@/components/layout/AgeGate";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { GSAPProvider } from "@/components/providers/GSAPProvider";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { JsonLd } from "@/components/JsonLd";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,7 +39,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "it_IT",
-    url: "https://www.mundogin.com",
     siteName: "Mundo Gin",
     title: "Mundo Gin | Italian Coffee Dry Gin",
     description:
@@ -75,6 +77,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
+        <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
+        <GoogleAnalytics />
         {/* Meta Pixel Code */}
         <Script id="meta-pixel" strategy="afterInteractive">
           {`

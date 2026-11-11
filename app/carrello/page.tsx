@@ -1,10 +1,14 @@
 import { Metadata } from "next";
 import { CarrelloView } from "./CarrelloView";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Carrello | Mundo Gin",
-  description: "Controlla i prodotti nel carrello.",
-};
+  description:
+    "Controlla i prodotti nel carrello.",
+  path: "/carrello",
+  noindex: true,
+});
 
 export default function CarrelloPage() {
   return (

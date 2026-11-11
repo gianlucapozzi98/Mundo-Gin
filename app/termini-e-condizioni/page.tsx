@@ -1,9 +1,12 @@
 import { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Termini e condizioni | Mundo Gin",
-  description: "Condizioni di vendita, diritto di recesso, trasporto e consegna.",
-};
+  description:
+    "Condizioni di vendita, diritto di recesso, trasporto e consegna.",
+  path: "/termini-e-condizioni",
+});
 
 export default function TerminiECondizioniPage() {
   return (

@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { BeerPreorderSection } from "@/components/sections/BeerPreorderSection";
 import { StorySection } from "@/components/sections/StorySection";
@@ -5,6 +7,13 @@ import { BotanicheSection } from "@/components/sections/BotanicheSection";
 import { ProductShowcase } from "@/components/sections/ProductShowcase";
 import { CocktailPreview } from "@/components/sections/CocktailPreview";
 import { MundoClubSection } from "@/components/sections/MundoClubSection";
+export const metadata: Metadata = pageMetadata({
+  title: "Mundo Gin | Italian Coffee Dry Gin",
+  description:
+    "Mundo Gin: Italian Coffee Dry Gin, London Dry italiano distillato con caffè. Scopri il gusto e acquista online.",
+  path: "/",
+});
+
 export default function HomePage() {
   return (
     <>

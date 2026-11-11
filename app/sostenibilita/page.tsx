@@ -1,10 +1,12 @@
 import { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Sostenibilità | Mundo Gin",
   description:
     "Il nostro impegno per la tutela del pianeta. Mundo Gin è alimentato al 100% da energia solare.",
-};
+  path: "/sostenibilita",
+});
 
 export default function SostenibilitaPage() {
   return (

@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getRegisterableEvent } from "@/lib/club/catalog";
 import { EventRegistrationPage } from "../EventRegistrationPage";
+import { JsonLd } from "@/components/JsonLd";
+import { absoluteUrl, pageMetadata, organizationJsonLd } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -15,20 +17,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const event = getRegisterableEvent(slug);
   if (!event) return { title: "Evento | Mundo Club" };
-  return {
+  return pageMetadata({
     title: `${event.title} | Mundo Club`,
     description: `${event.title} — ${event.dateLabel}, ${event.address}`,
-    openGraph: {
-      title: `${event.title} | Mundo Club`,
-      description: `${event.title} — ${event.dateLabel}, ${event.address}`,
-      images: [{ url: event.imageUrl, alt: event.title }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${event.title} | Mundo Club`,
-      images: [event.imageUrl],
-    },
-  };
+    path: `/club/${event.slug}`,
+    image: { url: event.imageUrl, alt: event.title },
+  });
 }
 
 export default async function ClubEventPage({ params }: PageProps) {
@@ -36,5 +30,35 @@ export default async function ClubEventPage({ params }: PageProps) {
   const event = getRegisterableEvent(slug);
   if (!event) notFound();
 
-  return <EventRegistrationPage event={event} promoterCode={null} />;
+  const eventJsonLd = event.startDate
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        name: `${event.title} — Mundo Club`,
+        description: event.description.join(" ").replace(/\*\*/g, ""),
+        startDate: event.startDate,
+        ...(event.endDate ? { endDate: event.endDate } : {}),
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        image: absoluteUrl(event.imageUrl),
+        url: absoluteUrl(`/club/${event.slug}`),
+        location: {
+          "@type": "Place",
+          name: event.location,
+          address: event.address,
+        },
+        organizer: {
+          "@type": "Organization",
+          name: organizationJsonLd.name,
+          url: organizationJsonLd.url,
+        },
+      }
+    : null;
+
+  return (
+    <>
+      {eventJsonLd ? <JsonLd data={eventJsonLd} /> : null}
+      <EventRegistrationPage event={event} promoterCode={null} />
+    </>
+  );
 }

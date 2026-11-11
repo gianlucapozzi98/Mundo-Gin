@@ -15,7 +15,7 @@ import {
 const GALLERY_SLOTS = [...MUNDO_BEER_PRODUCT_IMAGES];
 
 const PRODUCT_SPECS: { label: string; value: string }[] = [
-  { label: "Formato", value: "0,33 cl" },
+  { label: "Formato", value: "33 cl" },
   { label: "Stile", value: "Pilsner" },
   { label: "Gradazione", value: "5%" },
   { label: "Colore", value: "Biondo dorato" },

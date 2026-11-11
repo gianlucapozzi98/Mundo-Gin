@@ -2,11 +2,15 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { PurchaseTracker } from "./PurchaseTracker";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Ordine ricevuto | Mundo Gin",
-  description: "Grazie per il tuo ordine su Mundo Gin.",
-};
+  description:
+    "Grazie per il tuo ordine su Mundo Gin.",
+  path: "/ordine-ricevuto",
+  noindex: true,
+});
 
 export default function OrdineRicevutoPage() {
   return (

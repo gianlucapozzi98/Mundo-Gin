@@ -36,6 +36,10 @@ export type ClubEventDetails = {
   registrationClosesAt?: string;
   /** Pulsante Instagram obbligatorio (WhatsApp facoltativo) prima del QR. */
   requireSocialProof?: boolean;
+  /** Inizio evento ISO 8601, usato per i dati strutturati (schema.org Event). */
+  startDate?: string;
+  /** Fine evento ISO 8601, usato per i dati strutturati. */
+  endDate?: string;
 };
 
 export const WHATSAPP_COMMUNITY_URL =
@@ -72,6 +76,8 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     shortDate: "Treviglio",
     shortLocation: "Treviglio (BG)",
     dateLabel: "3 ottobre 2026",
+    startDate: "2026-10-03T18:30:00+02:00",
+    endDate: "2026-10-03T23:30:00+02:00",
     timeLabel: "18:30 – 23:30",
     location: "Treviglio (BG)",
     address: "Location privata - Treviglio (BG)",
@@ -91,6 +97,8 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     shortDate: "Settembre 2026",
     shortLocation: "Bergamo",
     dateLabel: "20 settembre 2026",
+    startDate: "2026-09-20T18:00:00+02:00",
+    endDate: "2026-09-21T00:00:00+02:00",
     timeLabel: "18:00 – 00:00",
     location: "Pagazzano (BG)",
     address: "Piazza Castello, 1, Pagazzano (BG)",
@@ -112,6 +120,7 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     shortDate: "Settembre 2026",
     shortLocation: "Milano",
     dateLabel: "25 settembre 2026",
+    startDate: "2026-09-25",
     timeLabel: "",
     location: "Milano",
     address: "The Manhattan, Milano",
@@ -134,6 +143,8 @@ export const REGISTERABLE_EVENTS: Record<string, ClubEventDetails> = {
     shortDate: "17–18 ottobre",
     shortLocation: "Milano",
     dateLabel: "17–18 ottobre 2026",
+    startDate: "2026-10-17T18:00:00+02:00",
+    endDate: "2026-10-18T22:00:00+02:00",
     timeLabel: "18:00 – 22:00",
     location: "Milano",
     address: "Via Novati 2, Milano",

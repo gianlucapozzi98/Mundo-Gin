@@ -4,16 +4,51 @@ import { PageHero } from "@/components/sections/PageHero";
 import { LOCATIONS } from "./locations";
 import { LOCATION_IMAGE_MAP } from "./location-images";
 import { DynamicMapSection } from "./DynamicMapSection";
+import { JsonLd } from "@/components/JsonLd";
+import { absoluteUrl, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Dove bere Mundo Gin | Bar e locali in Italia",
   description:
     "Trova i bar e cocktail bar dove assaggiare Mundo Gin: Milano, Bergamo, Crema, Jesolo e altre città. Mappa e indicazioni.",
+  path: "/dove-provarci",
+});
+
+const locationsJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Bar e locali dove bere Mundo Gin",
+  url: absoluteUrl("/dove-provarci"),
+  numberOfItems: LOCATIONS.length,
+  itemListElement: LOCATIONS.map((location, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "BarOrPub",
+      name: location.name,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: location.address,
+        addressLocality: location.city,
+        ...(location.cap ? { postalCode: location.cap } : {}),
+        ...(location.province ? { addressRegion: location.province } : {}),
+        addressCountry: "IT",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: location.lat,
+        longitude: location.lng,
+      },
+      ...(location.mapUrl ? { hasMap: location.mapUrl } : {}),
+      ...(location.instagramUrl ? { sameAs: [location.instagramUrl] } : {}),
+    },
+  })),
 };
 
 export default function DoveProvarciPage() {
   return (
     <div className="pt-24 sm:pt-28 bg-[#F2F2F2]">
+      <JsonLd data={locationsJsonLd} />
       <PageHero
         title="Dove provarci"
         subtitle="Da queste location inizia il viaggio nel mondo di Mundo Gin: luoghi scelti per cocktail creativi, degustazioni curate e un'esperienza autentica."

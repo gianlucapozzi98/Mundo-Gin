@@ -2,11 +2,14 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { MUNDO_BEER_FROM_PRICE_DISPLAY, MUNDO_BEER_IMAGE } from "@/lib/mundo-beer-product";
 import { MUNDO_GIN_PRICE_DISPLAY } from "@/lib/mundo-gin-product";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Shop | Acquista Mundo Gin e Mundo Beer",
-  description: "Acquista online Mundo Gin e Mundo Beer. Spedizione in Italia.",
-};
+  description:
+    "Acquista online Mundo Gin, il gin italiano al caffè, e Mundo Beer. Spedizione in Italia, gratuita per ordini da 50 €.",
+  path: "/shop",
+});
 
 export default function ShopPage() {
   return (

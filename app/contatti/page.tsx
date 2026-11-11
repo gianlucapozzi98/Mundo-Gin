@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 import { ContactForm } from "@/components/sections/ContactForm";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contatti Mundo | Collaborazioni e info",
   description:
-    "Scrivi a Mundo per collaborazioni, locali e richieste.",
-};
+    "Scrivi a Mundo Gin per collaborazioni, forniture a bar e locali, eventi e informazioni sui prodotti. Rispondiamo via email e sui social.",
+  path: "/contatti",
+});
 
 export default function ContattiPage() {
   return (

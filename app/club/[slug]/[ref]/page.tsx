@@ -5,6 +5,7 @@ import {
   getRegisterableEvent,
 } from "@/lib/club/catalog";
 import { EventRegistrationPage } from "../../EventRegistrationPage";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -18,20 +19,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const event = getRegisterableEvent(slug);
   if (!event) return { title: "Evento | Mundo Club" };
-  return {
+  return pageMetadata({
     title: `${event.title} | Mundo Club`,
     description: `${event.title} — ${event.dateLabel}, ${event.address}`,
-    openGraph: {
-      title: `${event.title} | Mundo Club`,
-      description: `${event.title} — ${event.dateLabel}, ${event.address}`,
-      images: [{ url: event.imageUrl, alt: event.title }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${event.title} | Mundo Club`,
-      images: [event.imageUrl],
-    },
-  };
+    path: `/club/${event.slug}`,
+    image: { url: event.imageUrl, alt: event.title },
+  });
 }
 
 export default async function ClubEventWithRefPage({ params }: PageProps) {
